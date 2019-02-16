@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('boardinghouses-autocomplete', 'BoardingHouseController@search');
+Route::get('chambers-autocomplete', 'ChamberController@search');
+Route::get('university-autocomplete', 'UniversityController@search');
 Route::resource('boardinghouses', 'BoardingHouseController');
 Route::resource('chambers', 'ChamberController');
 Route::resource('universities', 'UniversityController');
 Route::resource('users', 'UserController');
+Route::resource('posts', 'PostController');
