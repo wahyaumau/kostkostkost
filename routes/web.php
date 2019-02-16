@@ -18,3 +18,4 @@ Route::get('/', function () {
 Route::resource('boardinghouses', 'BoardingHouseController');
 Route::resource('chambers', 'ChamberController');
 Route::resource('universities', 'UniversityController');
+Route::resource('users', 'UserController');

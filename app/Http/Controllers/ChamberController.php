@@ -108,4 +108,17 @@ class ChamberController extends Controller
         $chamber->delete();
         return redirect()->route('chamber.index')->with('success', 'berhasil dihapus');
     }
+
+    public function search(Request $request){
+        $search = $request->term;
+        $boardinghouses = BoardingHouse::whereHas('chambers', function($query){
+            $query->where('name', 'LIKE', '%'.$search.'%');
+        })->get();        
+
+        foreach ($boardinghouses as $boardinghouse => $value) {
+            $data[] = ['id'=>$value->id, 'name'=>$value->name];
+        }
+
+        return response($data);
+    }
 }

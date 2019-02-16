@@ -122,10 +122,17 @@ class BoardingHouseController extends Controller
         $search = $request->term;
         $provinces = Province::whereHas('regencies', function($query){
             $query->where('name', 'LIKE', '%'.$search.'%');
-        })->get();        
+        })->get();
+        
+        $regencies = Regency::where('name', 'LIKE', '%'.$search.'%')->get();
+        $data = [];
 
         foreach ($provinces as $province => $value) {
             $data[] = ['id'=>$value->id, 'name'=>$value->name];
+        }
+
+        foreach ($regencies as $regency => $value) {
+            $data[] = ['regency_id'=>$value->id, 'regency_name'=>$value->name];
         }
 
         return response($data);
