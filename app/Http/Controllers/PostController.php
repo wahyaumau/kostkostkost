@@ -37,9 +37,9 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = new Post;        
-        $post->title = $request->get('title');        
-        $post->description = $request->get('description');                
-        $post->picture = $request->get('picture');                
+        $post->title = $request->get('title');
+        $post->description = $request->get('description');
+        $post->picture = $request->get('picture');
         $post->save();
         return redirect()->route('post.index')->with('success', 'berhasil ditambahkan');
     }
@@ -64,7 +64,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);        
+        $post = Post::find($id);
         return view('post.edit', compact('post', 'id'));
     }
 
@@ -77,10 +77,10 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Post::find($id);        
-        $post->title = $request->get('title');        
-        $post->description = $request->get('description');                
-        $post->picture = $request->get('picture');                
+        $post = Post::find($id);
+        $post->title = $request->get('title');
+        $post->description = $request->get('description');
+        $post->picture = $request->get('picture');
         $post->save();
         return redirect()->route('post.index')->with('success', 'berhasil diedit');
     }

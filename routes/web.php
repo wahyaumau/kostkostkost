@@ -12,7 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::get('/about', function () {
+    return view('other.about');
+});
+
+Route::get('/register', function () {
+    return view('other.testReg');
 });
 
 Route::get('boardinghouses-autocomplete', 'BoardingHouseController@search');

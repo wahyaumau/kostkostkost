@@ -41,18 +41,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new user;        
+        $user = new user;
         $user->name = $request->get('name');
         $user->email = $request->get('email');
-        $user->address = $request->get('address');        
-        $user->regency_id = $request->get('regency_id');        
+        $user->address = $request->get('address');
+        $user->regency_id = $request->get('regency_id');
         $user->password = bcrypt($request->get('password'));
         $user->address = $request->get('address');
         $user->regency_id = $request->get('regency_id');
-        $user->phone = $request->get('phone');        
-        $user->lineId = $request->get('lineId');        
-        $user->parent = $request->get('parent');        
-        $user->parent_phone = $request->get('parent_phone');        
+        $user->phone = $request->get('phone');
+        $user->lineId = $request->get('lineId');
+        $user->parent = $request->get('parent');
+        $user->parent_phone = $request->get('parent_phone');
         $user->save();
         return redirect()->route('user.index')->with('success', 'berhasil ditambahkan');
     }
@@ -91,18 +91,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);        
+        $user = User::find($id);
         $user->name = $request->get('name');
         $user->email = $request->get('email');
-        $user->address = $request->get('address');        
-        $user->regency_id = $request->get('regency_id');        
+        $user->address = $request->get('address');
+        $user->regency_id = $request->get('regency_id');
         $user->password = bcrypt($request->get('password'));
         $user->address = $request->get('address');
         $user->regency_id = $request->get('regency_id');
-        $user->phone = $request->get('phone');        
-        $user->lineId = $request->get('lineId');        
-        $user->parent = $request->get('parent');        
-        $user->parent_phone = $request->get('parent_phone');        
+        $user->phone = $request->get('phone');
+        $user->lineId = $request->get('lineId');
+        $user->parent = $request->get('parent');
+        $user->parent_phone = $request->get('parent_phone');
         $user->save();
         return redirect()->route('user.index')->with('success', 'berhasil diedit');
     }
