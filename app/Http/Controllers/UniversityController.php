@@ -17,7 +17,7 @@ class UniversityController extends Controller
     public function index()
     {
         $listUniversity = University::all();
-        return view('university.index', compact('listUniversity'));
+        return view('universities.index', compact('listUniversity'));
     }
 
     /**
@@ -27,7 +27,8 @@ class UniversityController extends Controller
      */
     public function create()
     {
-        return view('university.create');
+        $listRegency = Regency::all();
+        return view('universities.create', compact('listRegency'));
     }
 
     /**
@@ -37,13 +38,13 @@ class UniversityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
         $university = new University;        
         $university->name = $request->get('name');
         $university->address = $request->get('address');        
         $university->regency_id = $request->get('regency_id');        
         $university->save();
-        return redirect()->route('university.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('universities.index')->with('success', 'berhasil ditambahkan');
     }
 
     /**
@@ -55,7 +56,7 @@ class UniversityController extends Controller
     public function show($id)
     {
         $university = University::find($id);
-        return view('university.show', compact('university'));
+        return view('universities.show', compact('university'));
     }
 
     /**
@@ -68,7 +69,7 @@ class UniversityController extends Controller
     {
         $university = University::find($id);
         $listRegency = Regency::all();
-        return view('university.edit', compact('university', 'id', 'listRegency'));
+        return view('universities.edit', compact('university', 'id', 'listRegency'));
     }
 
     /**
@@ -85,7 +86,7 @@ class UniversityController extends Controller
         $university->address = $request->get('address');        
         $university->regency_id = $request->get('regency_id');        
         $university->save();
-        return redirect()->route('university.index')->with('success', 'berhasil diedit');
+        return redirect()->route('universities.index')->with('success', 'berhasil diedit');
     }
 
     /**
@@ -98,27 +99,9 @@ class UniversityController extends Controller
     {
         $university = University::findOrFail($id);
         $university->delete();
-        return redirect()->route('university.index')->with('success', 'berhasil dihapus');
+        return redirect()->route('universities.index')->with('success', 'berhasil dihapus');
     }
 
-    public function search(Request $request){
-        $search = $request->term;
-        $provinces = Province::whereHas('regencies', function($query){
-            $query->where('name', 'LIKE', '%'.$search.'%');
-        })->get();
-        $regencies = Regency::where('name', 'LIKE', '%'.$search.'%')->get();
-        $data = [];
-
-        foreach ($provinces as $province => $value) {
-            $data[] = ['id'=>$value->id, 'name'=>$value->name];
-        }
-
-        foreach ($regencies as $regency => $value) {
-            $data[] = ['regency_id'=>$value->id, 'regency_name'=>$value->name];
-        }
-
-        return response($data);
-    }
 
 
 }

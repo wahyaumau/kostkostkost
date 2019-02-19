@@ -17,7 +17,7 @@ class BoardingHouseController extends Controller
     public function index()
     {
         $listBoardingHouse = BoardingHouse::all();
-        return view('boardinghouse.index', compact('listBoardingHouse'));
+        return view('boardinghouses.index', compact('listBoardingHouse'));
     }
 
     /**
@@ -27,7 +27,8 @@ class BoardingHouseController extends Controller
      */
     public function create()
     {
-        return view('boardinghouse.create');
+        $listRegency = Regency::all();
+        return view('boardinghouses.create', compact('listRegency'));
     }
 
     /**
@@ -51,7 +52,7 @@ class BoardingHouseController extends Controller
         $boardinghouse->information_others = $request->get('information_others');
         $boardinghouse->information_cost = $request->get('information_cost');        
         $boardinghouse->save();
-        return redirect()->route('boardinghouse.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('boardinghouses.index')->with('success', 'berhasil ditambahkan');
     }
 
     /**
@@ -63,7 +64,7 @@ class BoardingHouseController extends Controller
     public function show($id)
     {
         $boardinghouse = BoardingHouse::find($id);
-        return view('boardinghouse.show', compact('boardinghouse'));
+        return view('boardinghouses.show', compact('boardinghouse'));
 
     }
 
@@ -77,7 +78,7 @@ class BoardingHouseController extends Controller
     {
         $boardinghouse = BoardingHouse::find($id);
         $listRegency = Regency::all();
-        return view('boardinghouse.edit', compact('boardinghouse', 'id','listRegency'));
+        return view('boardinghouses.edit', compact('boardinghouse', 'id','listRegency'));
     }
 
     /**
@@ -102,7 +103,7 @@ class BoardingHouseController extends Controller
         $boardinghouse->information_others = $request->get('information_others');
         $boardinghouse->information_cost = $request->get('information_cost');        
         $boardinghouse->save();
-        return redirect()->route('boardinghouse.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('boardinghouses.index')->with('success', 'berhasil ditambahkan');
     }
 
     /**
@@ -115,7 +116,7 @@ class BoardingHouseController extends Controller
     {
         $boardinghouse = Boardinghouse::findOrFail($id);
         $boardinghouse->delete();
-        return redirect()->route('boardinghouse.index')->with('success', 'berhasil dihapus');
+        return redirect()->route('boardinghouses.index')->with('success', 'berhasil dihapus');
     }
 
     public function search(Request $request){

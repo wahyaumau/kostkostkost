@@ -33,7 +33,7 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];    
 
     public function regency(){
-        return $this->hasOne('App\Models\Regency');
+        return $this->belongsTo('App\Models\Regency');
     }
 
     public function chamber(){

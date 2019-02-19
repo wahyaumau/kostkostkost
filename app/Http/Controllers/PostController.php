@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
         $listpost = Post::all();
-        return view('post.index', compact('listpost'));
+        return view('posts.index', compact('listpost'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create');
+        return view('posts.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class PostController extends Controller
         $post->description = $request->get('description');
         $post->picture = $request->get('picture');
         $post->save();
-        return redirect()->route('post.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('posts.index')->with('success', 'berhasil ditambahkan');
     }
 
     /**
@@ -53,7 +53,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        return view('post.show', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -65,7 +65,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('post.edit', compact('post', 'id'));
+        return view('posts.edit', compact('post', 'id'));
     }
 
     /**
@@ -82,7 +82,7 @@ class PostController extends Controller
         $post->description = $request->get('description');
         $post->picture = $request->get('picture');
         $post->save();
-        return redirect()->route('post.index')->with('success', 'berhasil diedit');
+        return redirect()->route('posts.index')->with('success', 'berhasil diedit');
     }
 
     /**
@@ -95,6 +95,6 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $post->delete();
-        return redirect()->route('post.index')->with('success', 'berhasil dihapus');
+        return redirect()->route('posts.index')->with('success', 'berhasil dihapus');
     }
 }

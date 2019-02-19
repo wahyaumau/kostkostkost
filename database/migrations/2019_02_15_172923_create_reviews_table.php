@@ -17,9 +17,9 @@ class CreateReviewsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->text('review');
-            $table->integer('boarding_house_id')->unsigned();
-            $table->foreign('boarding_house_id')
-                ->references('id')->on('boarding_houses')
+            $table->integer('boardinghouse_id')->unsigned();
+            $table->foreign('boardinghouse_id')
+                ->references('id')->on('boardinghouses')
                 ->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')

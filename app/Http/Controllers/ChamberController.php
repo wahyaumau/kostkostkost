@@ -17,7 +17,7 @@ class ChamberController extends Controller
     public function index()
     {
         $listchamber = Chamber::all();
-        return view('chamber.index', compact('listchamber'));
+        return view('chambers.index', compact('listchamber'));
     }
 
     /**
@@ -27,7 +27,8 @@ class ChamberController extends Controller
      */
     public function create()
     {
-        return view('chamber.create');
+        $listBoardingHouse = BoardingHouse::all();
+        return view('chambers.create', compact('listBoardingHouse'));
     }
 
     /**
@@ -40,14 +41,14 @@ class ChamberController extends Controller
     {
         $chamber = new Chamber;        
         $chamber->name = $request->get('name');        
-        $chamber->boarding_house_id = $request->get('boarding_house_id');        
+        $chamber->boardinghouse_id = $request->get('boardinghouse_id');        
         $chamber->price_monthly = $request->get('price_monthly');
         $chamber->price_annual = $request->get('price_annual');
         $chamber->gender = $request->get('gender');        
         $chamber->chamber_size = $request->get('chamber_size');                
         $chamber->chamber_facility = $request->get('chamber_facility');        
         $chamber->save();
-        return redirect()->route('chamber.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('chambers.index')->with('success', 'berhasil ditambahkan');
     }
 
     /**
@@ -59,7 +60,7 @@ class ChamberController extends Controller
     public function show($id)
     {
         $chamber = Chamber::find($id);
-        return view('chamber.show', compact('chamber'));
+        return view('chambers.show', compact('chamber'));
     }
 
     /**
@@ -72,7 +73,7 @@ class ChamberController extends Controller
     {
         $chamber = Chamber::find($id);
         $listBoardingHouse = BoardingHouse::all();
-        return view('chamber.edit', compact('chamber', 'id', 'listBoardingHouse'));
+        return view('chambers.edit', compact('chamber', 'id', 'listBoardingHouse'));
     }
 
     /**
@@ -93,7 +94,7 @@ class ChamberController extends Controller
         $chamber->chamber_size = $request->get('chamber_size');                
         $chamber->chamber_facility = $request->get('chamber_facility');        
         $chamber->save();
-        return redirect()->route('chamber.index')->with('success', 'berhasil diedit');
+        return redirect()->route('chambers.index')->with('success', 'berhasil diedit');
     }
 
     /**
@@ -106,7 +107,7 @@ class ChamberController extends Controller
     {
         $chamber = Chamber::findOrFail($id);
         $chamber->delete();
-        return redirect()->route('chamber.index')->with('success', 'berhasil dihapus');
+        return redirect()->route('chambers.index')->with('success', 'berhasil dihapus');
     }
 
     public function search(Request $request){

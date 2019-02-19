@@ -20,7 +20,7 @@ class UserController extends Controller
     public function index()
     {
         $listUser = User::all();
-        return view('user.index', compact('listuser'));
+        return view('users.index', compact('listuser'));
     }
 
     /**
@@ -30,7 +30,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $listRegency = Regency::all();
+        return view('users.create', compact('listRegency'));
     }
 
     /**
@@ -41,11 +42,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new user;
+        $user = new User;
         $user->name = $request->get('name');
         $user->email = $request->get('email');
-        $user->address = $request->get('address');
-        $user->regency_id = $request->get('regency_id');
+        $user->address = $request->get('address');        
         $user->password = bcrypt($request->get('password'));
         $user->address = $request->get('address');
         $user->regency_id = $request->get('regency_id');
@@ -54,7 +54,7 @@ class UserController extends Controller
         $user->parent = $request->get('parent');
         $user->parent_phone = $request->get('parent_phone');
         $user->save();
-        return redirect()->route('user.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('users.index')->with('success', 'berhasil ditambahkan');
     }
 
     /**
@@ -66,7 +66,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('user.show', compact('user'));
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -79,7 +79,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $listRegency = Regency::all();
-        return view('user.edit', compact('user', 'id','listRegency'));
+        return view('users.edit', compact('user', 'id','listRegency'));
     }
 
     /**
@@ -94,8 +94,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->get('name');
         $user->email = $request->get('email');
-        $user->address = $request->get('address');
-        $user->regency_id = $request->get('regency_id');
+        $user->address = $request->get('address');        
         $user->password = bcrypt($request->get('password'));
         $user->address = $request->get('address');
         $user->regency_id = $request->get('regency_id');
@@ -104,7 +103,7 @@ class UserController extends Controller
         $user->parent = $request->get('parent');
         $user->parent_phone = $request->get('parent_phone');
         $user->save();
-        return redirect()->route('user.index')->with('success', 'berhasil diedit');
+        return redirect()->route('users.index')->with('success', 'berhasil diedit');
     }
 
     /**
@@ -117,6 +116,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'berhasil dihapus');
+        return redirect()->route('users.index')->with('success', 'berhasil dihapus');
     }
 }

@@ -13,7 +13,7 @@ class CreateBoardingHousesTable extends Migration
      */
     public function up()
     {
-        Schema::create('boarding_houses', function (Blueprint $table) {
+        Schema::create('boardinghouses', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->string('name');            

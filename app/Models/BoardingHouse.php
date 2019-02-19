@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BoardingHouse extends Model
 {
     use SoftDeletes;
-    protected $table = 'boarding_houses';    
+    protected $table = 'boardinghouses';    
     protected $fillable = [
         'name',            
         'description',
@@ -29,7 +29,7 @@ class BoardingHouse extends Model
     protected $dates = ['deleted_at'];
     
     public function regency(){
-        return $this->hasOne('App\Models\Regency');
+        return $this->belongsTo('App\Models\Regency');
     }
 
     public function chamber(){

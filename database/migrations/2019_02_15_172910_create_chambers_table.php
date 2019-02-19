@@ -17,9 +17,9 @@ class CreateChambersTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->integer('boarding_house_id')->unsigned();
-            $table->foreign('boarding_house_id')
-                ->references('id')->on('boarding_houses')
+            $table->integer('boardinghouse_id')->unsigned();
+            $table->foreign('boardinghouse_id')
+                ->references('id')->on('boardinghouses')
                 ->onDelete('cascade');
             $table->float('price_monthly');
             $table->float('price_annual');

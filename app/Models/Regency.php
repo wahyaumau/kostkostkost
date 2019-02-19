@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Regency extends Model
 {
-    protected $table = 'regency';
+    protected $table = 'regencies';
     protected $fillable = [
         'name'
     ];
@@ -20,14 +20,14 @@ class Regency extends Model
     }
 
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->hasOne('App\Models\User');
     }
 
     public function boardinghouse(){
-        return $this->belongsTo('App\Models\BoardingHouse');
+        return $this->hasOne('App\Models\BoardingHouse');
     }
 
     public function university(){
-        return $this->belongsTo('App\Models\University');
+        return $this->hasOne('App\Models\University');
     }
 }
