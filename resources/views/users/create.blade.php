@@ -1,4 +1,4 @@
-{{-- @extends('main')
+@extends('main')
 
 @section('title', '| New University')
 
@@ -7,7 +7,6 @@
 {!! Html::style('css/select2.min.css') !!}
 
 @endsection
-
 
 @section('content')
 
@@ -43,6 +42,14 @@
                     <select class="form-control select2-single" name="regency_id">
                     	@foreach($listRegency as $regency)
                     	<option value='{{$regency->id}}'>{{$regency->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="kota">Kampus :</label>
+                    <select class="form-control select2-single" name="university_id">
+                        @foreach($listUniversity as $university)
+                        <option value='{{$university->id}}'>{{$university->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -90,4 +97,4 @@
 		$('.select2-single').select2();
 	</script>
 
-@endsection --}}
+@endsection

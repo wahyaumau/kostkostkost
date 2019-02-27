@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBoardingHousesTable extends Migration
+class CreateMouTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,22 @@ class CreateBoardingHousesTable extends Migration
      */
     public function up()
     {
-        Schema::create('boardinghouses', function (Blueprint $table) {
+        Schema::create('mou', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
-            $table->string('name');            
-            $table->text('description');
-            $table->text('address');
             $table->integer('regency_id')->unsigned();
             $table->foreign('regency_id')
                 ->references('id')->on('regencies')
                 ->onDelete('cascade');            
-            $table->string('facility');
-            $table->string('facility_park');
-            $table->string('access');
-            $table->string('information_others');
-            $table->string('information_cost');            
+            $table->integer('kostariateam_id')->unsigned();
+            $table->foreign('kostariateam_id')
+                ->references('id')->on('kostariateams');            
+            $table->integer('owner_id')->unsigned();
+            $table->foreign('owner_id')
+                ->references('id')->on('owners')
+                ->onUpdate('cascade');
+            $table->timestamps();
+            $table->date('signed_at');
+            $table->date('ended_at');
             $table->softDeletes();
         });
     }
@@ -39,6 +40,6 @@ class CreateBoardingHousesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boarding_houses');
+        Schema::dropIfExists('mou');
     }
 }

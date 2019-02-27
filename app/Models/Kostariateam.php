@@ -6,11 +6,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Notifications\KostariateamResetPasswordNotification;
 
-class User extends Authenticatable
+class Kostariateam extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    protected $guard='kostariateam';
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'address', 'phone', 'lineId', 'parent', 'parent_phone', 'regency_id', 'university_id'
+        'name', 'email', 'password', 'address', 'phone', 'regency_id', 'regency_id_birth', 'birth_date', 'nik'
     ];
 
     /**
@@ -36,19 +38,17 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Regency');
     }
 
-    public function university(){
-        return $this->belongsTo('App\Models\University');
+    public function boardinghouse(){
+        return $this->hasMany('App\Models\Boardinghouse');
     }
 
-    public function chamber(){
-        return $this->hasMany('App\Models\Chamber');
+    // public function owner(){
+    //     return $this->belongsTo('App\Models\Owner', 'mou', 'kostariateam_id', 'owner_id');  
+    // }
+
+    public function mou(){
+        return $this->hasMany('App\Models\MOU');
     }
 
-    public function review(){
-        return $this->hasMany('App\Models\Review');
-    }
-
-    public function transaction(){
-        return $this->hasMany('App\Models\Transaction');
-    }
+    
 }

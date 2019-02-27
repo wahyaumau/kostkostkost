@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Regency;
 use App\Models\Province;
 use App\Models\BoardingHouse;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\University;
 
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +26,7 @@ class UserController extends Controller
     public function index()
     {
         $listUser = User::all();
-        return view('users.index', compact('listuser'));
+        return view('users.index', compact('listUser'));
     }
 
     /**
@@ -31,7 +37,8 @@ class UserController extends Controller
     public function create()
     {
         $listRegency = Regency::all();
-        return view('users.create', compact('listRegency'));
+        $listUniversity = University::all();
+        return view('users.create', compact('listRegency', 'listUniversity'));
     }
 
     /**
@@ -42,19 +49,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255|alpha',
+            'email' => 'required|e-mail',
+            'password' => 'required|min:6',
+        ]);
         $user = new User;
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->address = $request->get('address');        
-        $user->password = bcrypt($request->get('password'));
-        $user->address = $request->get('address');
+        $user->password = Hash::make($request->get('password'));        
         $user->regency_id = $request->get('regency_id');
+        $user->university_id = $request->get('university_id');
         $user->phone = $request->get('phone');
         $user->lineId = $request->get('lineId');
         $user->parent = $request->get('parent');
         $user->parent_phone = $request->get('parent_phone');
         $user->save();
-        return redirect()->route('users.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('users.index')->with('success', 'berhasil diedit');
+
     }
 
     /**
@@ -79,7 +92,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $listRegency = Regency::all();
-        return view('users.edit', compact('user', 'id','listRegency'));
+        $listUniversity = University::all();
+        return view('users.edit', compact('user', 'id', 'listRegency', 'listUniversity'));
     }
 
     /**
@@ -91,13 +105,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255|alpha',
+            'email' => 'required|e-mail',
+            'password' => 'required|min:6',
+        ]);
         $user = User::find($id);
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->address = $request->get('address');        
-        $user->password = bcrypt($request->get('password'));
-        $user->address = $request->get('address');
+        $user->password = bcrypt($request->get('password'));        
         $user->regency_id = $request->get('regency_id');
+        $user->university_id = $request->get('university_id');
         $user->phone = $request->get('phone');
         $user->lineId = $request->get('lineId');
         $user->parent = $request->get('parent');

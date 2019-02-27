@@ -12,9 +12,7 @@ class BoardingHouse extends Model
     protected $fillable = [
         'name',            
         'description',
-        'address',            
-        'owner_name',
-        'owner_phone',
+        'address',                            
         'facility',
         'facility_park',
         'access',
@@ -38,5 +36,9 @@ class BoardingHouse extends Model
 
     public function Review(){
         return $this->hasMany('App\Models\Review');
+    }
+
+    public function owner(){
+        return $this->belongsTo('App\Models\Owner');   
     }
 }

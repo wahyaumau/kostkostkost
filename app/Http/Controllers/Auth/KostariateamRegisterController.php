@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
+use App\Models\Kostariateam;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\Regency;
-use App\Models\University;
 
-class RegisterController extends Controller
+class KostariateamRegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -43,9 +42,8 @@ class RegisterController extends Controller
     }
 
     public function showRegistrationForm(){
-        $listRegency = Regency::all();
-        $listUniversity = University::all();
-        return view('auth.register', compact('listRegency', 'listUniversity'));
+        $listRegency = Regency::all();        
+        return view('auth.kostariateam-register', compact('listRegency'));
     }
 
     /**
@@ -60,12 +58,12 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'regency_id_birth' => ['required'],
+            'birth_date' => ['required'],
             'address' => ['required', 'string'],
             'regency_id' => ['required'],
-            'phone' => ['required'],
-            'lineId' => ['required', 'string'],
-            'parent' => ['required', 'string'],
-            'parent_phone' => ['required'],
+            'phone' => ['required'],            
+            'nik' => ['required'],            
         ]);
     }
 
@@ -77,17 +75,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return Kostariateam::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'regency_id_birth' => $data['regency_id_birth'],
+            'birth_date' => $data['birth_date'],
             'address' => $data['address'],
-            'regency_id' => $data['regency_id'],
-            'university_id' => $data['university_id'],
-            'phone' => $data['phone'],
-            'lineId' => $data['lineId'],
-            'parent' => $data['parent'],
-            'parent_phone' => $data['parent_phone'],
+            'regency_id' => $data['regency_id'],            
+            'phone' => $data['phone'],    
+            'nik' => $data['nik'],    
         ]);
     }
 }

@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Regency;
 use App\Models\Province;
 use App\Models\BoardingHouse;
+use App\Models\Owner;
 
 class BoardingHouseController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('web', ['only' => 'index']);
+        $this->middleware('auth:kostariateam,admin');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -25,10 +32,11 @@ class BoardingHouseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $listRegency = Regency::all();
-        return view('boardinghouses.create', compact('listRegency'));
+    public function creates($id)
+    {        
+        $listRegency = Regency::all();   
+        $owner = Owner::find($id);
+        return view('boardinghouses.create', compact('listRegency', 'owner'));
     }
 
     /**
@@ -44,8 +52,8 @@ class BoardingHouseController extends Controller
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');        
         $boardinghouse->regency_id = $request->get('regency_id');        
-        $boardinghouse->owner_name = $request->get('owner_name');
-        $boardinghouse->owner_phone = $request->get('owner_phone');
+        // $boardinghouse->owner_name = $request->get('owner_name');
+        // $boardinghouse->owner_phone = $request->get('owner_phone');
         $boardinghouse->facility = $request->get('facility');        
         $boardinghouse->facility_park = $request->get('facility_park');        
         $boardinghouse->access = $request->get('access');        
@@ -94,9 +102,7 @@ class BoardingHouseController extends Controller
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');        
-        $boardinghouse->regency_id = $request->get('regency_id');        
-        $boardinghouse->owner_name = $request->get('owner_name');
-        $boardinghouse->owner_phone = $request->get('owner_phone');
+        $boardinghouse->regency_id = $request->get('regency_id');                
         $boardinghouse->facility = $request->get('facility');        
         $boardinghouse->facility_park = $request->get('facility_park');        
         $boardinghouse->access = $request->get('access');        

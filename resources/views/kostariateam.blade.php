@@ -1,6 +1,13 @@
 @extends('layouts.app')
+
+@section('adminpanel')
+    {{-- <a class="navbar-brand" href="{{route('universities.index')}}">University</a> --}}
+    <a class="navbar-brand" href="{{route('boardinghouses.index')}}">Boarding House</a>
+    <a class="navbar-brand" href="{{route('chambers.index')}}">Chamber</a>
+    {{-- <a class="navbar-brand" href="{{route('users.index')}}">User</a> --}}
+@endsection
 @section('logout')
-<a class="dropdown-item" href="{{ route('user.logout') }}"
+<a class="dropdown-item" href="{{ route('kostariateam.logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -11,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Kostariateam Dashboard</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -20,7 +27,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in as kostariateam!
                 </div>
             </div>
         </div>

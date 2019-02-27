@@ -44,12 +44,8 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label for="alamat">Nama Pemilik :</label>
-                    <input type="text" class="form-control" name="owner_name">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="alamat">No Hp Pemilik :</label>
-                    <input type="text" class="form-control" name="owner_phone">
-                </div>
+                    <input type="text" class="form-control" value="{{$owner->id}}" disabled="true" name="owner_id">
+                </div>                
                 <div class="form-group col-md-12">
                     <label for="alamat">Fasilitas Umum :</label>
                     <input type="text" class="form-control" name="facility">
