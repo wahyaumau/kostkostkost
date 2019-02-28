@@ -11,7 +11,7 @@ class ChamberController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        $this->middleware('auth:kostariateam,admin');
     }
     /**
      * Display a listing of the resource.
@@ -29,6 +29,12 @@ class ChamberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function creates($id)
+    {
+        $boardinghouse = Boardinghouse::find($id);
+        return view('chambers.create', compact('boardinghouse'));
+    }
+
     public function create()
     {
         $listBoardingHouse = BoardingHouse::all();
@@ -43,6 +49,15 @@ class ChamberController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, array(
+            'name' => 'required|max:255',                                    
+            'boardinghouse_id' => 'required|numeric',
+            'price_monthly' => 'required|numeric',
+            'price_annual' => 'required|numeric',
+            'gender' => 'required|boolean',
+            'chamber_size' => 'required',
+            'chamber_facility' => 'required'            
+        ));
         $chamber = new Chamber;        
         $chamber->name = $request->get('name');        
         $chamber->boardinghouse_id = $request->get('boardinghouse_id');        
@@ -89,6 +104,15 @@ class ChamberController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, array(
+            'name' => 'required|max:255',                                    
+            'boardinghouse_id' => 'required|numeric',
+            'price_monthly' => 'required|numeric',
+            'price_annual' => 'required|numeric',
+            'gender' => 'required|boolean',
+            'chamber_size' => 'required',
+            'chamber_facility' => 'required'            
+        ));
         $chamber = Chamber::find($id);        
         $chamber->name = $request->get('name');        
         $chamber->boarding_house_id = $request->get('boarding_house_id');        
@@ -114,16 +138,16 @@ class ChamberController extends Controller
         return redirect()->route('chambers.index')->with('success', 'berhasil dihapus');
     }
 
-    public function search(Request $request){
-        $search = $request->term;
-        $boardinghouses = BoardingHouse::whereHas('chambers', function($query){
-            $query->where('name', 'LIKE', '%'.$search.'%');
-        })->get();        
+    // public function search(Request $request){
+    //     $search = $request->term;
+    //     $boardinghouses = BoardingHouse::whereHas('chambers', function($query){
+    //         $query->where('name', 'LIKE', '%'.$search.'%');
+    //     })->get();        
 
-        foreach ($boardinghouses as $boardinghouse => $value) {
-            $data[] = ['id'=>$value->id, 'name'=>$value->name];
-        }
+    //     foreach ($boardinghouses as $boardinghouse => $value) {
+    //         $data[] = ['id'=>$value->id, 'name'=>$value->name];
+    //     }
 
-        return response($data);
-    }
+    //     return response($data);
+    // }
 }

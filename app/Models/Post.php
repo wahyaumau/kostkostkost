@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     protected $table = 'posts';    
-    protected $fillable = [
-        'title',
-        'description',
-        'picture',        
-    ];
+    // protected $fillable = [
+    //     'title',
+    //     'description',
+    //     'picture',        
+    // ];
 
-    protected $guarded = [
-        'id'
-    ];
+    // protected $guarded = [
+    //     'id'
+    // ];
 
     protected $dates = ['deleted_at'];
 }

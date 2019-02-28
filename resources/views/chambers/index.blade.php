@@ -47,7 +47,7 @@
             
             <td><a href="{{ route('chambers.edit', $chamber->id)}}" class="btn btn-primary">Edit</a></td>
             <td>
-                <form action="{{ route('chambers.destroy', $chamber->id)}}" method="post">
+                <form action="{{ route('chambers.destroy', $chamber->id)}}" method="post" onSubmit="return confirm('Are you sure you wish to delete?');" >
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-danger" type="submit">Delete</button>

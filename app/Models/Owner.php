@@ -9,20 +9,20 @@ class Owner extends Model
 {
     use SoftDeletes;
     protected $table = 'owners';    
-    protected $fillable = [
-        'name',
-        'nik',                    
-        'address',                            
-        'phone',   
-        'regency_id',
-        'regency_id_birth', 
-        'birth_date', 
-        'nik'
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'nik',                    
+    //     'address',                            
+    //     'phone',   
+    //     'regency_id',
+    //     'regency_id_birth', 
+    //     'birth_date', 
+    //     'nik'
+    // ];
 
-    protected $guarded = [
-        'id'
-    ];
+    // protected $guarded = [
+    //     'id'
+    // ];
 
     protected $dates = ['deleted_at'];
     

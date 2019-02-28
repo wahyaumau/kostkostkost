@@ -47,13 +47,24 @@ class BoardingHouseController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, array(
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'address' => 'required|max:255',            
+            'regency_id' => 'required|numeric',
+            'owner_id' => 'required|numeric',
+            'facility' => 'required',
+            'facility_park' => 'required',
+            'access' => 'required',
+            'information_others' => 'required',
+            'information_cost' => 'required'            
+        ));
         $boardinghouse = new boardinghouse;        
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');        
         $boardinghouse->regency_id = $request->get('regency_id');        
-        // $boardinghouse->owner_name = $request->get('owner_name');
-        // $boardinghouse->owner_phone = $request->get('owner_phone');
+        $boardinghouse->owner_id = $request->get('owner_id');        
         $boardinghouse->facility = $request->get('facility');        
         $boardinghouse->facility_park = $request->get('facility_park');        
         $boardinghouse->access = $request->get('access');        
@@ -98,6 +109,18 @@ class BoardingHouseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, array(
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'address' => 'required|max:255',            
+            'regency_id' => 'required|numeric',
+            'owner_id' => 'required|numeric',
+            'facility' => 'required',
+            'facility_park' => 'required',
+            'access' => 'required',
+            'information_others' => 'required',
+            'information_cost' => 'required'            
+        ));
         $boardinghouse = BoardingHouse::find($id);        
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
@@ -125,23 +148,23 @@ class BoardingHouseController extends Controller
         return redirect()->route('boardinghouses.index')->with('success', 'berhasil dihapus');
     }
 
-    public function search(Request $request){
-        $search = $request->term;
-        $provinces = Province::whereHas('regencies', function($query){
-            $query->where('name', 'LIKE', '%'.$search.'%');
-        })->get();
+    // public function search(Request $request){
+    //     $search = $request->term;
+    //     $provinces = Province::whereHas('regencies', function($query){
+    //         $query->where('name', 'LIKE', '%'.$search.'%');
+    //     })->get();
         
-        $regencies = Regency::where('name', 'LIKE', '%'.$search.'%')->get();
-        $data = [];
+    //     $regencies = Regency::where('name', 'LIKE', '%'.$search.'%')->get();
+    //     $data = [];
 
-        foreach ($provinces as $province => $value) {
-            $data[] = ['id'=>$value->id, 'name'=>$value->name];
-        }
+    //     foreach ($provinces as $province => $value) {
+    //         $data[] = ['id'=>$value->id, 'name'=>$value->name];
+    //     }
 
-        foreach ($regencies as $regency => $value) {
-            $data[] = ['regency_id'=>$value->id, 'regency_name'=>$value->name];
-        }
+    //     foreach ($regencies as $regency => $value) {
+    //         $data[] = ['regency_id'=>$value->id, 'regency_name'=>$value->name];
+    //     }
 
-        return response($data);
-    }
+    //     return response($data);
+    // }
 }

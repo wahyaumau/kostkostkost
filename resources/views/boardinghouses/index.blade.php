@@ -15,9 +15,9 @@
 		<div class="col-md-8">
 			<h3>Daftar Kostan</h3>
 		</div>
-		<div class="col-md-4">
+		{{-- <div class="col-md-4">
 			<a href="{{route('boardinghouses.create')}}" class="btn btn-success">Tambah Kostan</a>  
-		</div>
+		</div> --}}
 
 		<div class="box">    
 
@@ -60,6 +60,8 @@
             {{-- <td>{{$hotel['emailHotel']}}</td> --}}
             {{-- <td>{{$hotel['url_coverhotel']}}</td> --}}
             
+            <td><a href="{{ route('chambers.creates', $boardinghouse->id)}}" class="btn btn-primary">Tambah Kamar</a></td>
+            <td>
             <td><a href="{{ route('boardinghouses.edit', $boardinghouse->id)}}" class="btn btn-primary">Edit</a></td>
             <td>
                 <form action="{{ route('boardinghouses.destroy', $boardinghouse->id)}}" method="post">

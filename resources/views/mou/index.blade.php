@@ -15,6 +15,10 @@
 		<div class="col-md-8">
 			<h3>Daftar MOU</h3>
 		</div>
+    <div class="col-md-4">
+      <a href="{{route('mou.create')}}" class="btn btn-success">Tambah MOU</a>  
+    </div>
+  </div>
 		{{-- <div class="col-md-4">
 			<a href="{{route('boardinghouses.create')}}" class="btn btn-success">Tambah Kostan</a>  
 		</div> --}}
@@ -61,13 +65,13 @@
             {{-- <td>{{$hotel['url_coverhotel']}}</td> --}}
             
             <td><a href="{{ route('boardinghouses.creates', $mou->owner->id)}}" class="btn btn-primary">Tambah</a></td>
-            <td>
+            {{-- <td>
                 <form action="{{ route('boardinghouses.destroy', $mou->id)}}" method="post">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
-            </td>
+            </td> --}}
           </tr>
           @endforeach
         </tbody>

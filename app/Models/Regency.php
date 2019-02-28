@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Regency extends Model
 {
     protected $table = 'regencies';
-    protected $fillable = [
-        'name'
-    ];
+    // protected $fillable = [
+    //     'name'
+    // ];
 
-    protected $guarded = [
-        'id'
-    ];
+    // protected $guarded = [
+    //     'id'
+    // ];
 
     public function province(){
         return $this->belongsTo('App\Models\Province');

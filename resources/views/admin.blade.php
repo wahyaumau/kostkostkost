@@ -17,6 +17,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <div class="col-md-4">
+            <a href="{{route('kostariateam.register')}}" class="btn btn-success">Tambah Kostan</a>  
+        </div>
             <div class="card">
                 <div class="card-header">Admin Dashboard</div>
 

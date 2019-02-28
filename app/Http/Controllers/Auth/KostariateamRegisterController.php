@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\Regency;
+use App\Models\Admin;
 
 class KostariateamRegisterController extends Controller
 {
@@ -38,7 +39,7 @@ class KostariateamRegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth:admin');
     }
 
     public function showRegistrationForm(){

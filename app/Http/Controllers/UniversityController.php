@@ -43,6 +43,11 @@ class UniversityController extends Controller
      */
     public function store(Request $request)
     {        
+        $this->validate($request, array(
+            'name' => 'required|max:255',            
+            'address' => 'required|max:255|alpha numeric',                        
+            'regency_id' => 'required|numeric',            
+        ));
         $university = new University;        
         $university->name = $request->get('name');
         $university->address = $request->get('address');        
@@ -85,6 +90,11 @@ class UniversityController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, array(
+            'name' => 'required|max:255',            
+            'address' => 'required|max:255|alpha numeric',                        
+            'regency_id' => 'required|numeric',            
+        ));
         $university = University::find($id);
         $university->name = $request->get('name');
         $university->address = $request->get('address');        

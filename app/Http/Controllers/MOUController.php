@@ -55,6 +55,15 @@ class MOUController extends Controller
      */
     public function store(Request $request)
     {        
+        $this->validate($request, array(
+            'name' => 'required|max:255',            
+            'address' => 'required|max:255',            
+            'regency_id_birth' => 'required|numeric',
+            'regency_id_owner' => 'required|numeric',
+            'phone' => 'required|numeric',
+            'nik' => 'required|numeric',
+            'birth_date' => 'required|date',
+        ));
         $owner = new Owner;
         $owner->name = $request->get('name');
         $owner->address = $request->get('address');
@@ -67,7 +76,12 @@ class MOUController extends Controller
 
         $ownernik = $request->get('nik');
         $owner = Owner::where('nik', $ownernik)->first();
-        
+        $this->validate($request, array(
+            // 'owner_id' => 'required|numeric',
+            'regency_id' => 'required|numeric',
+            'signed_at' => 'required|date',
+            'ended_at' => 'required|date|after:signed_date',
+        ));
         $mou = new MOU;        
         $kostariateam_id = Auth::guard('kostariateam')->user()->id;
         $mou->kostariateam_id = $kostariateam_id;

@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', '| New University')
+@section('title', '| New MOU')
 
 @section('stylesheets')
 
@@ -92,12 +92,12 @@
 
                 <div class="form-group col-md-12">
                     <div class="form-group col-md-6">
-                    <label>Ditandatangani pada :</label>
-                    <input type="date" class="form-control" name="signed_at">
+                        <label>Ditandatangani pada :</label>
+                    <input id="today" type="date" class="form-control" name="signed_at">
                     </div>
                     <div class="form-group col-md-6">
-                    <label>Berlaku sampai :</label>
-                    <input type="date" class="form-control" name="ended_at">
+                        <label>Berlaku sampai :</label>
+                        <input type="date" class="form-control" name="ended_at">
                     </div>
                 </div>
                 
@@ -126,5 +126,9 @@
 	<script type="text/javascript">
 		$('.select2-single').select2();
 	</script>
+
+    <script type="text/javascript">
+        document.querySelector("#today").valueAsDate = new Date();
+    </script>
 
 @endsection

@@ -19,6 +19,7 @@
 
 		<form method="post" action="{{route('chambers.store')}}" enctype="multipart/form-data">
             @csrf
+            @if(isset($listBoardingHouse))
             <div class="form-group col-md-12">
                     <label for="kota">Kostan :</label>
                     <select class="form-control select2-single" name="boardinghouse_id">
@@ -27,6 +28,16 @@
                         @endforeach
                     </select>
                 </div>
+            @elseif(isset($boardinghouse))
+            <div class="form-group col-md-12">
+                    <label for="kota">Kostan :</label>
+                    <select class="form-control select2-single" name="boardinghouse_id">
+                        {{-- @foreach($listBoardingHouse as $boardinghouse) --}}
+                        <option value='{{$boardinghouse->id}}'>{{$boardinghouse->name}}</option>
+                        {{-- @endforeach --}}
+                    </select>
+                </div>
+                @endif
 
                 <div class="form-group col-md-12">
                     <label for="desc">Nama Kamar :</label>
@@ -44,7 +55,17 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label for="alamat">Kamar Untuk :</label>
-                    <input type="text" class="form-control" name="gender">
+                    {{-- <input type="text" class="form-control" name="gender"> --}}
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" value="1" name="gender">Laki-laki
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" value="0" name="gender">Perempuan
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="alamat">Ukuran Kamar :</label>

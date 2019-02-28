@@ -27,6 +27,11 @@ Route::get('/', function () {
 // Route::get('chambers-autocomplete', 'ChamberController@search');
 // Route::get('university-autocomplete', 'UniversityController@search');
 Route::get('boardinghouses/creates/{id}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
+
+Route::get('chambers/creates/{id}', 'ChamberController@creates')->name('chambers.creates');
+
+
+
 Route::resource('boardinghouses', 'BoardingHouseController');
 Route::resource('chambers', 'ChamberController');
 Route::resource('universities', 'UniversityController');
@@ -48,13 +53,13 @@ Route::prefix('admin')->group(function(){
 	Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
 	Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 	Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+	Route::get('/register/kostariateam', 'Auth\KostariateamRegisterController@showRegistrationForm')->name('kostariateam.register');
+	Route::post('/register/kostariateam', 'Auth\KostariateamRegisterController@register')->name('kostariateam.register.submit');
 });
 
 Route::prefix('kostariateam')->group(function(){
 	Route::get('/login', 'Auth\KostariateamLoginController@showLoginForm')->name('kostariateam.login');
-	Route::post('/login', 'Auth\KostariateamLoginController@login')->name('kostariateam.login.submit');
-	Route::get('/register', 'Auth\KostariateamRegisterController@showRegistrationForm')->name('kostariateam.register');
-	Route::post('/register', 'Auth\KostariateamRegisterController@register')->name('kostariateam.register.submit');
+	Route::post('/login', 'Auth\KostariateamLoginController@login')->name('kostariateam.login.submit');	
 	Route::get('/logout', 'Auth\KostariateamLoginController@logout')->name('kostariateam.logout');
 	Route::get('/', 'KostariateamController@index')->name('kostariateam.dashboard');	
 	// Route::post('/password/email', 'Auth\KostariateamForgotPasswordController@sendResetEmailLink')->name('kostariateam.password.email');

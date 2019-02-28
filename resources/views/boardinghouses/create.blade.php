@@ -43,9 +43,17 @@
                     </select>
                 </div>
                 <div class="form-group col-md-12">
+                    <label for="kota">Pemilik :</label>
+                    <select class="form-control select2-single" name="owner_id">
+                        {{-- @foreach($listRegency as $regency) --}}
+                        <option value='{{$owner->id}}'>{{$owner->name}}</option>
+                        {{-- @endforeach --}}
+                    </select>
+                </div>
+                {{-- <div class="form-group col-md-12">
                     <label for="alamat">Nama Pemilik :</label>
-                    <input type="text" class="form-control" value="{{$owner->id}}" disabled="true" name="owner_id">
-                </div>                
+                    <input type="text" class="form-control" name="owner_id" value="{{$owner->id}}" disabled="true" >
+                </div>                 --}}
                 <div class="form-group col-md-12">
                     <label for="alamat">Fasilitas Umum :</label>
                     <input type="text" class="form-control" name="facility">
