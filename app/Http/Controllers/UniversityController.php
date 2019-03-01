@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Kostaria\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Regency;
-use App\Models\Province;
-use App\Models\University;
+use Kostaria\Models\Regency;
+use Kostaria\Models\Province;
+use Kostaria\Models\University;
 
 class UniversityController extends Controller
 {

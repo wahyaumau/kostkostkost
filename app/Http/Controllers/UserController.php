@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Kostaria\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\Regency;
-use App\Models\Province;
-use App\Models\BoardingHouse;
-use App\Models\Transaction;
-use App\Models\User;
-use App\Models\University;
+use Kostaria\Models\Regency;
+use Kostaria\Models\Province;
+use Kostaria\Models\BoardingHouse;
+use Kostaria\Models\Transaction;
+use Kostaria\Models\User;
+use Kostaria\Models\University;
 
 
 class UserController extends Controller

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Kostaria\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Regency;
-use App\Models\Mou;
-use App\Models\Kostariateam;
-use App\Models\Owner;
+use Kostaria\Models\Regency;
+use Kostaria\Models\Mou;
+use Kostaria\Models\Kostariateam;
+use Kostaria\Models\Owner;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\SessionGuard;
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Kostaria\Http\Controllers\Auth;
 
-use App\Models\Kostariateam;
-use App\Http\Controllers\Controller;
+use Kostaria\Models\Kostariateam;
+use Kostaria\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Models\Regency;
-use App\Models\Admin;
+use Kostaria\Models\Regency;
+use Kostaria\Models\Admin;
 
 class KostariateamRegisterController extends Controller
 {
@@ -72,7 +72,7 @@ class KostariateamRegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \Kostaria\User
      */
     protected function create(array $data)
     {

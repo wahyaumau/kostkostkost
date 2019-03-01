@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Kostaria\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Kostaria\Http\Controllers\Controller;
 use Auth;
 
 class AdminLoginController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Kostaria\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,10 +25,10 @@ class Chamber extends Model
     protected $dates = ['deleted_at'];
 
     public function boardinghouse(){
-        return $this->belongsTo('App\Models\BoardingHouse');
+        return $this->belongsTo('Kostaria\Models\BoardingHouse');
     }    
 
     public function transaction(){
-        return $this->hasMany('App\Models\Transaction');
+        return $this->hasMany('Kostaria\Models\Transaction');
     }
 }

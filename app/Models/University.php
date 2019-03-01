@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Kostaria\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +17,6 @@ class University extends Model
     // ];
 
     public function regency(){
-        return $this->belongsTo('App\Models\Regency');
+        return $this->belongsTo('Kostaria\Models\Regency');
     }
 }

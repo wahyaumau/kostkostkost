@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Kostaria\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,10 +16,10 @@ class Review extends Model
     // ];    
 
     public function boardingHouse(){
-        return $this->belongsTo('App\Models\BoardingHouse');
+        return $this->belongsTo('Kostaria\Models\BoardingHouse');
     }    
 
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('Kostaria\Models\User');
     } 
 }

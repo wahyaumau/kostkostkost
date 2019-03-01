@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Kostaria\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,18 +27,18 @@ class Owner extends Model
     protected $dates = ['deleted_at'];
     
     public function regency(){
-        return $this->belongsTo('App\Models\Regency');
+        return $this->belongsTo('Kostaria\Models\Regency');
     }
 
     public function boardinghouse(){
-        return $this->hasMany('App\Models\Boardinghouse');
+        return $this->hasMany('Kostaria\Models\Boardinghouse');
     }
 
     // public function kostariateam(){
-    //     return $this->belongsToMany('App\Models\Owner', 'mou', 'owner_id', 'kostariateam_id');
+    //     return $this->belongsToMany('Kostaria\Models\Owner', 'mou', 'owner_id', 'kostariateam_id');
     // }
     public function mou(){
-        return $this->hasMany('App\Models\MOU');
+        return $this->hasMany('Kostaria\Models\MOU');
     }
     
 }

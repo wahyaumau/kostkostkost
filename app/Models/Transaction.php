@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Kostaria\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,10 +19,10 @@ class Transaction extends Model
     
 
     public function user(){
-        return $this->belongTo('App\Models\User');
+        return $this->belongTo('Kostaria\Models\User');
     }
 
     public function chamber(){
-        return $this->belongTo('App\Models\Chamber');
+        return $this->belongTo('Kostaria\Models\Chamber');
     }
 }

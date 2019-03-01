@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Kostaria\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\BoardingHouse;
-use App\Models\Chamber;
+use Kostaria\Models\BoardingHouse;
+use Kostaria\Models\Chamber;
 
 
 class ChamberController extends Controller
