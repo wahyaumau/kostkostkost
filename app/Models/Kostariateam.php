@@ -38,6 +38,10 @@ class Kostariateam extends Authenticatable
         return $this->belongsTo('App\Models\Regency');
     }
 
+    public function regencyBirth(){
+        return $this->belongsTo('App\Models\Regency', 'regency_id_birth', 'id');
+    }
+
     public function boardinghouse(){
         return $this->hasMany('App\Models\Boardinghouse');
     }
