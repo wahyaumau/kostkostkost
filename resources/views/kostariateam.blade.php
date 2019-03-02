@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('adminpanel')
+@section('panel')
     {{-- <a class="navbar-brand" href="{{route('universities.index')}}">University</a> --}}
-    <a class="navbar-brand" href="{{route('boardinghouses.index')}}">Boarding House</a>
-    <a class="navbar-brand" href="{{route('chambers.index')}}">Chamber</a>
-    {{-- <a class="navbar-brand" href="{{route('users.index')}}">User</a> --}}
+    <a class="navbar-brand" href="{{route('mou.index')}}">MOU</a>
+    <a class="navbar-brand" href="{{route('boardinghouses.index')}}">Kostan</a>
+    <a class="navbar-brand" href="{{route('chambers.index')}}">Kamar</a>
 @endsection
 @section('logout')
 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

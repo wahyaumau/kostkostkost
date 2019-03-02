@@ -13,4 +13,7 @@ class MOU extends Model
     public function owner(){
     	return $this->belongsTo('App\Models\Owner');
     }
+    public function regency(){
+    	return $this->belongsTo('App\Models\Regency');
+    }
 }
