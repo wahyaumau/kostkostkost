@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
-@section('adminpanel')
+@section('panel')
     <a class="navbar-brand" href="{{route('universities.index')}}">University</a>
     <a class="navbar-brand" href="{{route('boardinghouses.index')}}">Boarding House</a>
     <a class="navbar-brand" href="{{route('chambers.index')}}">Chamber</a>
     <a class="navbar-brand" href="{{route('users.index')}}">User</a>
+    <a class="navbar-brand" href="{{route('mou.index')}}">MOU</a>
 @endsection
 @section('logout')
 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -24,7 +25,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="col-md-4">
-            <a href="{{route('kostariateam.register')}}" class="btn btn-success">Tambah Kostan</a>  
+            <a href="{{route('kostariateam.register')}}" class="btn btn-success">Register Kostaria Team</a>  
         </div>
             <div class="card">
                 <div class="card-header">Admin Dashboard</div>

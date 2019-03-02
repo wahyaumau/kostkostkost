@@ -1,6 +1,6 @@
 <?php
 
-namespace Kostaria\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,18 +11,18 @@ class BoardingHouse extends Model
     protected $table = 'boardinghouses';        
     
     public function regency(){
-        return $this->belongsTo('Kostaria\Models\Regency');
+        return $this->belongsTo('App\Models\Regency');
     }
 
     public function chamber(){
-        return $this->hasMany('Kostaria\Models\Chamber');
+        return $this->hasMany('App\Models\Chamber');
     }
 
     public function Review(){
-        return $this->hasMany('Kostaria\Models\Review');
+        return $this->hasMany('App\Models\Review');
     }
 
     public function owner(){
-        return $this->belongsTo('Kostaria\Models\Owner');   
+        return $this->belongsTo('App\Models\Owner');   
     }
 }

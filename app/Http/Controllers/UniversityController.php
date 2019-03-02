@@ -1,11 +1,11 @@
 <?php
 
-namespace Kostaria\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Kostaria\Models\Regency;
-use Kostaria\Models\Province;
-use Kostaria\Models\University;
+use App\Models\Regency;
+use App\Models\Province;
+use App\Models\University;
 
 class UniversityController extends Controller
 {
@@ -45,7 +45,7 @@ class UniversityController extends Controller
     {        
         $this->validate($request, array(
             'name' => 'required|max:255',            
-            'address' => 'required|max:255|alpha numeric',                        
+            'address' => 'required|max:255',                        
             'regency_id' => 'required|numeric',            
         ));
         $university = new University;        
@@ -92,7 +92,7 @@ class UniversityController extends Controller
     {
         $this->validate($request, array(
             'name' => 'required|max:255',            
-            'address' => 'required|max:255|alpha numeric',                        
+            'address' => 'required|max:255',                        
             'regency_id' => 'required|numeric',            
         ));
         $university = University::find($id);

@@ -170,11 +170,11 @@ return [
         /*
          * Application Service Providers...
          */
-        Kostaria\Providers\AppServiceProvider::class,
-        Kostaria\Providers\AuthServiceProvider::class,
-        // Kostaria\Providers\BroadcastServiceProvider::class,
-        Kostaria\Providers\EventServiceProvider::class,
-        Kostaria\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
     ],
 

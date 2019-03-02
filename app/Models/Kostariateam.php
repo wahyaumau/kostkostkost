@@ -1,12 +1,12 @@
 <?php
 
-namespace Kostaria\Models;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kostaria\Notifications\KostariateamResetPasswordNotification;
+use App\Notifications\KostariateamResetPasswordNotification;
 
 class Kostariateam extends Authenticatable
 {
@@ -35,19 +35,19 @@ class Kostariateam extends Authenticatable
     protected $dates = ['deleted_at'];    
 
     public function regency(){
-        return $this->belongsTo('Kostaria\Models\Regency');
+        return $this->belongsTo('App\Models\Regency');
     }
 
     public function boardinghouse(){
-        return $this->hasMany('Kostaria\Models\Boardinghouse');
+        return $this->hasMany('App\Models\Boardinghouse');
     }
 
     // public function owner(){
-    //     return $this->belongsTo('Kostaria\Models\Owner', 'mou', 'kostariateam_id', 'owner_id');  
+    //     return $this->belongsTo('App\Models\Owner', 'mou', 'kostariateam_id', 'owner_id');  
     // }
 
     public function mou(){
-        return $this->hasMany('Kostaria\Models\MOU');
+        return $this->hasMany('App\Models\MOU');
     }
 
     

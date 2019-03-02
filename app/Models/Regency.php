@@ -1,6 +1,6 @@
 <?php
 
-namespace Kostaria\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,18 +16,18 @@ class Regency extends Model
     // ];
 
     public function province(){
-        return $this->belongsTo('Kostaria\Models\Province');
+        return $this->belongsTo('App\Models\Province');
     }
 
     public function user(){
-        return $this->hasOne('Kostaria\Models\User');
+        return $this->hasOne('App\Models\User');
     }
 
     public function boardinghouse(){
-        return $this->hasOne('Kostaria\Models\BoardingHouse');
+        return $this->hasOne('App\Models\BoardingHouse');
     }
 
     public function university(){
-        return $this->hasOne('Kostaria\Models\University');
+        return $this->hasOne('App\Models\University');
     }
 }

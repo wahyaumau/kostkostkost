@@ -1,6 +1,6 @@
 <?php
 
-namespace Kostaria\Models;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -33,22 +33,22 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];    
 
     public function regency(){
-        return $this->belongsTo('Kostaria\Models\Regency');
+        return $this->belongsTo('App\Models\Regency');
     }
 
     public function university(){
-        return $this->belongsTo('Kostaria\Models\University');
+        return $this->belongsTo('App\Models\University');
     }
 
     public function chamber(){
-        return $this->hasMany('Kostaria\Models\Chamber');
+        return $this->hasMany('App\Models\Chamber');
     }
 
     public function review(){
-        return $this->hasMany('Kostaria\Models\Review');
+        return $this->hasMany('App\Models\Review');
     }
 
     public function transaction(){
-        return $this->hasMany('Kostaria\Models\Transaction');
+        return $this->hasMany('App\Models\Transaction');
     }
 }

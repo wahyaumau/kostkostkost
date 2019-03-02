@@ -1,9 +1,9 @@
 <?php
 
-namespace Kostaria\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Kostaria\Models\Post;
+use App\Models\Post;
 
 class PostController extends Controller
 {

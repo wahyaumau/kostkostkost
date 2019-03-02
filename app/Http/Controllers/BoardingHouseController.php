@@ -1,12 +1,12 @@
 <?php
 
-namespace Kostaria\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Kostaria\Models\Regency;
-use Kostaria\Models\Province;
-use Kostaria\Models\BoardingHouse;
-use Kostaria\Models\Owner;
+use App\Models\Regency;
+use App\Models\Province;
+use App\Models\BoardingHouse;
+use App\Models\Owner;
 
 class BoardingHouseController extends Controller
 {

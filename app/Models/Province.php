@@ -1,6 +1,6 @@
 <?php
 
-namespace Kostaria\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +16,6 @@ class Province extends Model
     // ];
 
     public function regency(){
-        return $this->hasMany('Kostaria\Models\Regency');
+        return $this->hasMany('App\Models\Regency');
     }       
 }

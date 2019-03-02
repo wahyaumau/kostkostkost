@@ -1,11 +1,11 @@
 <?php
 
-namespace Kostaria\Models;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Kostaria\Notifications\AdminResetPasswordNotification;
+use App\Notifications\AdminResetPasswordNotification;
 
 class Admin extends Authenticatable
 {
