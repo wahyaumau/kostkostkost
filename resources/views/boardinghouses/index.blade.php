@@ -12,6 +12,30 @@
     <div class="row">
         <div class="col-md-8">
             <h3>Daftar Kostan</h3>
+        </div>
+        <div class="col-md-4">
+            <form method="POST" action="{{ route('boardinghouses.search') }}">
+            @csrf
+            <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama Kostan') }}</label>
+                <div class="col-md-6">                                
+                    <input type="text" name="name-search">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Alamat Kostan') }}</label>
+                <div class="col-md-6">                                
+                    <input type="text" name="address-search">
+                </div>
+            </div>
+            <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Search') }}
+                                </button>
+                            </div>
+                        </div>
+            </form>
         </div>        
     </div>        
 
@@ -34,7 +58,8 @@
                     <th colspan="3">action</th>
                 </tr>
             </thead>
-            <tbody>                  
+            <tbody>
+
             @foreach($listBoardingHouse as $boardinghouse)
                 <tr>            
                     <td>{{$boardinghouse->id}}</td>

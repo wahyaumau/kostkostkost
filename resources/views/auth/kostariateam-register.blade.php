@@ -12,14 +12,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Register Kostaria Team') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('kostariateam.register') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name kostaroateam') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
@@ -68,20 +68,6 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" value="{{ old('address') }}" required autofocus>
-
-                                @if ($errors->has('address'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('address') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="nik" class="col-md-4 col-form-label text-md-right">{{ __('nik') }}</label>
 
                             <div class="col-md-6">
@@ -94,9 +80,12 @@
                                 @endif
                             </div>
                         </div>
+                        
+
+                        
 
                         <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Kota Lahir') }}</label>
+                            <label for="regency_id_birth" class="col-md-4 col-form-label text-md-right">{{ __('Kota Lahir') }}</label>
                             <div class="col-md-6">
                                 
                                 <select class="form-control select2-single" name="regency_id_birth">
@@ -107,11 +96,26 @@
                                 
                             </div>
                         </div>
+
                         <div class="form-group row">
-                            <label for="birth_date" class="col-md-4 col-form-label text-md-right">{{ __('birth_date') }}</label>
+                            <label for="birth_date" class="col-md-4 col-form-label text-md-right">{{ __('Tanggal Lahir') }}</label>
 
                             <div class="col-md-6">
                                 <input id="birth_date" type="date" class="form-control{{ $errors->has('birth_date') ? ' is-invalid' : '' }}" name="birth_date" value="{{ old('birth_date') }}" required autofocus>
+
+                                @if ($errors->has('birth_date'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('birth_date') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" placeholder="Ds.. RT RW Jl.. Kc.." value="{{ old('address') }}" required autofocus>
 
                                 @if ($errors->has('address'))
                                     <span class="invalid-feedback" role="alert">
@@ -124,7 +128,7 @@
 
 
                         <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Kota') }}</label>
+                            <label for="regency_id" class="col-md-4 col-form-label text-md-right">{{ __('Kota') }}</label>
                             <div class="col-md-6">
                                 
                                 <select class="form-control select2-single" name="regency_id">
@@ -138,7 +142,7 @@
                                                 
 
                         <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('phone') }}</label>
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Nomor Telepon') }}</label>
 
                             <div class="col-md-6">
                                 <input id="phone" type="number" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autofocus>

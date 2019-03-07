@@ -27,8 +27,11 @@ Route::get('/', function () {
 // Route::get('chambers-autocomplete', 'ChamberController@search');
 // Route::get('university-autocomplete', 'UniversityController@search');
 Route::get('boardinghouses/creates/{id}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
+Route::post('boardinghouses/search', 'BoardingHouseController@search')->name('boardinghouses.search');
+Route::post('chambers/search', 'ChamberController@search')->name('chambers.search');
 
 Route::get('chambers/creates/{id}', 'ChamberController@creates')->name('chambers.creates');
+
 
 
 

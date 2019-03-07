@@ -114,12 +114,13 @@ class BoardingHouseController extends Controller
             'description' => 'required',
             'address' => 'required|max:255',            
             'regency_id' => 'required|numeric',
-            'owner_id' => 'required|numeric',
+            // 'owner_id' => 'required|numeric',
             'facility' => 'required',
             'facility_park' => 'required',
             'access' => 'required',
             'information_others' => 'required',
-            'information_cost' => 'required'            
+            'information_cost' => 'required',
+            // 'owner_id' => 'required',
         ));
         $boardinghouse = BoardingHouse::find($id);        
         $boardinghouse->name = $request->get('name');
@@ -148,23 +149,13 @@ class BoardingHouseController extends Controller
         return redirect()->route('boardinghouses.index')->with('success', 'berhasil dihapus');
     }
 
-    // public function search(Request $request){
-    //     $search = $request->term;
-    //     $provinces = Province::whereHas('regencies', function($query){
-    //         $query->where('name', 'LIKE', '%'.$search.'%');
-    //     })->get();
+    public function search(Request $request){
+        $name = $request->get('name-search');
+        $address = $request->get('address-search');
+        $listBoardingHouse = Boardinghouse::where('name', 'LIKE', '%'.$name.'%')
+                            ->where('address', 'LIKE', '%'.$address.'%');
         
-    //     $regencies = Regency::where('name', 'LIKE', '%'.$search.'%')->get();
-    //     $data = [];
+        return view('boardinghouses.index', compact('listBoardingHouse'));
+    }
 
-    //     foreach ($provinces as $province => $value) {
-    //         $data[] = ['id'=>$value->id, 'name'=>$value->name];
-    //     }
-
-    //     foreach ($regencies as $regency => $value) {
-    //         $data[] = ['regency_id'=>$value->id, 'regency_name'=>$value->name];
-    //     }
-
-    //     return response($data);
-    // }
 }

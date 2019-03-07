@@ -20,8 +20,8 @@ class ChamberController extends Controller
      */
     public function index()
     {
-        $listchamber = Chamber::all();
-        return view('chambers.index', compact('listchamber'));
+        $listChamber = Chamber::all();
+        return view('chambers.index', compact('listChamber'));
     }
 
     /**
@@ -115,7 +115,7 @@ class ChamberController extends Controller
         ));
         $chamber = Chamber::find($id);        
         $chamber->name = $request->get('name');        
-        $chamber->boarding_house_id = $request->get('boarding_house_id');        
+        $chamber->boardinghouse_id = $request->get('boardinghouse_id');        
         $chamber->price_monthly = $request->get('price_monthly');
         $chamber->price_annual = $request->get('price_annual');
         $chamber->gender = $request->get('gender');        
@@ -150,4 +150,11 @@ class ChamberController extends Controller
 
     //     return response($data);
     // }
+
+    public function search(Request $request){
+        $priceMin = $request->get('priceMin-search');
+        $priceMax = $request->get('priceMax-search');
+        $listChamber = Chamber::whereBetween('price_annual', [$priceMin, $priceMax])->get();                            
+        return view('chambers.index', compact('listChamber'));
+    }
 }
