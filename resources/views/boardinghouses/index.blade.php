@@ -77,6 +77,7 @@
                     <td><a href="{{ route('chambers.creates', $boardinghouse->id)}}" class="btn btn-primary">Tambah Kamar</a></td>
                     <td>
                     <td><a href="{{ route('boardinghouses.edit', $boardinghouse->id)}}" class="btn btn-primary">Edit</a></td>
+                    <td><a href="{{ route('boardinghouses.show', $boardinghouse->id)}}" class="btn btn-primary">Show</a></td>
                     <td><form action="{{ route('boardinghouses.destroy', $boardinghouse->id)}}" method="post">
                           @csrf
                           @method('DELETE')
