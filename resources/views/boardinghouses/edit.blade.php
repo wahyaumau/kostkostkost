@@ -77,23 +77,27 @@
                         <div class="form-group row">
                             <label for="facility" class="col-md-4 col-form-label text-md-right">{{ __('Fasilitas') }}</label>
                             <div class="col-md-6">
-                                <input id="facility" type="text" class="form-control{{ $errors->has('facility') ? ' is-invalid' : '' }}" name="facility" value="{{ $boardinghouse->facility}}" required>
-
-                                @if ($errors->has('facility'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('facility') }}</strong>
-                                    </span>
-                                @endif
+                                <input type="checkbox" name="facility_1" value="1" {{$facilities[0]==1? 'checked':''}}>Dapur
+                                <input type="checkbox" name="facility_2" value="1" {{$facilities[1]==1? 'checked':''}}>Kompor
+                                <input type="checkbox" name="facility_3" value="1" {{$facilities[2]==1? 'checked':''}}>Gas
+                                <input type="checkbox" name="facility_4" value="1" {{$facilities[3]==1? 'checked':''}}>Tempat parkir motor
+                                <input type="checkbox" name="facility_5" value="1" {{$facilities[4]==1? 'checked':''}}>Tempat parkir mobil
+                                <input type="checkbox" name="facility_6" value="1" {{$facilities[5]==1? 'checked':''}}>Tempat jemuran
+                                <input type="checkbox" name="facility_7" value="1" {{$facilities[6]==1? 'checked':''}}>Listrik
+                                <input type="checkbox" name="facility_8" value="1" {{$facilities[7]==1? 'checked':''}}>Air
+                                <input type="checkbox" name="facility_9" value="1" {{$facilities[8]==1? 'checked':''}}>Kebersihan
+                                <input type="checkbox" name="facility_10" value="1" {{$facilities[9]==1? 'checked':''}}>Pajak dan retribusi
+                                <input type="checkbox" name="facility_11" value="1" {{$facilities[10]==1? 'checked':''}}>Wi-fi                                
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="facility_park" class="col-md-4 col-form-label text-md-right">{{ __('Fasilitas Parkir') }}</label>
+                            <label for="facility_other" class="col-md-4 col-form-label text-md-right">{{ __('Fasilitas Lain') }}</label>
                             <div class="col-md-6">
-                                <input id="facility_park" type="text" class="form-control{{ $errors->has('facility_park') ? ' is-invalid' : '' }}" name="facility_park" value="{{ $boardinghouse->facility_park }}" required>
+                                <input id="facility_other" type="text" class="form-control{{ $errors->has('facility_other') ? ' is-invalid' : '' }}" name="facility_other" value="{{ $boardinghouse->facility_other }}" required>
 
-                                @if ($errors->has('facility_park'))
+                                @if ($errors->has('facility_other'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('facility_park') }}</strong>
+                                        <strong>{{ $errors->first('facility_other') }}</strong>
                                     </span>
                                 @endif
                             </div>

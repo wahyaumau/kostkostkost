@@ -78,23 +78,27 @@
                         <div class="form-group row">
                             <label for="facility" class="col-md-4 col-form-label text-md-right">{{ __('Fasilitas') }}</label>
                             <div class="col-md-6">
-                                <input id="facility" type="text" class="form-control{{ $errors->has('facility') ? ' is-invalid' : '' }}" name="facility" value="{{ old('facility') }}" required>
-
-                                @if ($errors->has('facility'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('facility') }}</strong>
-                                    </span>
-                                @endif
+                                <input type="checkbox" name="facility_1" value="1">Dapur                                
+                                <input type="checkbox" name="facility_2" value="1">Kompor
+                                <input type="checkbox" name="facility_3" value="1">Gas
+                                <input type="checkbox" name="facility_4" value="1">Tempat parkir motor
+                                <input type="checkbox" name="facility_5" value="1">Tempat parkir mobil
+                                <input type="checkbox" name="facility_6" value="1">Tempat jemuran
+                                <input type="checkbox" name="facility_7" value="1">Listrik
+                                <input type="checkbox" name="facility_8" value="1">Air
+                                <input type="checkbox" name="facility_9" value="1">Kebersihan
+                                <input type="checkbox" name="facility_10" value="1">Pajak dan retribusi
+                                <input type="checkbox" name="facility_11" value="1">Wi-fi                                
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="facility_park" class="col-md-4 col-form-label text-md-right">{{ __('Fasilitas Parkir') }}</label>
+                            <label for="facility_other" class="col-md-4 col-form-label text-md-right">{{ __('Fasilitas Lainnya') }}</label>
                             <div class="col-md-6">
-                                <input id="facility_park" type="text" class="form-control{{ $errors->has('facility_park') ? ' is-invalid' : '' }}" name="facility_park" value="{{ old('facility_park') }}" required>
+                                <input id="facility_other" type="text" class="form-control{{ $errors->has('facility_other') ? ' is-invalid' : '' }}" name="facility_other" value="{{ old('facility_other') }}" required>
 
-                                @if ($errors->has('facility_park'))
+                                @if ($errors->has('facility_other'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('facility_park') }}</strong>
+                                        <strong>{{ $errors->first('facility_other') }}</strong>
                                     </span>
                                 @endif
                             </div>

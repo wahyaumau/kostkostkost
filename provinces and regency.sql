@@ -48,7 +48,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `regencies` WRITE;
 /*!40000 ALTER TABLE `regencies` DISABLE KEYS */;
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('1101', '11', 'KABUPATEN SIMEULUE'),
   ('1102', '11', 'KABUPATEN ACEH SINGKIL'),
   ('1103', '11', 'KABUPATEN ACEH SELATAN'),
@@ -99,7 +99,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('1225', '12', 'KABUPATEN NIAS BARAT'),
   ('1271', '12', 'KOTA SIBOLGA'),
   ('1272', '12', 'KOTA TANJUNG BALAI');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('1273', '12', 'KOTA PEMATANG SIANTAR'),
   ('1274', '12', 'KOTA TEBING TINGGI'),
   ('1275', '12', 'KOTA MEDAN'),
@@ -150,7 +150,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('1572', '15', 'KOTA SUNGAI PENUH'),
   ('1601', '16', 'KABUPATEN OGAN KOMERING ULU'),
   ('1602', '16', 'KABUPATEN OGAN KOMERING ILIR');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('1603', '16', 'KABUPATEN MUARA ENIM'),
   ('1604', '16', 'KABUPATEN LAHAT'),
   ('1605', '16', 'KABUPATEN MUSI RAWAS'),
@@ -201,7 +201,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('2101', '21', 'KABUPATEN KARIMUN'),
   ('2102', '21', 'KABUPATEN BINTAN'),
   ('2103', '21', 'KABUPATEN NATUNA');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('2104', '21', 'KABUPATEN LINGGA'),
   ('2105', '21', 'KABUPATEN KEPULAUAN ANAMBAS'),
   ('2171', '21', 'KOTA B A T A M'),
@@ -252,7 +252,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('3311', '33', 'KABUPATEN SUKOHARJO'),
   ('3312', '33', 'KABUPATEN WONOGIRI'),
   ('3313', '33', 'KABUPATEN KARANGANYAR');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('3314', '33', 'KABUPATEN SRAGEN'),
   ('3315', '33', 'KABUPATEN GROBOGAN'),
   ('3316', '33', 'KABUPATEN BLORA'),
@@ -303,7 +303,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('3521', '35', 'KABUPATEN NGAWI'),
   ('3522', '35', 'KABUPATEN BOJONEGORO'),
   ('3523', '35', 'KABUPATEN TUBAN');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('3524', '35', 'KABUPATEN LAMONGAN'),
   ('3525', '35', 'KABUPATEN GRESIK'),
   ('3526', '35', 'KABUPATEN BANGKALAN'),
@@ -354,7 +354,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('5306', '53', 'KABUPATEN BELU'),
   ('5307', '53', 'KABUPATEN ALOR'),
   ('5308', '53', 'KABUPATEN LEMBATA');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('5309', '53', 'KABUPATEN FLORES TIMUR'),
   ('5310', '53', 'KABUPATEN SIKKA'),
   ('5311', '53', 'KABUPATEN ENDE'),
@@ -405,7 +405,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('6306', '63', 'KABUPATEN HULU SUNGAI SELATAN'),
   ('6307', '63', 'KABUPATEN HULU SUNGAI TENGAH'),
   ('6308', '63', 'KABUPATEN HULU SUNGAI UTARA');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('6309', '63', 'KABUPATEN TABALONG'),
   ('6310', '63', 'KABUPATEN TANAH BUMBU'),
   ('6311', '63', 'KABUPATEN BALANGAN'),
@@ -456,7 +456,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('7271', '72', 'KOTA PALU'),
   ('7301', '73', 'KABUPATEN KEPULAUAN SELAYAR'),
   ('7302', '73', 'KABUPATEN BULUKUMBA');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('7303', '73', 'KABUPATEN BANTAENG'),
   ('7304', '73', 'KABUPATEN JENEPONTO'),
   ('7305', '73', 'KABUPATEN TAKALAR'),
@@ -507,7 +507,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('7603', '76', 'KABUPATEN MAMASA'),
   ('7604', '76', 'KABUPATEN MAMUJU'),
   ('7605', '76', 'KABUPATEN MAMUJU UTARA');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('7606', '76', 'KABUPATEN MAMUJU TENGAH'),
   ('8101', '81', 'KABUPATEN MALUKU TENGGARA BARAT'),
   ('8102', '81', 'KABUPATEN MALUKU TENGGARA'),
@@ -558,7 +558,7 @@ INSERT INTO `regencies` (id, provinces_id, name) VALUES
   ('9416', '94', 'KABUPATEN YAHUKIMO'),
   ('9417', '94', 'KABUPATEN PEGUNUNGAN BINTANG'),
   ('9418', '94', 'KABUPATEN TOLIKARA');
-INSERT INTO `regencies` (id, provinces_id, name) VALUES
+INSERT INTO `regencies` (id, province_id, name) VALUES
   ('9419', '94', 'KABUPATEN SARMI'),
   ('9420', '94', 'KABUPATEN KEEROM'),
   ('9426', '94', 'KABUPATEN WAROPEN'),

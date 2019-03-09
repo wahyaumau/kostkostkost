@@ -26,9 +26,9 @@ class CreateMouTable extends Migration
             $table->foreign('owner_id')
                 ->references('id')->on('owners')
                 ->onUpdate('cascade');
-            $table->timestamps();
             $table->date('signed_at');
             $table->date('ended_at');
+            $table->timestamps();
             $table->softDeletes();
         });
     }

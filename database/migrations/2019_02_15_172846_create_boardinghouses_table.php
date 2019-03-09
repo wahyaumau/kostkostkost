@@ -15,7 +15,6 @@ class CreateBoardingHousesTable extends Migration
     {
         Schema::create('boardinghouses', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('name');            
             $table->text('description');
             $table->text('address');
@@ -24,11 +23,10 @@ class CreateBoardingHousesTable extends Migration
                 ->references('id')->on('regencies')
                 ->onDelete('cascade');            
             $table->string('facility');
-            $table->string('facility_park');
+            $table->string('facility_other');
             $table->string('access');
             $table->string('information_others');
-            $table->string('information_cost');            
-            $table->softDeletes();
+            $table->string('information_cost');                        
         });
     }
 

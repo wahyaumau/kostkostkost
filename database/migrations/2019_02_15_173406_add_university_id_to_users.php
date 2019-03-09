@@ -17,6 +17,8 @@ class AddUniversityIdToUsers extends Migration
             $table->integer('university_id')->unsigned();
             $table->foreign('university_id')
                 ->references('id')->on('universities');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

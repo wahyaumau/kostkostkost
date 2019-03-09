@@ -16,7 +16,7 @@ class AddRegencyIdToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->integer('regency_id')->unsigned();
             $table->foreign('regency_id')
-                ->references('id')->on('regencies');
+                ->references('id')->on('regencies');            
         });
     }
 

@@ -51,7 +51,7 @@
                     <th>Nama Pemilik</th>
                     <th>Kontak Pemilik</th>
                     <th>Fasilitas Umum</th>
-                    <th>Fasilitas Parkir</th>
+                    <th>Fasilitas Lain</th>
                     <th>Akses Lingkungan</th>
                     <th>Keterangan tambahan</th>
                     <th>Keterangan biaya</th>            
@@ -70,7 +70,7 @@
                     <td>{{$boardinghouse->owner->name}}</td>
                     <td>{{$boardinghouse->owner->phone}}</td>
                     <td>{{$boardinghouse->facility}}</td>
-                    <td>{{$boardinghouse->facility_park}}</td>
+                    <td>{{$boardinghouse->facility_other}}</td>
                     <td>{{$boardinghouse->access}}</td>
                     <td>{{$boardinghouse->information_others}}</td>
                     <td>{{$boardinghouse->information_cost}}</td>

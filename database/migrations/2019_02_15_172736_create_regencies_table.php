@@ -14,8 +14,7 @@ class CreateRegenciesTable extends Migration
     public function up()
     {
         Schema::create('regencies', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->increments('id');            
             $table->string('name');
             $table->integer('province_id')->unsigned();
             $table->foreign('province_id')

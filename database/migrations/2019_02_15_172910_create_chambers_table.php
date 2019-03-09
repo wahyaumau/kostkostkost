@@ -15,7 +15,6 @@ class CreateChambersTable extends Migration
     {
         Schema::create('chambers', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('name');
             $table->integer('boardinghouse_id')->unsigned();
             $table->foreign('boardinghouse_id')
@@ -26,6 +25,8 @@ class CreateChambersTable extends Migration
             $table->boolean('gender');
             $table->string('chamber_size');
             $table->string('chamber_facility');                        
+            $table->string('chamber_facility_others');                        
+            $table->timestamps();
             $table->softDeletes();                
         });
     }

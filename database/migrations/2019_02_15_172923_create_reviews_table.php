@@ -15,7 +15,6 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->text('review');
             $table->integer('boardinghouse_id')->unsigned();
             $table->foreign('boardinghouse_id')
@@ -25,6 +24,7 @@ class CreateReviewsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

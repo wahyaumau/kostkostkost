@@ -15,7 +15,6 @@ class CreateOwnersTable extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('name');            
             $table->bigInteger('nik')->unsigned();
             $table->integer('regency_id_birth')->unsigned();
@@ -29,6 +28,7 @@ class CreateOwnersTable extends Migration
                 ->references('id')->on('regencies')
                 ->onDelete('cascade');
             $table->string('phone');
+            $table->timestamps();
             $table->softDeletes();
         });
     }

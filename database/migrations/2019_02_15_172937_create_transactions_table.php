@@ -15,7 +15,6 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->float('dp');
             $table->string('payment_proof');
             $table->integer('user_id')->unsigned();
@@ -24,6 +23,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('chamber_id')->unsigned();
             $table->foreign('chamber_id')
                 ->references('id')->on('chambers');
+            $table->timestamps();
             $table->softDeletes();
         });
     }

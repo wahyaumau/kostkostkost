@@ -53,8 +53,8 @@ class BoardingHouseController extends Controller
             'address' => 'required|max:255',            
             'regency_id' => 'required|numeric',
             'owner_id' => 'required|numeric',
-            'facility' => 'required',
-            'facility_park' => 'required',
+            // 'facility' => 'required',
+            'facility_other' => 'required',
             'access' => 'required',
             'information_others' => 'required',
             'information_cost' => 'required'            
@@ -65,8 +65,16 @@ class BoardingHouseController extends Controller
         $boardinghouse->address = $request->get('address');        
         $boardinghouse->regency_id = $request->get('regency_id');        
         $boardinghouse->owner_id = $request->get('owner_id');        
-        $boardinghouse->facility = $request->get('facility');        
-        $boardinghouse->facility_park = $request->get('facility_park');        
+        $facilities=null;
+        for ($i=1; $i <=11 ; $i++) { 
+            $facility = 0;
+            if($request->has('facility_'.$i)){                
+                $facility = 1;
+            }
+            $facilities .= $facility;
+        }
+        $boardinghouse->facility = $facilities;
+        $boardinghouse->facility_other = $request->get('facility_other');        
         $boardinghouse->access = $request->get('access');        
         $boardinghouse->information_others = $request->get('information_others');
         $boardinghouse->information_cost = $request->get('information_cost');        
@@ -96,8 +104,9 @@ class BoardingHouseController extends Controller
     public function edit($id)
     {
         $boardinghouse = BoardingHouse::find($id);
+        $facilities = str_split($boardinghouse->facility);
         $listRegency = Regency::all();
-        return view('boardinghouses.edit', compact('boardinghouse', 'id','listRegency'));
+        return view('boardinghouses.edit', compact('boardinghouse', 'id','listRegency', 'facilities'));
     }
 
     /**
@@ -115,25 +124,33 @@ class BoardingHouseController extends Controller
             'address' => 'required|max:255',            
             'regency_id' => 'required|numeric',
             // 'owner_id' => 'required|numeric',
-            'facility' => 'required',
-            'facility_park' => 'required',
+            // 'facility' => 'required',
+            'facility_other' => 'required',
             'access' => 'required',
             'information_others' => 'required',
-            'information_cost' => 'required',
-            // 'owner_id' => 'required',
+            'information_cost' => 'required'            
         ));
         $boardinghouse = BoardingHouse::find($id);        
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');        
-        $boardinghouse->regency_id = $request->get('regency_id');                
-        $boardinghouse->facility = $request->get('facility');        
-        $boardinghouse->facility_park = $request->get('facility_park');        
+        $boardinghouse->regency_id = $request->get('regency_id');        
+        // $boardinghouse->owner_id = $request->get('owner_id');        
+        $facilities=null;
+        for ($i=1; $i <=11 ; $i++) { 
+            $facility = 0;
+            if($request->has('facility_'.$i)){                
+                $facility = 1;
+            }
+            $facilities .= $facility;
+        }
+        $boardinghouse->facility = $facilities;
+        $boardinghouse->facility_other = $request->get('facility_other');        
         $boardinghouse->access = $request->get('access');        
         $boardinghouse->information_others = $request->get('information_others');
         $boardinghouse->information_cost = $request->get('information_cost');        
         $boardinghouse->save();
-        return redirect()->route('boardinghouses.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('boardinghouses.index')->with('success', 'berhasil diedit');
     }
 
     /**
