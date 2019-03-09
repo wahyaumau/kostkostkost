@@ -56,7 +56,7 @@ class ChamberController extends Controller
             'price_annual' => 'required|numeric',
             'gender' => 'required|boolean',
             'chamber_size' => 'required',
-            'chamber_facility' => 'required'            
+            'chamber_facility_others' => 'required'            
         ));
         $chamber = new Chamber;        
         $chamber->name = $request->get('name');        
@@ -64,8 +64,17 @@ class ChamberController extends Controller
         $chamber->price_monthly = $request->get('price_monthly');
         $chamber->price_annual = $request->get('price_annual');
         $chamber->gender = $request->get('gender');        
-        $chamber->chamber_size = $request->get('chamber_size');                
-        $chamber->chamber_facility = $request->get('chamber_facility');        
+        $chamber->chamber_size = $request->get('chamber_size');
+        $facilities=null;
+        for ($i=1; $i <=7 ; $i++) { 
+            $facility = 0;
+            if($request->has('facility_'.$i)){                
+                $facility = 1;
+            }
+            $facilities .= $facility;
+        }                
+        $chamber->chamber_facility = $facilities;        
+        $chamber->chamber_facility_others = $request->get('chamber_facility_others');                
         $chamber->save();
         return redirect()->route('chambers.index')->with('success', 'berhasil ditambahkan');
     }
@@ -92,7 +101,8 @@ class ChamberController extends Controller
     {
         $chamber = Chamber::find($id);
         $listBoardingHouse = BoardingHouse::all();
-        return view('chambers.edit', compact('chamber', 'id', 'listBoardingHouse'));
+        $facilities = str_split($chamber->chamber_facility);
+        return view('chambers.edit', compact('chamber', 'id', 'listBoardingHouse', 'facilities'));
     }
 
     /**
@@ -111,7 +121,7 @@ class ChamberController extends Controller
             'price_annual' => 'required|numeric',
             'gender' => 'required|boolean',
             'chamber_size' => 'required',
-            'chamber_facility' => 'required'            
+            'chamber_facility_others' => 'required'            
         ));
         $chamber = Chamber::find($id);        
         $chamber->name = $request->get('name');        
@@ -119,9 +129,18 @@ class ChamberController extends Controller
         $chamber->price_monthly = $request->get('price_monthly');
         $chamber->price_annual = $request->get('price_annual');
         $chamber->gender = $request->get('gender');        
-        $chamber->chamber_size = $request->get('chamber_size');                
-        $chamber->chamber_facility = $request->get('chamber_facility');        
-        $chamber->save();
+        $chamber->chamber_size = $request->get('chamber_size');
+        $facilities=null;
+        for ($i=1; $i <=7 ; $i++) { 
+            $facility = 0;
+            if($request->has('facility_'.$i)){                
+                $facility = 1;
+            }
+            $facilities .= $facility;
+        }                
+        $chamber->chamber_facility = $facilities;        
+        $chamber->chamber_facility_others = $request->get('chamber_facility_others');                
+        $chamber->save();        
         return redirect()->route('chambers.index')->with('success', 'berhasil diedit');
     }
 

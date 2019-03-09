@@ -108,15 +108,27 @@
                         <div class="form-group row">
                             <label for="chamber_facility" class="col-md-4 col-form-label text-md-right">{{ __('Fasilitas Kamar') }}</label>
                             <div class="col-md-6">
-                                <input id="chamber_facility" type="text" class="form-control{{ $errors->has('chamber_facility') ? ' is-invalid' : '' }}" name="chamber_facility" value="{{ old('chamber_facility') }}" required>
+                                <input type="checkbox" name="facility_1" value="1">Kamar Mandi Dalam
+                                <input type="checkbox" name="facility_2" value="1">Ranjang
+                                <input type="checkbox" name="facility_3" value="1">Kasur
+                                <input type="checkbox" name="facility_4" value="1">Meja belajar
+                                <input type="checkbox" name="facility_5" value="1">Lemari
+                                <input type="checkbox" name="facility_6" value="1">Water Heater
+                                <input type="checkbox" name="facility_7" value="1">AC
+                            </div>
+                        </div>                        
+                        <div class="form-group row">
+                            <label for="chamber_facility_others" class="col-md-4 col-form-label text-md-right">{{ __('Fasilitas Lain') }}</label>
+                            <div class="col-md-6">
+                                <input id="chamber_facility_others" type="text" class="form-control{{ $errors->has('chamber_facility_others') ? ' is-invalid' : '' }}" name="chamber_facility_others" value="{{ old('chamber_facility_others') }}" required>
 
-                                @if ($errors->has('chamber_facility'))
+                                @if ($errors->has('chamber_facility_others'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('chamber_facility') }}</strong>
+                                        <strong>{{ $errors->first('chamber_facility_others') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                        </div>                        
+                        </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
