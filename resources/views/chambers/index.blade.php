@@ -53,7 +53,8 @@
             <th>Harga tahunan</th>
             <th>Jenis Kelamin</th>
             <th>Ukuran Kamar</th>
-            <th>Fasilitas Kamat</th>                        
+            <th>Fasilitas Kamar</th>                        
+            <th>Fasilitas Lain</th>                        
             <th colspan="3">action</th>
           </tr>
         </thead>
@@ -68,7 +69,22 @@
             <td>{{$chamber->price_annual}}</td>
             <td>{{$chamber->gender=='1'? 'Laki-laki':'Perempuan'}}</td>
             <td>{{$chamber->chamber_size}}</td>
-            <td>{{$chamber->chamber_facility}}</td>            
+              @php 
+              $facilities = str_split($chamber->chamber_facility);
+              $facilities_def = array('kamar mandi dalam', 'ranjang', 'kasur', 'meja belajar', 'lemari', 'water heater', 'AC');
+              for ($i=0; $i < count($facilities); $i++) { 
+                  if ($facilities[$i] == false) {
+                      unset($facilities_def[$i]);
+                  }
+              }
+              @endphp
+            <td>
+              @foreach($facilities_def as $facility)
+                <p>{{$facility}}</p>
+              @endforeach
+
+            </td>            
+            <td>{{$chamber->chamber_facility_others}}</td>
             <td><a href="{{ route('chambers.edit', $chamber->id)}}" class="btn btn-primary">Edit</a></td>
             <td>
                 <form action="{{ route('chambers.destroy', $chamber->id)}}" method="post" onSubmit="return confirm('Are you sure you wish to delete?');" >

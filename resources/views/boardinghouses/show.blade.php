@@ -16,8 +16,20 @@
                 <div class="card-body">                	
                     <p>deskripsi : {{$boardinghouse->description}}</p>
                     <p>alamat : {{$boardinghouse->address." ".$boardinghouse->regency->name. ", ".$boardinghouse->regency->province->name }}</p>
-                    <p>fasilitas : {{$boardinghouse->facility}}</p>
-                    <p>fasilitas parkir : {{$boardinghouse->facility_park}}</p>
+                    @php 
+                    $facilities = str_split($boardinghouse->facility);
+                    $facilities_def = array('dapur', 'kompor', 'lpg', 'parkir motor', 'parkir mobil', 'jemuran', 'listrik', 'air', 'layanan kebersihan', 'pajak dan retribusi', 'wi-fi');
+                    for ($i=0; $i < count($facilities); $i++) { 
+                        if ($facilities[$i] == false) {
+                            unset($facilities_def[$i]);
+                        }
+                    }
+                    @endphp
+                    <p>fasilitas : 
+                        @foreach($facilities_def as $facility)
+                            {{$facility.", "}}
+                        @endforeach</p>
+                    <p>fasilitas lain : {{$boardinghouse->facility_other}}</p>
                     <p>akses : {{$boardinghouse->access}}</p>
                     <p>informasi tambahan : {{$boardinghouse->information_others}}</p>
                     <p>informasi biaya : {{$boardinghouse->information_cost}}</p>                    
@@ -34,7 +46,20 @@
                     <p>harga tahunan : {{$chamber->price_annual}}</p>
                     <p>gender : {{$chamber->gender=="1"? "laki-laki":"perempuan"}}</p>
                     <p>ukuran kamar : {{$chamber->chamber_size}}</p>
-                    <p>fasilitas kamar : {{$chamber->chamber_facility}}</p>
+                    @php 
+                    $facilities = str_split($chamber->chamber_facility);
+                    $facilities_def = array('kamar mandi dalam', 'ranjang', 'kasur', 'meja belajar', 'lemari', 'water heater', 'AC');
+                    for ($i=0; $i < count($facilities); $i++) { 
+                        if ($facilities[$i] == false) {
+                            unset($facilities_def[$i]);
+                        }
+                    }
+                    @endphp
+                    <p>fasilitas kamar : 
+                    @foreach($facilities_def as $facility)
+                        {{$facility. ", "}}
+                    @endforeach
+                    </p>
                     <button>Booking Kamar Ini</button>
                 </div>
                 @endforeach

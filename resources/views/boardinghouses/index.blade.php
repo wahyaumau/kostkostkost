@@ -69,7 +69,20 @@
                     <td>{{$boardinghouse->regency->name}}</td>
                     <td>{{$boardinghouse->owner->name}}</td>
                     <td>{{$boardinghouse->owner->phone}}</td>
-                    <td>{{$boardinghouse->facility}}</td>
+                    @php 
+                    $facilities = str_split($boardinghouse->facility);
+                    $facilities_def = array('dapur', 'kompor', 'lpg', 'parkir motor', 'parkir mobil', 'jemuran', 'listrik', 'air', 'layanan kebersihan', 'pajak dan retribusi', 'wi-fi');
+                    for ($i=0; $i < count($facilities); $i++) { 
+                        if ($facilities[$i] == false) {
+                            unset($facilities_def[$i]);
+                        }
+                    }
+                    @endphp
+                    <td>
+                        @foreach($facilities_def as $facility)
+                        <p>{{$facility}}</p>
+                        @endforeach
+                    </td>
                     <td>{{$boardinghouse->facility_other}}</td>
                     <td>{{$boardinghouse->access}}</td>
                     <td>{{$boardinghouse->information_others}}</td>
