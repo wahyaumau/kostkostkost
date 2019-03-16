@@ -50,7 +50,6 @@ Route::prefix('admin')->group(function(){
 	Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
 	Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
-	Route::get('/', 'AdminController@index')->name('admin.dashboard');	
 
 	Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetEmailLink')->name('admin.password.email');
 	Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
@@ -58,6 +57,7 @@ Route::prefix('admin')->group(function(){
 	Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 	Route::get('/register/kostariateam', 'Auth\KostariateamRegisterController@showRegistrationForm')->name('kostariateam.register');
 	Route::post('/register/kostariateam', 'Auth\KostariateamRegisterController@register')->name('kostariateam.register.submit');
+	Route::get('/', 'AdminController@index')->name('admin.dashboard');	
 });
 
 Route::prefix('kostariateam')->group(function(){

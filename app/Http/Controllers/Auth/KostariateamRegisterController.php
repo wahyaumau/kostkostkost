@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\Regency;
 use App\Models\Admin;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class KostariateamRegisterController extends Controller
 {
@@ -30,7 +32,7 @@ class KostariateamRegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'admin';
 
     /**
      * Create a new controller instance.
@@ -87,5 +89,17 @@ class KostariateamRegisterController extends Controller
             'phone' => $data['phone'],    
             'nik' => $data['nik'],    
         ]);
+    }
+
+    public function register(Request $request)
+    {
+    $this->validator($request->all())->validate();
+
+    event(new Registered($user = $this->create($request->all())));
+
+    // $this->guard()->login($user);
+
+    return $this->registered($request, $user)
+                    ?: redirect($this->redirectPath());
     }
 }
