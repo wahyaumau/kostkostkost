@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Kostariateam;
 
 class AdminController extends Controller
 {
@@ -24,5 +25,11 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin');
+    }
+
+    public function showKostariateam(){
+        $listKostariaTeam = Kostariateam::all();
+        return view('kostariateams.index', compact('listKostariaTeam'));
+
     }
 }

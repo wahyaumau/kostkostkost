@@ -63,7 +63,7 @@ class MOUController extends Controller
             'regency_id_owner' => 'required|numeric',
             'phone' => 'required|numeric',
             'nik' => 'required|numeric',
-            'birth_date' => 'required|date',
+            'birth_date' => 'required|date|before:now',            
         ));
         $owner = new Owner;
         $owner->name = $request->get('name');
@@ -81,7 +81,7 @@ class MOUController extends Controller
             // 'owner_id' => 'required|numeric',
             'regency_id' => 'required|numeric',
             'signed_at' => 'required|date',
-            'ended_at' => 'required|date|after:signed_date',
+            'ended_at' => 'required|date|after:signed_at',
         ));
         $mou = new MOU;        
         $kostariateam_id = Auth::guard('kostariateam')->user()->id;
