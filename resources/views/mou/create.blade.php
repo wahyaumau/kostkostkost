@@ -17,34 +17,37 @@
                 <div class="card-header">{{ __('Pihak 1 TIM KOSTARIA') }}</div>
                 <div class="card-body">
                         <div class="form-group row">
+                          <p>Saya yang bertanda tangan di bawah ini:</p>
+                        </div>
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
-                            <div class="col-md-6">                                
+                            <div class="col-md-6">
                                 <input type="text" class="form-control" value="{{$kostariateam->name}}" disabled="true">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('NIK') }}</label>
-                            <div class="col-md-6">                                
+                            <div class="col-md-6">
                                 <input type="text" class="form-control" value="{{$kostariateam->nik}}" disabled="true">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Tempat Tanggal Lahir') }}</label>
-                            <div class="col-md-6">                                
+                            <div class="col-md-6">
                                 <input type="text" class="form-control" value="{{$kostariateam->regencyBirth->name. "  ".$kostariateam->birth_date}}" disabled="true">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
-                            <div class="col-md-6">                                
+                            <div class="col-md-6">
                                 <input type="text" class="form-control" value="{{$kostariateam->address." ". $kostariateam->regency->name. " " .$kostariateam->regency->province->name}}" disabled="true">
                             </div>
-                        </div>                                    
-                </div>                
+                        </div>
+                </div>
             </div>
-        </div>        
+        </div>
 
         <div class="col-md-8">
             <div class="card">
@@ -195,7 +198,7 @@
                             </div>
                         </div>
                     </form>
-                </div>                
+                </div>
             </div>
         </div>
     </div>
