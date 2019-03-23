@@ -1,30 +1,32 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
 
-        <title>Kostaria</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Kostaria</title>
 
 
-        <!-- Bootstrap core CSS -->
-        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        <!-- Fonts -->
-        {!! Html::style('https://fonts.googleapis.com/css?family=Nunito:200,600') !!}
-        {!! Html::style('https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic') !!}
+  <!-- Fonts -->
+  {!! Html::style('https://fonts.googleapis.com/css?family=Nunito:200,600') !!}
+  {!! Html::style('https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic') !!}
 
-        <!-- Custom styles for this template -->
-        {!! Html::style('css/landing-page.min.css') !!}
-        {!! Html::style('vendor/simple-line-icons/css/simple-line-icons.css') !!}
-        {!! Html::style('vendor/fontawesome-free/css/all.min.css') !!}
-        {!! Html::style('vendor/simple-line-icons/css/simple-line-icons.css') !!}
+  <!-- Custom styles for this template -->
+  {!! Html::style('css/landing-page.min.css') !!}
+  {!! Html::style('vendor/simple-line-icons/css/simple-line-icons.css') !!}
+  {!! Html::style('vendor/fontawesome-free/css/all.min.css') !!}
+  {!! Html::style('vendor/simple-line-icons/css/simple-line-icons.css') !!}
 
-    </head>
-    <body>
-        <!-- <div class="flex-center position-ref full-height">
+</head>
+
+<body>
+  <!-- <div class="flex-center position-ref full-height">
           @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -40,43 +42,43 @@
             @endif
             </div>
         </div>-->
-        <!-- Navigation -->
-        <nav class='navbar navbar-inverse navbar-fixed-top sticky' role='navigation'>
-          <div class="container">
-            <a class="navbar-brand" href="/">Kostaria</a>
-            <div>
-              <a class="btn btn-success" href="{{ route('login') }}">Login</a>
-              <a class="btn btn-primary" href="{{ route('kostariateam.login') }}">Team Login</a>
-            </div>
-          </div>
-        </nav>
+  <!-- Navigation -->
+  <nav class='navbar navbar-inverse navbar-fixed-top sticky' role='navigation'>
+    <div class="container">
+      <a class="navbar-brand" href="/">Kostaria</a>
+      <div>
+        <a class="btn btn-success" href="{{ route('login') }}">Login</a>
+        <a class="btn btn-primary" href="{{ route('kostariateam.login') }}">Team Login</a>
+      </div>
+    </div>
+  </nav>
 
-        <!-- Masthead -->
-        <header class="masthead text-white text-center">
-          <div class="overlay"></div>
-          <div class="container">
-            <div class="row">
-              <div class="col-xl-9 mx-auto">
-                <h1 class="mb-5">Dapatkan info kost murah, kost harian, kost bebas, dan info kosan lainnya di Kostaria!</h1>
+  <!-- Masthead -->
+  <header class="masthead text-white text-center">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h1 class="mb-5">Dapatkan info kost murah, kost harian, kost bebas, dan info kosan lainnya di Kostaria!</h1>
+        </div>
+        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+          <form>
+            <div class="form-row">
+              <div class="col-12 col-md-9 mb-2 mb-md-0">
+                <input type="email" class="form-control form-control-lg" placeholder="Kostan dekat ...">
               </div>
-              <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                <form>
-                  <div class="form-row">
-                    <div class="col-12 col-md-9 mb-2 mb-md-0">
-                      <input type="email" class="form-control form-control-lg" placeholder="Kostan dekat ...">
-                    </div>
-                    <div class="col-12 col-md-3">
-                      <button type="submit" class="btn btn-block btn-lg btn-primary">Cari</button>
-                    </div>
-                  </div>
-                </form>
+              <div class="col-12 col-md-3">
+                <button type="submit" class="btn btn-block btn-lg btn-primary">Cari</button>
               </div>
             </div>
-          </div>
-        </header>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header>
 
-        <!-- Icons Grid -->
-        <!-- <section class="features-icons bg-light text-center">
+  <!-- Icons Grid -->
+  <!-- <section class="features-icons bg-light text-center">
           <div class="container">
             <div class="row">
               <div class="col-lg-4">
@@ -110,8 +112,8 @@
           </div>
         </section> -->
 
-        <!-- Image Showcases -->
-        <!-- <section class="showcase">
+  <!-- Image Showcases -->
+  <!-- <section class="showcase">
           <div class="container-fluid p-0">
             <div class="row no-gutters">
 
@@ -138,8 +140,8 @@
           </div>
         </section> -->
 
-        <!-- Testimonials -->
-        <!-- <section class="testimonials text-center bg-light">
+  <!-- Testimonials -->
+  <!-- <section class="testimonials text-center bg-light">
           <div class="container">
             <h2 class="mb-5">What people are saying...</h2>
             <div class="row">
@@ -168,8 +170,8 @@
           </div>
         </section> -->
 
-        <!-- Call to Action -->
-        <!-- <section class="call-to-action text-white text-center">
+  <!-- Call to Action -->
+  <!-- <section class="call-to-action text-white text-center">
           <div class="overlay"></div>
           <div class="container">
             <div class="row">
@@ -192,55 +194,56 @@
           </div>
         </section> -->
 
-        <!-- Footer -->
-        <footer class="footer bg-light">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-                <ul class="list-inline mb-2">
-                  <li class="list-inline-item">
-                    <a href="#">About</a>
-                  </li>
-                  <li class="list-inline-item">&sdot;</li>
-                  <li class="list-inline-item">
-                    <a href="#">Contact</a>
-                  </li>
-                  <li class="list-inline-item">&sdot;</li>
-                  <li class="list-inline-item">
-                    <a href="#">Terms of Use</a>
-                  </li>
-                  <li class="list-inline-item">&sdot;</li>
-                  <li class="list-inline-item">
-                    <a href="#">Privacy Policy</a>
-                  </li>
-                </ul>
-                <p class="text-muted small mb-4 mb-lg-0">&copy; kostaria.id 2019. All Rights Reserved.</p>
-              </div>
-              <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-                <ul class="list-inline mb-0">
-                  <li class="list-inline-item mr-3">
-                    <a href="#">
-                      <i class="fab fa-facebook fa-2x fa-fw"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item mr-3">
-                    <a href="#">
-                      <i class="fab fa-whatsapp fa-2x fa-fw"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-instagram fa-2x fa-fw"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </footer>
+  <!-- Footer -->
+  <footer class="footer bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">
+              <a href="#">About</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="#">Contact</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="#">Terms of Use</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="#">Privacy Policy</a>
+            </li>
+          </ul>
+          <p class="text-muted small mb-4 mb-lg-0">&copy; kostaria.id 2019. All Rights Reserved.</p>
+        </div>
+        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item mr-3">
+              <a href="#">
+                <i class="fab fa-facebook fa-2x fa-fw"></i>
+              </a>
+            </li>
+            <li class="list-inline-item mr-3">
+              <a href="#">
+                <i class="fab fa-whatsapp fa-2x fa-fw"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-instagram fa-2x fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-        <!-- Bootstrap core JavaScript -->
-        {!! Html::script('vendor/jquery/jquery.min.js') !!}
-        {!! Html::script('vendor/bootstrap/js/bootstrap.bundle.min.js') !!}
-    </body>
+  <!-- Bootstrap core JavaScript -->
+  {!! Html::script('vendor/jquery/jquery.min.js') !!}
+  {!! Html::script('vendor/bootstrap/js/bootstrap.bundle.min.js') !!}
+</body>
+
 </html>
