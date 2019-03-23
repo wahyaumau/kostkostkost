@@ -1,20 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.kostariateam')
 
 @section('title', '| Kamar')
-
-@section('panel')    
-    <a class="navbar-brand" href="{{route('mou.index')}}">MOU</a>    
-    <a class="navbar-brand" href="{{route('boardinghouses.index')}}">Kostan</a>
-@endsection
 
 @section('content')
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      <h3>Daftar MOU</h3>
+      <h3>Daftar Kamar</h3>
     </div>
     <div class="col-md-4">
-      <a href="{{route('mou.create')}}" class="btn btn-success">Tambah Kamar</a>  
+      <a href="{{route('chambers.create')}}" class="btn btn-success">Tambah Kamar</a>  
     </div>
     <div class="col-md-4">
             <form method="POST" action="{{ route('chambers.search') }}">

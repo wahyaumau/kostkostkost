@@ -17,11 +17,10 @@ class CreateUniversitiesTable extends Migration
             $table->increments('id');            
             $table->string('name');            
             $table->text('address');            
-            $table->integer('regency_id')->unsigned();
-            $table->foreign('regency_id')
-            ->references('id')->on('regencies')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            $table->bigInteger('village_id')->unsigned();
+            $table->foreign('village_id')
+            ->references('id')->on('villages');
+            $table->softDeletes();
         });
     }
 

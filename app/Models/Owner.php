@@ -26,8 +26,8 @@ class Owner extends Model
 
     protected $dates = ['deleted_at'];
     
-    public function regency(){
-        return $this->belongsTo('App\Models\Regency');
+    public function village(){
+        return $this->belongsTo('App\Models\Village');
     }
 
     public function boardinghouse(){

@@ -20,7 +20,7 @@ class Kostariateam extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'address', 'phone', 'regency_id', 'regency_id_birth', 'birth_date', 'nik'
+        'name', 'email', 'password', 'address', 'phone', 'village_id', 'regency_id_birth', 'birth_date', 'nik'
     ];
 
     /**
@@ -34,8 +34,8 @@ class Kostariateam extends Authenticatable
 
     protected $dates = ['deleted_at'];    
 
-    public function regency(){
-        return $this->belongsTo('App\Models\Regency');
+    public function village(){
+        return $this->belongsTo('App\Models\Village');
     }
 
     public function regencyBirth(){

@@ -19,19 +19,16 @@ class CreateKostariateamsTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->rememberToken();  
             $table->bigInteger('nik')->unsigned();
             $table->integer('regency_id_birth')->unsigned();
-            $table->foreign('regency_id_birth')
-                ->references('id')->on('regencies')
-                ->onDelete('cascade');
+            $table->foreign('regency_id_birth')->references('id')->on('regencies')
+                  ->onUpdate('cascade');
             $table->date('birth_date');
             $table->text('address');
-            $table->integer('regency_id')->unsigned();
-            $table->foreign('regency_id')
-                ->references('id')->on('regencies')
-                ->onDelete('cascade');
+            $table->bigInteger('village_id')->unsigned();
+            $table->foreign('village_id')->references('id')->on('villages')->onUpdate('cascade');
             $table->string('phone');
-            $table->rememberToken();  
             $table->timestamps();
             $table->softDeletes();          
         });

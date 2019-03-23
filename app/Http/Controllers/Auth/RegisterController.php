@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Models\Regency;
+use App\Models\Province;
 use App\Models\University;
 
 class RegisterController extends Controller
@@ -43,9 +43,9 @@ class RegisterController extends Controller
     }
 
     public function showRegistrationForm(){
-        $listRegency = Regency::all();
+        $listProvince = Province::all();
         $listUniversity = University::all();
-        return view('auth.register', compact('listRegency', 'listUniversity'));
+        return view('auth.register', compact('listProvince', 'listUniversity'));
     }
 
     /**
@@ -61,7 +61,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'address' => ['required', 'string'],
-            'regency_id' => ['required'],
+            'village_id' => ['required'],
             'phone' => ['required'],
             'lineId' => ['required', 'string'],
             'parent' => ['required', 'string'],
@@ -82,7 +82,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'address' => $data['address'],
-            'regency_id' => $data['regency_id'],
+            'village_id' => $data['village_id'],
             'university_id' => $data['university_id'],
             'phone' => $data['phone'],
             'lineId' => $data['lineId'],

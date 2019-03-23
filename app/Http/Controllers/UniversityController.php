@@ -11,7 +11,7 @@ class UniversityController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        $this->middleware('auth:admin, kostariateam');
     }
     /**
      * Display a listing of the resource.
@@ -46,12 +46,12 @@ class UniversityController extends Controller
         $this->validate($request, array(
             'name' => 'required|max:255',            
             'address' => 'required|max:255',                        
-            'regency_id' => 'required|numeric',            
+            'village_id' => 'required|numeric',            
         ));
         $university = new University;        
         $university->name = $request->get('name');
         $university->address = $request->get('address');        
-        $university->regency_id = $request->get('regency_id');        
+        $university->village_id = $request->get('village_id');        
         $university->save();
         return redirect()->route('universities.index')->with('success', 'berhasil ditambahkan');
     }
@@ -93,12 +93,12 @@ class UniversityController extends Controller
         $this->validate($request, array(
             'name' => 'required|max:255',            
             'address' => 'required|max:255',                        
-            'regency_id' => 'required|numeric',            
+            'village_id' => 'required|numeric',            
         ));
         $university = University::find($id);
         $university->name = $request->get('name');
         $university->address = $request->get('address');        
-        $university->regency_id = $request->get('regency_id');        
+        $university->village_id = $request->get('village_id');        
         $university->save();
         return redirect()->route('universities.index')->with('success', 'berhasil diedit');
     }

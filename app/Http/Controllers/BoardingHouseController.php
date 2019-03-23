@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Regency;
 use App\Models\Province;
+use App\Models\Regency;
+use App\Models\District;
+use App\Models\Village;
 use App\Models\BoardingHouse;
 use App\Models\Owner;
 
@@ -23,7 +25,7 @@ class BoardingHouseController extends Controller
      */
     public function index()
     {
-        $listBoardingHouse = BoardingHouse::all();
+        $listBoardingHouse = BoardingHouse::paginate(10);
         return view('boardinghouses.index', compact('listBoardingHouse'));
     }
 
@@ -51,7 +53,7 @@ class BoardingHouseController extends Controller
             'name' => 'required|max:255',
             'description' => 'required',
             'address' => 'required|max:255',            
-            'regency_id' => 'required|numeric',
+            'village_id' => 'required|numeric',
             'owner_id' => 'required|numeric',
             // 'facility' => 'required',
             'facility_other' => 'required',
@@ -63,7 +65,7 @@ class BoardingHouseController extends Controller
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');        
-        $boardinghouse->regency_id = $request->get('regency_id');        
+        $boardinghouse->village_id = $request->get('village_id');        
         $boardinghouse->owner_id = $request->get('owner_id');        
         $facilities=null;
         for ($i=1; $i <=11 ; $i++) { 
@@ -122,7 +124,7 @@ class BoardingHouseController extends Controller
             'name' => 'required|max:255',
             'description' => 'required',
             'address' => 'required|max:255',            
-            'regency_id' => 'required|numeric',
+            'village_id' => 'required|numeric',
             // 'owner_id' => 'required|numeric',
             // 'facility' => 'required',
             'facility_other' => 'required',
@@ -134,7 +136,7 @@ class BoardingHouseController extends Controller
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');        
-        $boardinghouse->regency_id = $request->get('regency_id');        
+        $boardinghouse->village_id = $request->get('village_id');        
         // $boardinghouse->owner_id = $request->get('owner_id');        
         $facilities=null;
         for ($i=1; $i <=11 ; $i++) { 

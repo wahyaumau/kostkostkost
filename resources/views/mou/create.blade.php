@@ -1,12 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.kostariateam')
 
 @section('title', '| New MOU')
 
 @section('stylesheets')
-
-{!! Html::style('css/select2.min.css') !!}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
+<link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -39,7 +36,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
                             <div class="col-md-6">                                
-                                <input type="text" class="form-control" value="{{$kostariateam->address." ". $kostariateam->regency->name. " " .$kostariateam->regency->province->name}}" disabled="true">
+                                <input type="text" class="form-control" value="{{$kostariateam->address.", Ds. " . $kostariateam->village->name. ", Kc. " . $kostariateam->village->district->name . ", " . $kostariateam->village->district->regency->name . ", " . $kostariateam->village->district->regency->province->name}}" disabled="true">
                             </div>
                         </div>                                    
                 </div>                
@@ -53,7 +50,6 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('mou.store') }}">
                         @csrf
-
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
 
@@ -112,7 +108,7 @@
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" placeholder="Desa, RT RW" value="{{ old('address') }}" required>
+                                <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" placeholder="Jl. RT RW" value="{{ old('address') }}" required>
 
                                 @if ($errors->has('address'))
                                     <span class="invalid-feedback" role="alert">
@@ -123,13 +119,33 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="regency_id_owner" class="col-md-4 col-form-label text-md-right">{{ __('Kota/Kabupaten') }}</label>
+                            <label for="regency_id" class="col-md-4 col-form-label text-md-right">{{ __('Kota/Kabupaten') }}</label>
 
                             <div class="col-md-6">
-                                <select class="form-control select2-single" name="regency_id_owner">
+                                <select class="form-control select2-single" name="regency_id">
                                     @foreach($listRegency as $regency)
                                         <option value='{{$regency->id}}'>{{$regency->name}}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="district_id" class="col-md-4 col-form-label text-md-right">{{ __('Kecamatan') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control select2-single" name="district_id">
+                                        <option value="">Pilih Kecamatan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="district_id" class="col-md-4 col-form-label text-md-right">{{ __('Desa') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control select2-single" name="village_id">
+                                        <option value="">Pilih Desa</option>
                                 </select>
                             </div>
                         </div>
@@ -149,10 +165,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="regency_id" class="col-md-4 col-form-label text-md-right">{{ __('Ditandatangani di :') }}</label>
+                            <label for="regency_id_signed" class="col-md-4 col-form-label text-md-right">{{ __('Ditandatangani di :') }}</label>
 
                             <div class="col-md-6">
-                                <select class="form-control select2-single" name="regency_id">
+                                <select class="form-control select2-single" name="regency_id_signed">
                                     @foreach($listRegency as $regency)
                                         <option value='{{$regency->id}}'>{{$regency->name}}</option>
                                     @endforeach
@@ -200,21 +216,78 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection    
 
 @section('scripts')
 
-	{!! Html::script('js/select2.min.js') !!}
-	<script type="text/javascript">
-		$('.select2-single').select2();
-	</script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script type="text/javascript">
+        $('.select2-single').select2();
+    </script>
 
     <script type="text/javascript">
         document.querySelector("#today").valueAsDate = new Date();
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('.select2-single').select2();
+    </script>
+ <script>
+     $(document).ready(function() {
+
+    $('select[name="regency_id"]').on('change', function(){
+        var regencyId = $(this).val();
+        if(regencyId) {
+            $.ajax({
+                url: '/address/getDistricts/'+regencyId,
+                type:"GET",
+                dataType:"json",
+                success:function(data) {
+
+
+                    $('select[name="district_id"]').empty();                    
+                    $('select[name="village_id"]').empty();
+                    $('select[name="district_id"]').append('<option value="">Pilih Kecamatan</option>');
+
+                    $.each(data, function(key, value){
+
+                        $('select[name="district_id"]').append('<option value="'+ key +'">' + value + '</option>');
+
+                    });
+                }
+            });
+        } else {            
+            $('select[name="district_id"]').empty();
+            $('select[name="village_id"]').empty();
+        }
+
+    });
+
+    $('select[name="district_id"]').on('change', function(){
+        var districtId = $(this).val();
+        if(districtId) {
+            $.ajax({
+                url: '/address/getVillages/'+districtId,
+                type:"GET",
+                dataType:"json",
+                success:function(data) {
+
+                    $('select[name="village_id"]').empty();
+                    $('select[name="village_id"]').append('<option value="">Pilih Desa</option>');
+
+
+                    $.each(data, function(key, value){
+                        $('select[name="village_id"]').append('<option value="'+ key +'">' + value + '</option>');                        
+                    });
+                }
+            });
+        } else {                        
+            $('select[name="village_id"]').empty();
+        }
+
+    });
+
+});
+ </script>
 
 @endsection

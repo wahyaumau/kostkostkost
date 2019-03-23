@@ -1,13 +1,10 @@
-@extends('layouts.app')
-
-@section('title', '| New Kamar')
+@extends('layouts.kostariateam')
 
 @section('stylesheets')
-
-{!! Html::style('css/select2.min.css') !!}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
+<link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
 @endsection
+
+@section('title', '| New Kamar')
 
 @section('content')
 <div class="container">
@@ -147,17 +144,9 @@
 
 @section('scripts')
 
-    {!! Html::script('js/select2.min.js') !!}
+    <script src="{{ asset('js/select2.min.js') }}"></script>        
     <script type="text/javascript">
         $('.select2-single').select2();
     </script>
-
-    <script type="text/javascript">
-        document.querySelector("#today").valueAsDate = new Date();
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 @endsection

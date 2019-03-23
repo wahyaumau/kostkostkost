@@ -3,20 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class University extends Model
-{
-    protected $table = 'universities';    
-    // protected $fillable = [
-    //     'name',
-    //     'address'        
-    // ];
-
-    // protected $guarded = [
-    //     'id'
-    // ];
-
-    public function regency(){
-        return $this->belongsTo('App\Models\Regency');
+{    
+	use SoftDeletes;    
+    public $timestamps = false;
+    public function village(){
+        return $this->belongsTo('App\Models\Village');
     }
 }

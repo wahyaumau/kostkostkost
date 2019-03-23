@@ -35,10 +35,10 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {        
         $listRegency = Regency::all();
         $listUniversity = University::all();
-        return view('users.create', compact('listRegency', 'listUniversity'));
+        return view('users.create', compact('listUniversity', 'listRegency'));
     }
 
     /**
@@ -59,7 +59,7 @@ class UserController extends Controller
         $user->email = $request->get('email');
         $user->address = $request->get('address');        
         $user->password = Hash::make($request->get('password'));        
-        $user->regency_id = $request->get('regency_id');
+        $user->village_id = $request->get('village_id');
         $user->university_id = $request->get('university_id');
         $user->phone = $request->get('phone');
         $user->lineId = $request->get('lineId');
@@ -91,9 +91,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $listRegency = Regency::all();
+        $listProvince = Province::all();
         $listUniversity = University::all();
-        return view('users.edit', compact('user', 'id', 'listRegency', 'listUniversity'));
+        return view('users.edit', compact('user', 'id', 'listProvince', 'listUniversity'));
     }
 
     /**
@@ -115,7 +115,7 @@ class UserController extends Controller
         $user->email = $request->get('email');
         $user->address = $request->get('address');        
         $user->password = bcrypt($request->get('password'));        
-        $user->regency_id = $request->get('regency_id');
+        $user->village_id = $request->get('village_id');
         $user->university_id = $request->get('university_id');
         $user->phone = $request->get('phone');
         $user->lineId = $request->get('lineId');

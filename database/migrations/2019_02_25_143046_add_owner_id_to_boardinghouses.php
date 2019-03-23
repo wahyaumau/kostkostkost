@@ -17,8 +17,8 @@ class AddOwnerIdToBoardinghouses extends Migration
             $table->integer('owner_id')->unsigned();
             $table->foreign('owner_id')
                 ->references('id')->on('owners');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->timestamps();  
+            $table->softDeletes();             
         });
     }
 

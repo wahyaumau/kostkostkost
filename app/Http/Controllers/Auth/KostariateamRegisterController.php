@@ -7,7 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Province;
 use App\Models\Regency;
+use App\Models\District;
+use App\Models\Village;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
@@ -44,8 +47,8 @@ class KostariateamRegisterController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function showRegistrationForm(){
-        $listRegency = Regency::all();        
+    public function showRegistrationForm(){        
+        $listRegency = Regency::all();
         return view('auth.kostariateam-register', compact('listRegency'));
     }
 
@@ -64,7 +67,7 @@ class KostariateamRegisterController extends Controller
             'regency_id_birth' => ['required'],
             'birth_date' => ['required'],
             'address' => ['required', 'string'],
-            'regency_id' => ['required'],
+            'village_id' => ['required'],
             'phone' => ['required'],            
             'nik' => ['required'],            
         ]);
@@ -85,7 +88,7 @@ class KostariateamRegisterController extends Controller
             'regency_id_birth' => $data['regency_id_birth'],
             'birth_date' => $data['birth_date'],
             'address' => $data['address'],
-            'regency_id' => $data['regency_id'],            
+            'village_id' => $data['village_id'],            
             'phone' => $data['phone'],    
             'nik' => $data['nik'],    
         ]);

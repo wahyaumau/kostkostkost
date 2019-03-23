@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRegencyIdToUsers extends Migration
+class AddVillageIdToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,8 @@ class AddRegencyIdToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('regency_id')->unsigned();
-            $table->foreign('regency_id')
-                ->references('id')->on('regencies');            
+            $table->bigInteger('village_id')->unsigned();
+            $table->foreign('village_id')->references('id')->on('villages');
         });
     }
 
@@ -28,7 +27,7 @@ class AddRegencyIdToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('regency_id');
+            $table->dropColumn('village_id');
         });
     }
 }

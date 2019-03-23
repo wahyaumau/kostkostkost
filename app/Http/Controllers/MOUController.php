@@ -60,7 +60,7 @@ class MOUController extends Controller
             'name' => 'required|max:255',            
             'address' => 'required|max:255',            
             'regency_id_birth' => 'required|numeric',
-            'regency_id_owner' => 'required|numeric',
+            'village_id' => 'required|numeric',
             'phone' => 'required|numeric',
             'nik' => 'required|numeric',
             'birth_date' => 'required|date|before:now',            
@@ -69,7 +69,7 @@ class MOUController extends Controller
         $owner->name = $request->get('name');
         $owner->address = $request->get('address');
         $owner->regency_id_birth = $request->get('regency_id_birth');
-        $owner->regency_id = $request->get('regency_id_owner');
+        $owner->village_id = $request->get('village_id');
         $owner->phone = $request->get('phone');
         $owner->nik = $request->get('nik');
         $owner->birth_date = $request->get('birth_date');
@@ -77,9 +77,8 @@ class MOUController extends Controller
 
         $ownernik = $request->get('nik');
         $owner = Owner::where('nik', $ownernik)->first();
-        $this->validate($request, array(
-            // 'owner_id' => 'required|numeric',
-            'regency_id' => 'required|numeric',
+        $this->validate($request, array(            
+            'regency_id_signed' => 'required|numeric',
             'signed_at' => 'required|date',
             'ended_at' => 'required|date|after:signed_at',
         ));
@@ -87,7 +86,7 @@ class MOUController extends Controller
         $kostariateam_id = Auth::guard('kostariateam')->user()->id;
         $mou->kostariateam_id = $kostariateam_id;
         $mou->owner_id = $owner->id;
-        $mou->regency_id = $request->get('regency_id');        
+        $mou->regency_id = $request->get('regency_id_signed');        
         $mou->signed_at = $request->get('signed_at');        
         $mou->ended_at = $request->get('ended_at');        
         $mou->save();        

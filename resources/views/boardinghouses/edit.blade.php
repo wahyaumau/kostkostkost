@@ -1,12 +1,7 @@
-@extends('layouts.app')
-
-@section('title', '| Edit Kostan')
+@extends('layouts.kostariateam')
 
 @section('stylesheets')
-
-{!! Html::style('css/select2.min.css') !!}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
+<link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -68,12 +63,33 @@
 
                             <div class="col-md-6">
                                 <select class="form-control select2-single" name="regency_id">
+                                    <option value="{{ $boardinghouse->village->district->regency->id }}">{{ $boardinghouse->village->district->regency->name }}</option>
                                     @foreach($listRegency as $regency)
                                         <option value='{{$regency->id}}'>{{$regency->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>                    
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="district_id" class="col-md-4 col-form-label text-md-right">{{ __('Kecamatan') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control select2-single" name="district_id">
+                                        <option value="{{ $boardinghouse->village->district->id }}">{{ $boardinghouse->village->district->name }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="district_id" class="col-md-4 col-form-label text-md-right">{{ __('Desa') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control select2-single" name="village_id">
+                                        <option value="{{ $boardinghouse->village->id }}">{{ $boardinghouse->village->name }}</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="facility" class="col-md-4 col-form-label text-md-right">{{ __('Fasilitas') }}</label>
                             <div class="col-md-6">
@@ -156,120 +172,103 @@
 
 @section('scripts')
 
-    {!! Html::script('js/select2.min.js') !!}
+    <script src="{{ asset('js/select2.min.js') }}"></script>
     <script type="text/javascript">
-    $('.select2-single').select2();
-    $('.select2-single').select2().val({!! json_encode($boardinghouse->regency->id)!!}).trigger('change');
-  </script>
+        $('.select2-single').select2();        
+    </script>
 
     <script type="text/javascript">
         document.querySelector("#today").valueAsDate = new Date();
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('.select2-single').select2();
+    </script>
+ <script>
+     $(document).ready(function() {
+
+    $('select[name="province_id"]').on('change', function(){
+        var provinceId = $(this).val();
+        if(provinceId) {
+            $.ajax({
+                url: '/address/getRegencies/'+provinceId,
+                type:"GET",
+                dataType:"json",
+                success:function(data) {
+                    $('select[name="regency_id"]').empty();
+                    $('select[name="district_id"]').empty();
+                    $('select[name="village_id"]').empty();
+
+                    $('select[name="regency_id"]').append('<option value="">Pilih Kota</option>');
+
+                    $.each(data, function(key, value){
+
+                        $('select[name="regency_id"]').append('<option value="'+ key +'">' + value + '</option>');
+
+                    });
+                }
+            });
+        } else {
+            $('select[name="regency_id"]').empty();
+            $('select[name="district_id"]').empty();
+            $('select[name="village_id"]').empty();
+        }
+
+    });
+
+    $('select[name="regency_id"]').on('change', function(){
+        var regencyId = $(this).val();
+        if(regencyId) {
+            $.ajax({
+                url: '/address/getDistricts/'+regencyId,
+                type:"GET",
+                dataType:"json",
+                success:function(data) {
+
+
+                    $('select[name="district_id"]').empty();                    
+                    $('select[name="village_id"]').empty();
+                    $('select[name="district_id"]').append('<option value="">Pilih Kecamatan</option>');
+
+                    $.each(data, function(key, value){
+
+                        $('select[name="district_id"]').append('<option value="'+ key +'">' + value + '</option>');
+
+                    });
+                }
+            });
+        } else {            
+            $('select[name="district_id"]').empty();
+            $('select[name="village_id"]').empty();
+        }
+
+    });
+
+    $('select[name="district_id"]').on('change', function(){
+        var districtId = $(this).val();
+        if(districtId) {
+            $.ajax({
+                url: '/address/getVillages/'+districtId,
+                type:"GET",
+                dataType:"json",
+                success:function(data) {
+
+                    $('select[name="village_id"]').empty();
+                    $('select[name="village_id"]').append('<option value="">Pilih Desa</option>');
+
+
+                    $.each(data, function(key, value){
+                        $('select[name="village_id"]').append('<option value="'+ key +'">' + value + '</option>');                        
+                    });
+                }
+            });
+        } else {                        
+            $('select[name="village_id"]').empty();
+        }
+
+    });
+
+});
+ </script>
 
 @endsection
-{{-- @extends('main')
-
-@section('title', '| New University')
-
-@section('stylesheets')
-
-{!! Html::style('css/select2.min.css') !!}
-
-@endsection
-
-
-@section('content')
-
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      
-    <h1>Edit Kostan</h1>
-    <hr>
-
-    <form method="post" action="{{ route('boardinghouses.update', $boardinghouse->id) }}">
-        @method('PATCH')
-            @csrf
-            <div class="form-group col-md-12">
-                    <label for="name">Nama Kostan :</label>
-                    <input type="text" class="form-control" name="name"
-                    value="{{$boardinghouse->name}}">
-                </div>
-
-                <div class="form-group col-md-12">
-                    <label for="desc">Deskripsi Kostan :</label>
-                    <input type="text" class="form-control" name="description" value="{{$boardinghouse->description}}">
-                </div>
-
-                <div class="form-group col-md-12">
-                    <label for="alamat">Alamat :</label>
-                    <input type="text" class="form-control" name="address" value="{{$boardinghouse->address}}">
-                </div>
-
-                <div class="form-group col-md-12">
-                    <label for="kota">Kota :</label>
-                    <select class="form-control select2-single" name="regency_id">
-                        @foreach($listRegency as $regency)
-                        <option value='{{$regency->id}}'>{{$regency->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="alamat">Nama Pemilik :</label>
-                    <input type="text" class="form-control" name="owner_name" value="{{$boardinghouse->owner_name}}">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="alamat">No Hp Pemilik :</label>
-                    <input type="text" class="form-control" name="owner_phone" value="{{$boardinghouse->owner_phone}}">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="alamat">Fasilitas Umum :</label>
-                    <input type="text" class="form-control" name="facility" value="{{$boardinghouse->facility}}">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="alamat">Fasilitas Parkir :</label>
-                    <input type="text" class="form-control" name="facility_park" value="{{$boardinghouse->facility_park}}">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="alamat">Akses Lingkungan :</label>
-                    <input type="text" class="form-control" name="access" value="{{$boardinghouse->access}}">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="alamat">Keterangan tambahan :</label>
-                    <input type="text" class="form-control" name="information_others" value="{{$boardinghouse->information_others}}">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="alamat">Keterangan Biaya :</label>
-                    <input type="text" class="form-control" name="information_cost" value="{{$boardinghouse->information_cost}}">
-                </div>
-
-                <div class="box-footer">
-                <div class="row">
-                <div class="col-md-12"></div>
-                <div class="form-group col-md-4">
-                    <button type="submit" class="btn btn-success">Update</button>
-                </div>
-                </div>
-            </div>
-
-        </form>
-
-
-      
-    </div>
-  </div>
-
-@endsection
-
-@section('scripts')
-
-  {!! Html::script('js/select2.min.js') !!}
-  <script type="text/javascript">
-    $('.select2-single').select2();
-    $('.select2-single').select2().val({!! json_encode($boardinghouse->regency->id)!!}).trigger('change');
-  </script>
-
-@endsection --}}

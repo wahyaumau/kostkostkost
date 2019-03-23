@@ -7,27 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Regency extends Model
 {
     protected $table = 'regencies';
-    // protected $fillable = [
-    //     'name'
-    // ];
-
-    // protected $guarded = [
-    //     'id'
-    // ];
 
     public function province(){
         return $this->belongsTo('App\Models\Province');
     }
 
-    public function user(){
-        return $this->hasOne('App\Models\User');
+    public function district(){
+        return $this->hasMany('App\Models\District');
     }
 
-    public function boardinghouse(){
-        return $this->hasOne('App\Models\BoardingHouse');
+    public function mou(){
+        return $this->hasMany('App\Models\Mou');
     }
 
-    public function university(){
-        return $this->hasOne('App\Models\University');
-    }
 }

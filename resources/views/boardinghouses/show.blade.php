@@ -1,11 +1,4 @@
-@extends('layouts.app')
-
-@section('stylesheets')
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-{!! Html::style('css/select2.min.css') !!}
-
-@endsection
+@extends('layouts.kostariateam')
 
 @section('content')
 <div class="container">
@@ -15,7 +8,7 @@
                 <div class="card-header">{{ $boardinghouse->name }}</div>
                 <div class="card-body">                	
                     <p>deskripsi : {{$boardinghouse->description}}</p>
-                    <p>alamat : {{$boardinghouse->address." ".$boardinghouse->regency->name. ", ".$boardinghouse->regency->province->name }}</p>
+                    <p>alamat : {{$boardinghouse->address." ".$boardinghouse->village->name. ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</p>
                     @php 
                     $facilities = str_split($boardinghouse->facility);
                     $facilities_def = array('dapur', 'kompor', 'lpg', 'parkir motor', 'parkir mobil', 'jemuran', 'listrik', 'air', 'layanan kebersihan', 'pajak dan retribusi', 'wi-fi');
@@ -67,9 +60,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-    
-
 @endsection

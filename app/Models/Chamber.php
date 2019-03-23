@@ -8,19 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Chamber extends Model
 {    
     use SoftDeletes;
-    protected $table = 'chambers';    
-    // protected $fillable = [
-    //     'name',
-    //     'price_monthly',
-    //     'price_annual',
-    //     'gender',
-    //     'chamber_size',
-    //     'chamber_facility',        
-    // ];
-
-    // protected $guarded = [
-    //     'id'
-    // ];
+    protected $table = 'chambers';        
 
     protected $dates = ['deleted_at'];
 

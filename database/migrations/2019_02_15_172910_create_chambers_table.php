@@ -18,10 +18,9 @@ class CreateChambersTable extends Migration
             $table->string('name');
             $table->integer('boardinghouse_id')->unsigned();
             $table->foreign('boardinghouse_id')
-                ->references('id')->on('boardinghouses')
-                ->onDelete('cascade');
-            $table->integer('price_monthly')->unsigned();
-            $table->integer('price_annual')->unsigned();
+                ->references('id')->on('boardinghouses');
+            $table->bigInteger('price_monthly');
+            $table->bigInteger('price_annual');
             $table->boolean('gender');
             $table->string('chamber_size');
             $table->string('chamber_facility');                        

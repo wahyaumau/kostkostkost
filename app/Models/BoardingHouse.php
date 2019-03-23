@@ -10,8 +10,8 @@ class Boardinghouse extends Model
     use SoftDeletes;
     protected $table = 'boardinghouses';        
     
-    public function regency(){
-        return $this->belongsTo('App\Models\Regency');
+    public function village(){
+        return $this->belongsTo('App\Models\Village');
     }
 
     public function chamber(){

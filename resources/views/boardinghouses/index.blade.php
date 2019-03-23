@@ -1,11 +1,4 @@
-@extends('layouts.app')
-
-@section('title', '| MOU')
-
-@section('panel')    
-    <a class="navbar-brand" href="{{route('mou.index')}}">MOU</a>
-    <a class="navbar-brand" href="{{route('chambers.index')}}">Kamar</a>    
-@endsection
+@extends('layouts.kostariateam')
 
 @section('content')
 <div class="container">
@@ -46,8 +39,7 @@
                     <th>No</th>
                     <th>Nama Kostan</th>
                     <th>Deskripsi</th>
-                    <th>Alamat</th>
-                    <th>Kota/Kabupaten</th>
+                    <th>Alamat</th>                    
                     <th>Nama Pemilik</th>
                     <th>Kontak Pemilik</th>
                     <th>Fasilitas Umum</th>
@@ -65,8 +57,7 @@
                     <td>{{$boardinghouse->id}}</td>
                     <td>{{$boardinghouse->name}}</td>
                     <td>{{$boardinghouse->description}}</td>
-                    <td>{{$boardinghouse->address}}</td>
-                    <td>{{$boardinghouse->regency->name}}</td>
+                    <td>{{$boardinghouse->address. ", ".$boardinghouse->village->name. ", ". $boardinghouse->village->district->name . ", ". $boardinghouse->village->district->regency->name . ", ". $boardinghouse->village->district->regency->province->name}}</td>                    
                     <td>{{$boardinghouse->owner->name}}</td>
                     <td>{{$boardinghouse->owner->phone}}</td>
                     @php 
@@ -87,9 +78,9 @@
                     <td>{{$boardinghouse->access}}</td>
                     <td>{{$boardinghouse->information_others}}</td>
                     <td>{{$boardinghouse->information_cost}}</td>
-                    <td><a href="{{ route('chambers.creates', $boardinghouse->id)}}" class="btn btn-primary">Tambah Kamar</a></td>
+                    <td><a href="{{ route('chambers.creates', $boardinghouse->id)}}" class="btn btn-success">Tambah Kamar</a></td>
                     <td>
-                    <td><a href="{{ route('boardinghouses.edit', $boardinghouse->id)}}" class="btn btn-primary">Edit</a></td>
+                    <td><a href="{{ route('boardinghouses.edit', $boardinghouse->id)}}" class="btn btn-warning">Edit</a></td>
                     <td><a href="{{ route('boardinghouses.show', $boardinghouse->id)}}" class="btn btn-primary">Show</a></td>
                     <td><form action="{{ route('boardinghouses.destroy', $boardinghouse->id)}}" method="post">
                           @csrf
@@ -99,6 +90,10 @@
                     </td>
                 </tr>
             @endforeach
+
+            <div class="text-center">
+                {!!$listBoardingHouse->links(); !!}
+            </div>
             </tbody>
         </table>
     </div> 

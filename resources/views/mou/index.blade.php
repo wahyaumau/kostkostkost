@@ -1,11 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.kostariateam')
 
 @section('title', '| MOU')
-
-@section('panel')    
-    <a class="navbar-brand" href="{{route('boardinghouses.index')}}">Kostan</a>
-    <a class="navbar-brand" href="{{route('chambers.index')}}">Kamar</a>    
-@endsection
 
 @section('content')
 <div class="container">

@@ -31,6 +31,9 @@ Route::post('boardinghouses/search', 'BoardingHouseController@search')->name('bo
 Route::post('chambers/search', 'ChamberController@search')->name('chambers.search');
 
 Route::get('chambers/creates/{id}', 'ChamberController@creates')->name('chambers.creates');
+Route::get('address/getRegencies/{id}', 'AddressController@getRegencies');
+Route::get('address/getDistricts/{id}', 'AddressController@getDistricts');
+Route::get('address/getVillages/{id}', 'AddressController@getVillages');
 
 
 

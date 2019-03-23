@@ -1,24 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.kostariateam')
 
-@section('panel')
-    {{-- <a class="navbar-brand" href="{{route('universities.index')}}">University</a> --}}
-    <a class="navbar-brand" href="{{route('mou.index')}}">MOU</a>
-    <a class="navbar-brand" href="{{route('boardinghouses.index')}}">Kostan</a>
-    <a class="navbar-brand" href="{{route('chambers.index')}}">Kamar</a>
-@endsection
-@section('logout')
-<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('kostariateam.logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('kostariateam.logout') }}" method="GET" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

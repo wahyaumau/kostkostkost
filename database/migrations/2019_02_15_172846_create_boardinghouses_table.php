@@ -18,15 +18,13 @@ class CreateBoardingHousesTable extends Migration
             $table->string('name');            
             $table->text('description');
             $table->text('address');
-            $table->integer('regency_id')->unsigned();
-            $table->foreign('regency_id')
-                ->references('id')->on('regencies')
-                ->onDelete('cascade');            
+            $table->bigInteger('village_id')->unsigned();
+            $table->foreign('village_id')->references('id')->on('villages');
             $table->string('facility');
             $table->string('facility_other');
             $table->string('access');
             $table->string('information_others');
-            $table->string('information_cost');                        
+            $table->string('information_cost');               
         });
     }
 
