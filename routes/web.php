@@ -19,7 +19,11 @@ Route::get('/', function () {
 //     return view('other.about');
 // });
 
+<<<<<<< HEAD
 Route::get('/teamregist', function () {
+=======
+Route::get('/register', function () {
+>>>>>>> 64defd5c0dffad0c86f571bc06dcbc9e872f4059
     return view('other.teamreg');
 });
 
