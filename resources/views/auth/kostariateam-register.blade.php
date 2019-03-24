@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('stylesheets')
 <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
@@ -112,7 +112,7 @@
               <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
 
               <div class="col-md-6">
-                <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" placeholder="Ds.. RT RW Jl.. Kc.." value="{{ old('address') }}" required autofocus>
+                <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" placeholder="Jl... RT.. RW..." value="{{ old('address') }}" required autofocus>
 
                 @if ($errors->has('address'))
                 <span class="invalid-feedback" role="alert">
@@ -136,6 +136,26 @@
 
               </div>
             </div>
+
+            <div class="form-group row">
+                            <label for="district_id" class="col-md-4 col-form-label text-md-right">{{ __('Kecamatan') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control select2-single" name="district_id">
+                                        <option value="">Pilih Kecamatan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="district_id" class="col-md-4 col-form-label text-md-right">{{ __('Desa') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control select2-single" name="village_id">
+                                        <option value="">Pilih Desa</option>
+                                </select>
+                            </div>
+                        </div>
 
 
             <div class="form-group row">
