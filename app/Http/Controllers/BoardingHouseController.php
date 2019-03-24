@@ -25,7 +25,7 @@ class BoardingHouseController extends Controller
      */
     public function index()
     {
-        $listBoardingHouse = BoardingHouse::paginate(10);
+        $listBoardingHouse = BoardingHouse::paginate(2);
         return view('boardinghouses.index', compact('listBoardingHouse'));
     }
 
@@ -172,7 +172,7 @@ class BoardingHouseController extends Controller
         $name = $request->get('name-search');
         $address = $request->get('address-search');
         $listBoardingHouse = Boardinghouse::where('name', 'LIKE', '%'.$name.'%')
-                            ->where('address', 'LIKE', '%'.$address.'%');
+                            ->where('address', 'LIKE', '%'.$address.'%')->paginate(10);
         
         return view('boardinghouses.index', compact('listBoardingHouse'));
     }
