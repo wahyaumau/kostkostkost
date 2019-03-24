@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Village extends Model
 {
+    protected $table = 'villages';
+    public $timestamps = false;
     public function district(){
         return $this->belongsTo('App\Models\District');
     }

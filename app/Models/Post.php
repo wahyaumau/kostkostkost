@@ -3,20 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Post extends SoftDelete
 {
-    protected $table = 'posts';    
-    // protected $fillable = [
-    //     'title',
-    //     'description',
-    //     'picture',        
-    // ];
-
-    // protected $guarded = [
-    //     'id'
-    // ];
-
-    protected $dates = ['deleted_at'];
+    protected $table = 'posts';        
 }

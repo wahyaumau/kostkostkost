@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mou extends Model
+class Mou extends SoftDelete
 {
 	protected $table = 'mou';
     public function kostariateam(){

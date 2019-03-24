@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Regency extends Model
 {
-    protected $table = 'regencies';
+    protected $table = 'regencies';    
+    public $timestamps = false;
 
     public function province(){
         return $this->belongsTo('App\Models\Province');

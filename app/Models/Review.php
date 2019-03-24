@@ -6,14 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    protected $table = 'reviews';    
-    // protected $fillable = [
-    //     'review'
-    // ];
-
-    // protected $guarded = [
-    //     'id'
-    // ];    
+    protected $table = 'reviews';        
 
     public function boardingHouse(){
         return $this->belongsTo('App\Models\BoardingHouse');

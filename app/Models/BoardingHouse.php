@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Boardinghouse extends Model
-{
-    use SoftDeletes;
-    protected $table = 'boardinghouses';        
+class Boardinghouse extends SoftDelete
+{    
+    protected $table = 'boardinghouses';    
     
     public function village(){
         return $this->belongsTo('App\Models\Village');

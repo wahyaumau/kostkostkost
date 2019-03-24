@@ -3,14 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Chamber extends Model
+class Chamber extends SoftDelete
 {    
-    use SoftDeletes;
-    protected $table = 'chambers';        
-
-    protected $dates = ['deleted_at'];
+	protected $table = 'chambers';    
 
     public function boardinghouse(){
         return $this->belongsTo('App\Models\BoardingHouse');

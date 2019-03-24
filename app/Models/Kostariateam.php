@@ -30,9 +30,7 @@ class Kostariateam extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
-    ];
-
-    protected $dates = ['deleted_at'];    
+    ];    
 
     public function village(){
         return $this->belongsTo('App\Models\Village');
@@ -46,13 +44,8 @@ class Kostariateam extends Authenticatable
         return $this->hasMany('App\Models\Boardinghouse');
     }
 
-    // public function owner(){
-    //     return $this->belongsTo('App\Models\Owner', 'mou', 'kostariateam_id', 'owner_id');  
-    // }
-
     public function mou(){
         return $this->hasMany('App\Models\MOU');
     }
 
-    
 }
