@@ -15,31 +15,46 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/about', function () {
-//     return view('other.about');
-// });
-
 Route::get('/teamregist', function () {
     return view('other.teamreg');
 });
 
-// Route::get('boardinghouses-autocomplete', 'BoardingHouseController@search');
-// Route::get('chambers-autocomplete', 'ChamberController@search');
-// Route::get('university-autocomplete', 'UniversityController@search');
 Route::get('boardinghouses/creates/{id}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
 Route::post('boardinghouses/search', 'BoardingHouseController@search')->name('boardinghouses.search');
 Route::post('chambers/search', 'ChamberController@search')->name('chambers.search');
 Route::get('chambers/creates/{id}', 'ChamberController@creates')->name('chambers.creates');
-Route::get('address/getRegencies/{id}', 'AddressController@getRegencies');
-Route::get('address/getDistricts/{id}', 'AddressController@getDistricts');
-Route::get('address/getVillages/{id}', 'AddressController@getVillages');
 
+Route::prefix('address')->group(function(){
+	Route::get('/getRegencies/{id}', 'AddressController@getRegencies')->name('address.getRegencies');
+	Route::get('/getDistricts/{id}', 'AddressController@getDistricts')->name('address.getDistricts');
+	Route::get('/getVillages/{id}', 'AddressController@getVillages')->name('address.getVillages');
+});
+
+
+Route::resource('provinces', 'ProvinceController', [
+    'only' => ['index', 'store']
+]);
+Route::resource('regencies', 'RegencyController', [
+    'only' => ['index', 'store']
+]);
+Route::resource('districts', 'DistrictController', [
+    'only' => ['index', 'store']
+]);
+Route::resource('villages', 'VillageController', [
+    'only' => ['index', 'store']
+]);
 Route::resource('boardinghouses', 'BoardingHouseController');
-Route::resource('chambers', 'ChamberController');
-Route::resource('universities', 'UniversityController');
+Route::resource('chambers', 'ChamberController', [
+	'except' => ['show']
+]);
+Route::resource('universities', 'UniversityController',[
+	'except' => ['show']
+]);
+Route::resource('mou', 'MOUController', [
+	'except' => ['edit', 'update']
+]);
 Route::resource('users', 'UserController');
 Route::resource('posts', 'PostController');
-Route::resource('mou', 'MOUController');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
@@ -63,11 +78,6 @@ Route::prefix('admin')->group(function(){
 Route::prefix('kostariateam')->group(function(){
 	Route::get('/login', 'Auth\KostariateamLoginController@showLoginForm')->name('kostariateam.login');
 	Route::post('/login', 'Auth\KostariateamLoginController@login')->name('kostariateam.login.submit');
-	Route::get('/logout', 'Auth\KostariateamLoginController@logout')->name('kostariateam.logout');
-	Route::get('/', 'KostariateamController@index')->name('kostariateam.dashboard');
-	// Route::post('/password/email', 'Auth\KostariateamForgotPasswordController@sendResetEmailLink')->name('kostariateam.password.email');
-	// Route::post('/password/reset', 'Auth\KostariateamResetPasswordController@reset')->name('kostariateam.password.update');
-	// Route::get('/password/reset', 'Auth\KostariateamForgotPasswordController@showLinkRequestForm')->name('kostariateam.password.request');
-	// Route::get('/password/reset/{token}', 'Auth\KostariateamResetPasswordController@showResetForm')->name('kostariateam.password.reset');
+	Route::get('/logout', 'Auth\KostariateamLoginController@logout')->name('kostariateam.logout');	
 	Route::get('/', 'KostariateamController@index')->name('kostariateam.dashboard');
 });
