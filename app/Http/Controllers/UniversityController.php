@@ -11,7 +11,7 @@ class UniversityController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin, kostariateam');
+        $this->middleware('auth:kostariateam,admin');
     }
     /**
      * Display a listing of the resource.

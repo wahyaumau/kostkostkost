@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Province;
+use App\Models\Regency;
 
 class RegencyController extends Controller
 {
@@ -40,7 +41,7 @@ class RegencyController extends Controller
             'name' => 'required|max:255',
             'province_id' => 'required',
         ));
-        $regency = new regency;        
+        $regency = new Regency;        
         $regency->name = $request->get('name');        
         $regency->province_id = $request->get('province_id');        
         $regency->save();

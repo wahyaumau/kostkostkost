@@ -61,6 +61,7 @@
                                     <option value='{{$regency->id}}'>{{$regency->name}}</option>
                                     @endforeach
                                 </select>
+                            <a href="{{ route('regencies.index') }}">Tidak menemukan Kota?</a>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -69,6 +70,7 @@
                                 <select class="form-control select2-single" name="district_id">
                                     <option value="">Pilih Kecamatan</option>
                                 </select>
+                                <a href="{{ route('districts.index') }}">Tidak menemukan Kecamatan?</a>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -77,6 +79,7 @@
                                 <select class="form-control select2-single" name="village_id">
                                     <option value="">Pilih Desa</option>
                                 </select>
+                                <a href="{{ route('villages.index') }}">Tidak menemukan Desa?</a>
                             </div>
                         </div>
                         <div class="form-group row">
