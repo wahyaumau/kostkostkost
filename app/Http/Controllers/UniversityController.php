@@ -11,7 +11,7 @@ class UniversityController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:kostariateam,admin');
+        $this->middleware('auth:kostariateam,admin', ['except' => ['getUniversities']]);
     }
     /**
      * Display a listing of the resource.
@@ -116,6 +116,18 @@ class UniversityController extends Controller
         return redirect()->route('universities.index')->with('success', 'berhasil dihapus');
     }
 
+    // public function getUniversities($name) {        
+    //     $listUniversity = Univer::where("name",$name)->pluck("name","id");
+    //     return json_encode($listUniversity);
+    // }
 
+    public function getUniversities(Request $request)
+    {
+        if($request->has('q')){
+            $search = $request->q;
+            $data = University::where('name', 'LIKE', '%'.$search.'%')->get();
+        }
+        return response()->json($data);
+    }
 
 }

@@ -92,4 +92,9 @@ class VillageController extends Controller
     {
         //
     }
+
+    public function getVillages($id) {        
+        $listVillage = Village::where("district_id",$id)->pluck("name","id");
+        return json_encode($listVillage);
+    }
 }

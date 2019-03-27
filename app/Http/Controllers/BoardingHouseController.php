@@ -9,13 +9,14 @@ use App\Models\District;
 use App\Models\Village;
 use App\Models\BoardingHouse;
 use App\Models\Owner;
+use App\Models\University;
 
 class BoardingHouseController extends Controller
 {
     public function __construct()
     {
         // $this->middleware('web', ['only' => 'index']);
-        $this->middleware('auth:kostariateam,admin');
+        $this->middleware('auth:kostariateam,admin', ['except' => ['search']]);
     }
     
     /**
@@ -168,13 +169,17 @@ class BoardingHouseController extends Controller
         return redirect()->route('boardinghouses.index')->with('success', 'berhasil dihapus');
     }
 
-    public function search(Request $request){
-        $name = $request->get('name-search');
-        $address = $request->get('address-search');
-        $listBoardingHouse = Boardinghouse::where('name', 'LIKE', '%'.$name.'%')
-                            ->where('address', 'LIKE', '%'.$address.'%')->paginate(10);
+    public function search(Request $request){        
+        $university = University::whereId($request->university)->first();
+        if ($university) {
+            $university_village_id = $university->village_id;     
+        }else{
+            $university_village_id = '';
+        }
         
-        return view('boardinghouses.index', compact('listBoardingHouse'));
+        $listBoardingHouse = Boardinghouse::where('name', 'LIKE', '%'.$request->name.'%')->where('address', 'LIKE', '%'.$request->address.'%')
+                ->where('village_id', 'LIKE', '%'.$university_village_id.'%')->paginate(20);                
+        return view('welcome', compact('listBoardingHouse'));
     }
 
 }

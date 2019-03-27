@@ -24,6 +24,8 @@ Route::post('boardinghouses/search', 'BoardingHouseController@search')->name('bo
 Route::post('chambers/search', 'ChamberController@search')->name('chambers.search');
 Route::get('chambers/creates/{id}', 'ChamberController@creates')->name('chambers.creates');
 
+Route::get('universities/getUniversities/', 'UniversityController@getUniversities')->name('universities.getUniversities');
+
 Route::prefix('address')->group(function(){
 	Route::get('/getRegencies/{id}', 'AddressController@getRegencies')->name('address.getRegencies');
 	Route::get('/getDistricts/{id}', 'AddressController@getDistricts')->name('address.getDistricts');

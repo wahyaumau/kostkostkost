@@ -12,15 +12,32 @@
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama Kostan') }}</label>
                     <div class="col-md-6">
-                        <input type="text" name="name-search">
+                        <input type="text" name="name">
                     </div>
                 </div>
+
                 <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Alamat Kostan') }}</label>
+                    <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat Kostan') }}</label>
                     <div class="col-md-6">
-                        <input type="text" name="address-search">
+                        <input type="text" name="address">
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="university" class="col-md-4 col-form-label text-md-right">{{ __('Kampus') }}</label>
+                    <div class="col-md-6">
+                        <input type="text" name="university">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="regency" class="col-md-4 col-form-label text-md-right">{{ __('Kota') }}</label>
+                    <div class="col-md-6">
+                        <input type="text" name="regency">
+                    </div>
+                </div>
+
+
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">

@@ -16,6 +16,7 @@
     {!! Html::style('vendor/simple-line-icons/css/simple-line-icons.css') !!}
     {!! Html::style('vendor/fontawesome-free/css/all.min.css') !!}
     {!! Html::style('vendor/simple-line-icons/css/simple-line-icons.css') !!}
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
   </head>
   <body>
     <!-- <div class="flex-center position-ref full-height">
@@ -52,13 +53,23 @@
           <h1 class="mb-5">Dapatkan info kost murah, kost harian, kost bebas, dan info kosan lainnya di Kostaria!</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-          <form>
+          <form method="POST" action="{{ route('boardinghouses.search') }}">
+            @csrf
             <div class="form-row">
-              <div class="col-12 col-md-9 mb-2 mb-md-0">
-                <input type="email" class="form-control form-control-lg" placeholder="Kostan dekat ...">
-              </div>
+              <div class="col-12 col-md-9 mb-2 mb-md-0">                
+                <select class="form-control select2" name="university">
+                  <option value="">Pilih Kampus...</option>
+                </select>
+              </div>              
               <div class="col-12 col-md-3">
-                <button type="submit" class="btn btn-block btn-lg btn-primary">Cari</button>
+                <div class="form-group row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" class="btn btn-primary">
+                        {{ __('Search') }}
+                        </button>
+                    </div>
+                </div>
+                
               </div>
             </div>
           </form>
@@ -66,6 +77,68 @@
       </div>
     </div>
   </header>
+
+  @if(isset($listBoardingHouse))
+    @foreach($listBoardingHouse as $boardinghouse)
+      <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ $boardinghouse->name }}</div>
+                <div class="card-body">
+                    <p>deskripsi : {{$boardinghouse->description}}</p>
+                    <p>alamat : {{$boardinghouse->address." ".$boardinghouse->village->name. ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</p>
+                    @php
+                    $facilities = str_split($boardinghouse->facility);
+                    $facilities_def = array('dapur', 'kompor', 'lpg', 'parkir motor', 'parkir mobil', 'jemuran', 'listrik', 'air', 'layanan kebersihan', 'pajak dan retribusi', 'wi-fi');
+                    for ($i=0; $i < count($facilities); $i++) {
+                    if ($facilities[$i] == false) {
+                    unset($facilities_def[$i]);
+                    }
+                    }
+                    @endphp
+                    <p>fasilitas :
+                        @foreach($facilities_def as $facility)
+                        {{$facility.", "}}
+                    @endforeach</p>
+                    <p>fasilitas lain : {{$boardinghouse->facility_other}}</p>
+                    <p>akses : {{$boardinghouse->access}}</p>
+                    <p>informasi tambahan : {{$boardinghouse->information_others}}</p>
+                    <p>informasi biaya : {{$boardinghouse->information_cost}}</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">{{ $boardinghouse->name. " memiliki ". $boardinghouse->chamber->count(). " tipe kamar" }}</div>
+                @foreach ($boardinghouse->chamber as $chamber)
+                <div class="card-body">
+                    <p>nama kamar : {{$chamber->name}}</p>
+                    <p>harga bulanan : {{$chamber->price_monthly}}</p>
+                    <p>harga tahunan : {{$chamber->price_annual}}</p>
+                    <p>gender : {{$chamber->gender=="1"? "laki-laki":"perempuan"}}</p>
+                    <p>ukuran kamar : {{$chamber->chamber_size}}</p>
+                    @php
+                    $facilities = str_split($chamber->chamber_facility);
+                    $facilities_def = array('kamar mandi dalam', 'ranjang', 'kasur', 'meja belajar', 'lemari', 'water heater', 'AC');
+                    for ($i=0; $i < count($facilities); $i++) {
+                    if ($facilities[$i] == false) {
+                    unset($facilities_def[$i]);
+                    }
+                    }
+                    @endphp
+                    <p>fasilitas kamar :
+                        @foreach($facilities_def as $facility)
+                        {{$facility. ", "}}
+                        @endforeach
+                    </p>
+                    <button>Booking Kamar Ini</button>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+    @endforeach
+  @endif
   <!-- Icons Grid -->
   <!-- <section class="features-icons bg-light text-center">
     <div class="container">
@@ -228,4 +301,47 @@
   {!! Html::script('vendor/jquery/jquery.min.js') !!}
   {!! Html::script('vendor/bootstrap/js/bootstrap.bundle.min.js') !!}
 </body>
+  <script src="{{ asset('js/select2.min.js') }}"></script>
+  <script type="text/javascript">
+    $('.select2-single').select2();
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {      
+      $(".select2").select2({
+        ajax: {
+            url: '/universities/getUniversities',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        },
+        minimumInputLength: 1,
+        placeholder: function(){
+            $(this).data('placeholder');            
+        },
+
+        templateResult: ResultTemplater,
+        templateSelection: SelectionTemplater
+    });
+    function ResultTemplater(item) {        
+        return item.name;
+    } 
+    function SelectionTemplater(item) {
+        if(typeof item.name !== "undefined") {
+            return ResultTemplater(item);
+        }
+        return item.name;
+    }
+    
+    });
+  </script>
 </html>
