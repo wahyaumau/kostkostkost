@@ -15,7 +15,7 @@ class MOUController extends Controller
 {
     public function __construct()
     {        
-        $this->middleware('auth:kostariateam');
+        $this->middleware('auth:kostariateam,admin');
     }
 
 

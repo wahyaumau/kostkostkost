@@ -61,6 +61,11 @@
                   <option value="">Pilih Kampus...</option>
                 </select>
               </div>              
+              <div class="col-12 col-md-9 mb-2 mb-md-0">                
+                <select class="form-control select2" name="regency">
+                  <option value="">Pilih Kota</option>
+                </select>
+              </div>
               <div class="col-12 col-md-3">
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
@@ -307,7 +312,7 @@
   </script>
   <script type="text/javascript">
     $(document).ready(function() {      
-      $(".select2").select2({
+      $('select[name="university"]').select2({
         ajax: {
             url: '/universities/getUniversities',
             dataType: 'json',
@@ -331,7 +336,34 @@
 
         templateResult: ResultTemplater,
         templateSelection: SelectionTemplater
+    });  
+
+    $('select[name="regency"]').select2({
+        ajax: {
+            url: '/regencies/getRegencies',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        },
+        minimumInputLength: 1,
+        placeholder: function(){
+            $(this).data('placeholder');            
+        },
+
+        templateResult: ResultTemplater,
+        templateSelection: SelectionTemplater
     });
+
     function ResultTemplater(item) {        
         return item.name;
     } 

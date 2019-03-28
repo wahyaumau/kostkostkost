@@ -175,10 +175,29 @@ class BoardingHouseController extends Controller
             $university_village_id = $university->village_id;     
         }else{
             $university_village_id = '';
-        }
+        }       
+
+        $regency = Regency::whereId($request->regency)->first();
+        if ($regency) {
+            $regency_id = $regency->id;
+        }else{
+            $regency_id = '';
+        }        
         
-        $listBoardingHouse = Boardinghouse::where('name', 'LIKE', '%'.$request->name.'%')->where('address', 'LIKE', '%'.$request->address.'%')
-                ->where('village_id', 'LIKE', '%'.$university_village_id.'%')->paginate(20);                
+        // $listBoardingHouse = Boardinghouse::where('village_id', $university_village_id)
+        // ->join('villages', 'universities.village_id', '=', 'villages.id')
+        // ->join('districts','villages.district_id','=','districts.id')
+        // ->where('districts.regency_id', $regency_id)->get(['boardinghouses.*']);
+        
+
+        $listBoardingHouse = Boardinghouse::where('village_id', 'LIKE', '%'.$university_village_id.'%')
+        ->whereHas('village', function ($query) use($regency_id){
+            $query->whereHas('district', function($query) use($regency_id){
+                $query->whereHas('regency', function($query) use($regency_id){
+                    $query->where('id', 'LIKE', '%'.$regency_id.'%');
+                });
+            });
+        })->get();        
         return view('welcome', compact('listBoardingHouse'));
     }
 

@@ -92,4 +92,13 @@ class RegencyController extends Controller
     {
         //
     }
+
+    public function getRegencies(Request $request)
+    {
+        if($request->has('q')){
+            $search = $request->q;
+            $data = Regency::where('name', 'LIKE', '%'.$search.'%')->get();
+        }
+        return response()->json($data);
+    }
 }
