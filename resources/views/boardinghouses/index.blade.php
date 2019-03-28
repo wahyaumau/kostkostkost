@@ -2,44 +2,43 @@
 @section('title', '| Boardinghouse List')
 @section('content')
 <div class="container">
+  <div class="row">
+    <div class="col-md-8">
+        <h3>Daftar Kostan</h3>
+    </div>
+  </div>
     <div class="row">
-        <div class="col-md-8">
-            <h3>Daftar Kostan</h3>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-12">
             <form method="POST" action="{{ route('boardinghouses.search') }}">
                 @csrf
                 <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama Kostan') }}</label>
-                    <div class="col-md-6">
-                        <input type="text" name="name">
+                    <!-- <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama Kostan') }}</label> -->
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" placeholder="{{ __('Nama Kostan') }}" name="name">
                     </div>
-                </div>
+                <!-- </div>
 
-                <div class="form-group row">
-                    <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat Kostan') }}</label>
-                    <div class="col-md-6">
-                        <input type="text" name="address">
+                <div class="form-group row"> -->
+                    <!-- <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat Kostan') }}</label> -->
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" placeholder="{{ __('Alamat Kostan') }}" name="address">
                     </div>
-                </div>
+                <!-- </div>
 
-                <div class="form-group row">
-                    <label for="university" class="col-md-4 col-form-label text-md-right">{{ __('Kampus') }}</label>
-                    <div class="col-md-6">
-                        <input type="text" name="university">
+                <div class="form-group row"> -->
+                    <!-- <label for="university" class="col-md-4 col-form-label text-md-right">{{ __('Kampus') }}</label> -->
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" placeholder="{{ __('Kampus') }}" name="university">
                     </div>
-                </div>
+                <!-- </div>
 
-                <div class="form-group row">
-                    <label for="regency" class="col-md-4 col-form-label text-md-right">{{ __('Kota') }}</label>
-                    <div class="col-md-6">
-                        <input type="text" name="regency">
+                <div class="form-group row"> -->
+                    <!-- <label for="regency" class="col-md-4 col-form-label text-md-right">{{ __('Kota') }}</label> -->
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" placeholder="{{ __('Kota') }}" name="regency">
                     </div>
-                </div>
 
-
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
+                    <div class="col-md-3">
                         <button type="submit" class="btn btn-primary">
                         {{ __('Search') }}
                         </button>
@@ -48,7 +47,7 @@
             </form>
         </div>
     </div>
-    <div class="box">
+    <div class="box table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>

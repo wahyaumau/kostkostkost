@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 @section('panel')
-<a class="navbar-brand" href="{{route('mou.index')}}">MOU</a>
-<a class="navbar-brand" href="{{route('boardinghouses.index')}}">Boarding House</a>
-<a class="navbar-brand" href="{{route('chambers.index')}}">Chamber</a>
-<a class="navbar-brand" href="{{route('admin.showKostariaTeam')}}">Kostaria Team</a>
-<a class="navbar-brand" href="{{route('universities.index')}}">University</a>
+<li class="nav-item"><a class="nav-link" href="{{route('admin.dashboard')}}"><em class="fas tachometer-alt"></em> Dashboard</a></li>
+<li class="nav-item"><a class="nav-link" href="{{route('mou.index')}}"><em class="fa fa-signature"></em> MOU</a></li>
+<li class="nav-item"><a class="nav-link" href="{{route('boardinghouses.index')}}"><em class="fa fa-home"></em> Boarding House</a></li>
+<li class="nav-item"><a class="nav-link" href="{{route('chambers.index')}}"><em class="fas fa-person-booth"></em> Chamber</a></li>
+<li class="nav-item"><a class="nav-link" href="{{route('admin.showKostariaTeam')}}"><em class="fa fa-users"></em> Kostaria Team</a></li>
+<li class="nav-item"><a class="nav-link" href="{{route('universities.index')}}"><em class="fa fa-university"></em> University</a></li>
 @endsection
 @section('logout')
 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
