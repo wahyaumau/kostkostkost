@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Tambah Kostan') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('boardinghouses.update', $boardinghouse->id) }}">
+                    <form method="POST" action="{{ route('boardinghouses.update', $boardinghouse->id) }}" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf
                         <div class="form-group row">
@@ -42,9 +42,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="video" class="col-md-4 col-form-label text-md-right">{{ __('Upload Video') }}</label>
+                            <label for="video" class="col-md-4 col-form-label text-md-right">{{ __('Upload Video Baru') }}</label>
                             <div class="col-md-6">
-                                <input id="video" type="file" class="{{ $errors->has('video') ? ' is-invalid' : '' }}" name="video" value="{{ old('video') }}" required autofocus>
+                                <input id="video" type="file" class="{{ $errors->has('video') ? ' is-invalid' : '' }}" name="video" value="{{ old('video') }}" autofocus>
                                 @if ($errors->has('video'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('video') }}</strong>

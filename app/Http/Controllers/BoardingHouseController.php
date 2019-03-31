@@ -10,6 +10,7 @@ use App\Models\Village;
 use App\Models\BoardingHouse;
 use App\Models\Owner;
 use App\Models\University;
+use Storage;
 
 class BoardingHouseController extends Controller
 {
@@ -81,6 +82,13 @@ class BoardingHouseController extends Controller
         $boardinghouse->access = $request->get('access');
         $boardinghouse->information_others = $request->get('information_others');
         $boardinghouse->information_cost = $request->get('information_cost');
+        if ($request->hasFile('video')) {
+            $file = $request->video;
+            $filename = time().'_'.$request->name.'_'.$file->getClientOriginalName();
+            $folderName = 'videos';
+            Storage::putFileAs($folderName, $file, $filename);            
+            $boardinghouse->video = $filename;            
+        }        
         $boardinghouse->save();
         return redirect()->route('boardinghouses.index')->with('success', 'berhasil ditambahkan');
     }
