@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Tambah Kostan') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('boardinghouses.store') }}">
+                    <form method="POST" action="{{ route('boardinghouses.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama Pemilik') }}</label>
@@ -38,6 +38,17 @@
                                 @if ($errors->has('description'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('description') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="video" class="col-md-4 col-form-label text-md-right">{{ __('Upload Video') }}</label>
+                            <div class="col-md-6">
+                                <input id="video" type="file" class="{{ $errors->has('video') ? ' is-invalid' : '' }}" name="video" value="{{ old('video') }}" required autofocus>
+                                @if ($errors->has('video'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('video') }}</strong>
                                 </span>
                                 @endif
                             </div>
@@ -158,9 +169,9 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('js/select2.min.js') }}"></script>
-<script type="text/javascript">
-$('.select2-single').select2();
-</script>
+    <script type="text/javascript">
+        $('.select2-single').select2();
+    </script>
 <script>
 $(document).ready(function() {
 $('select[name="regency_id"]').on('change', function(){
