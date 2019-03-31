@@ -7,7 +7,7 @@
             <h3>Daftar Kostaria Team</h3>
         </div>
     </div>
-    <div class="box">
+    <div class="box table-responsive-xl">
         <table class="table table-striped">
             <thead>
                 <tr>
