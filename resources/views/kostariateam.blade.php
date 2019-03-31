@@ -1,38 +1,32 @@
 @extends('layouts.kostariateam')
 @section('content')
-<!-- <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">Kostariateam Dashboard</div>
-        <div class="card-body">
-          @if (session('status'))
-          <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-          </div>
-          @endif
-          You are logged in as kostariateam!
+<div class="row">
+  <div class="col-lg-4 mb-4">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Welcome, {{ Auth::user()->name }}! </h6>
+      </div>
+      <div class="card-body">
+        <div class="text-center">
+          <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{{asset('dashboard/img/undraw_welcome.svg')}}" alt="">
         </div>
+        <p>Hai, {{ Auth::user()->name }}. Selamat datang di dashboard KOSTARIA.</p>
       </div>
     </div>
   </div>
-</div> -->
-<div class="col-sm-12">
-  <section class="row">
-    <div class="col-md-12 col-lg-8">
-      <div class="jumbotron">
-        <h1 class="mb-4">Hello, {{ Auth::user()->name }}!</h1>
-        <p class="lead">You are logged in as kostaria teams!</p>
-        <!-- <p class="lead"><a class="btn btn-primary btn-lg mt-2" href="{{route('kostariateam.register')}}" role="button">Add Teams</a></p> -->
+
+  <div class="col-lg-4 mb-4">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Menemukan masalah ?</h6>
       </div>
-    </div>
-    <div class="col-md-12 col-lg-4">
-      <div class="card mb-4">
-        <div class="card-block">
-          <div id="calendar"></div>
+      <div class="card-body">
+        <div class="text-center">
+          <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{{asset('dashboard/img/undraw_questions.svg')}}" alt="">
         </div>
+        <p>Apabila anda menemukan kesalahan, anda dapat melaporkannya pada Admin.</p>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 @endsection
