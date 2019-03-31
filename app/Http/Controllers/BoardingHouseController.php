@@ -160,6 +160,15 @@ class BoardingHouseController extends Controller
         $boardinghouse->access = $request->get('access');
         $boardinghouse->information_others = $request->get('information_others');
         $boardinghouse->information_cost = $request->get('information_cost');
+        if ($request->hasFile('video')) {
+            $file = $request->video;
+            $filename = time().'_'.$request->name.'_'.$file->getClientOriginalName();
+            $folderName = 'videos';
+            Storage::putFileAs($folderName, $file, $filename);            
+            $oldFile = $boardinghouse->video;
+            Storage::disk('public-html-videos')->delete($oldFile);            
+            $boardinghouse->video = $filename;            
+        }        
         $boardinghouse->save();
         return redirect()->route('boardinghouses.index')->with('success', 'berhasil diedit');
     }
@@ -173,6 +182,7 @@ class BoardingHouseController extends Controller
     public function destroy($id)
     {
         $boardinghouse = Boardinghouse::findOrFail($id);
+        Storage::disk('public-html-videos')->delete($boardinghouse->video);            
         $boardinghouse->delete();
         return redirect()->route('boardinghouses.index')->with('success', 'berhasil dihapus');
     }
@@ -192,13 +202,7 @@ class BoardingHouseController extends Controller
             }else{
                 $regency_id = '';
             }
-
-            // $listBoardingHouse = Boardinghouse::where('village_id', $university_village_id)
-            // ->join('villages', 'universities.village_id', '=', 'villages.id')
-            // ->join('districts','villages.district_id','=','districts.id')
-            // ->where('districts.regency_id', $regency_id)->get(['boardinghouses.*']);
-
-
+            
             $listBoardingHouse = Boardinghouse::where('village_id', 'LIKE', '%'.$university_village_id.'%')
             ->whereHas('village', function ($query) use($regency_id){
                 $query->whereHas('district', function($query) use($regency_id){

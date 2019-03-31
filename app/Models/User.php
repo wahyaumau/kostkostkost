@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'address', 'phone', 'lineId', 'parent', 'parent_phone', 'regency_id', 'university_id'
+        'name', 'email', 'password', 'address', 'phone', 'lineId', 'parent', 'parent_phone', 'village_id', 'university_id', 'chamber_id'
     ];
 
     /**
@@ -46,7 +46,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Review');
     }
 
-    public function transaction(){
-        return $this->hasMany('App\Models\Transaction');
+    public function chambersTransaction(){
+        return $this->belongsToMany('App\Models\User', 'transactions', 'user_id', 'chamber_id');
+    }
+
+    public function chambersTag(){
+        return $this->belongsToMany('App\Models\User', 'chamber_user_tag', 'user_id', 'chamber_id');
     }
 }
