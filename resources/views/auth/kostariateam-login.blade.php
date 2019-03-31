@@ -1,6 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="auth">
+  <div class="container">
+    <div class="auth__inner">
+      <div class="auth__media">
+        <img src="{{url('site-assets/images/undraw_selfie.svg')}}">
+      </div>
+      <div class="auth__auth">
+        <h1 class="auth__title">Access your account</h1>
+        <p>Fill in your email and password to proceed</p>
+        <form method="POST" action="{{ route('kostariateam.login.submit') }}" autocompelete="new-password" role="presentation" class="form">
+          @csrf
+          <input name="email" class="fakefield">
+          <label>Email</label>
+          <input type="text" name="email" id='email' placeholder="you@example.com">
+          <label>Password</label>
+          <input type="password" name="password" id='password' placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" autocomplete="off">
+          <button type='submit' class="button button__accent">Log in</button>
+          <a href=""><h6 class="left-align" >Forgot your password?</h6></a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -69,5 +93,5 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 @endsection

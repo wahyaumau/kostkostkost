@@ -33,7 +33,7 @@
       </form>
     </div>
   </div>
-  <div class="box">
+  <div class="box table-responsive-xl">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -50,7 +50,7 @@
         </tr>
       </thead>
       <tbody>
-        
+
         @foreach($listChamber as $chamber)
         <tr>
           <td>{{$chamber->id}}</td>

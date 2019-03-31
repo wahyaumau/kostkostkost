@@ -3,17 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
         <title>Kostaria @yield('title')</title>
-        <!-- Scripts -->
-        {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-        <!-- Fonts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-        <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('site-assets/css/style.min.css')}}" rel="stylesheet">
         @yield('stylesheets')
     </head>
     <body>
@@ -28,12 +24,9 @@
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
                         </ul>
-                        <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
-                            <!-- Authentication Links -->
                             @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -60,6 +53,7 @@
             </main>
         </div>
     </body>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js')}}"></script>
+    <script src="{{ asset('site-assets/js/app.min.js')}}"></script>
     @yield('scripts')
 </html>

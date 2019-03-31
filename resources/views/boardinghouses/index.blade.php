@@ -47,22 +47,22 @@
             </form>
         </div>
     </div>
-    <div class="box table-responsive">
+    <div class="box table-responsive-xl">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama Kostan</th>
-                    <th>Deskripsi</th>
+                    <!-- <th>Deskripsi</th> -->
                     <th>Alamat</th>
                     <th>Nama Pemilik</th>
                     <th>Kontak Pemilik</th>
-                    <th>Fasilitas Umum</th>
-                    <th>Fasilitas Lain</th>
-                    <th>Akses Lingkungan</th>
-                    <th>Keterangan tambahan</th>
-                    <th>Keterangan biaya</th>
-                    <th colspan="3">action</th>
+                    <!-- <th>Fasilitas Umum</th> -->
+                    <!-- <th>Fasilitas Lain</th> -->
+                    <!-- <th>Akses Lingkungan</th> -->
+                    <!-- <th>Keterangan tambahan</th> -->
+                    <!-- <th>Keterangan biaya</th> -->
+                    <th colspan="4">action</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,11 +70,11 @@
                 <tr>
                     <td>{{$boardinghouse->id}}</td>
                     <td>{{$boardinghouse->name}}</td>
-                    <td>{{$boardinghouse->description}}</td>
+                    <!-- <td>{{$boardinghouse->description}}</td> -->
                     <td>{{$boardinghouse->address. ", ".$boardinghouse->village->name. ", ". $boardinghouse->village->district->name . ", ". $boardinghouse->village->district->regency->name . ", ". $boardinghouse->village->district->regency->province->name}}</td>
                     <td>{{$boardinghouse->owner->name}}</td>
                     <td>{{$boardinghouse->owner->phone}}</td>
-                    @php
+                    <!-- @php
                     $facilities = str_split($boardinghouse->facility);
                     $facilities_def = array('dapur', 'kompor', 'lpg', 'parkir motor', 'parkir mobil', 'jemuran', 'listrik', 'air', 'layanan kebersihan', 'pajak dan retribusi', 'wi-fi');
                     for ($i=0; $i < count($facilities); $i++) {
@@ -87,21 +87,55 @@
                         @foreach($facilities_def as $facility)
                         <p>{{$facility}}</p>
                         @endforeach
-                    </td>
-                    <td>{{$boardinghouse->facility_other}}</td>
-                    <td>{{$boardinghouse->access}}</td>
-                    <td>{{$boardinghouse->information_others}}</td>
-                    <td>{{$boardinghouse->information_cost}}</td>
-                    <td><a href="{{ route('chambers.creates', $boardinghouse->id)}}" class="btn btn-success">Tambah Kamar</a></td>
+                    </td> -->
+                    <!-- <td>{{$boardinghouse->facility_other}}</td> -->
+                    <!-- <td>{{$boardinghouse->access}}</td> -->
+                    <!-- <td>{{$boardinghouse->information_others}}</td> -->
+                    <!-- <td>{{$boardinghouse->information_cost}}</td> -->
                     <td>
-                        <td><a href="{{ route('boardinghouses.edit', $boardinghouse->id)}}" class="btn btn-warning">Edit</a></td>
-                        <td><a href="{{ route('boardinghouses.show', $boardinghouse->id)}}" class="btn btn-primary">Show</a></td>
-                        <td><form action="{{ route('boardinghouses.destroy', $boardinghouse->id)}}" method="post">
+                      <ul style="list-style-type: none;">
+                        <li>
+                          <a href="{{ route('chambers.creates', $boardinghouse->id)}}" class="btn btn-success btn-icon-split my-1">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Tambah Kamar</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ route('boardinghouses.edit', $boardinghouse->id)}}" class="btn btn-warning btn-icon-split my-1 btn-sm">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-edit"></i>
+                            </span>
+                            <span class="text">Edit Kostan</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ route('boardinghouses.show', $boardinghouse->id)}}" class="btn btn-info btn-icon-split my-1 btn-sm">
+                            <span class="icon text-white-50">
+                              <i class="fas fa-info-circle"></i>
+                            </span>
+                            <span class="text">Lihat Kostan</span>
+                          </a>
+                        </li>
+                        <li>
+                          <form action="{{ route('boardinghouses.destroy', $boardinghouse->id)}}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger" type="submit">Delete</button>
-                        </form>
+                            <a type="submit" class="btn btn-danger btn-icon-split my-1 btn-sm">
+                              <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                              </span>
+                              <span style="color:#fff !important;" class="text">Delete Kostan</span>
+                            </a>
+                            <!-- <button class="btn btn-danger" type="submit">Delete</button> -->
+                          </form>
+                        </li>
+                      </ul>
                     </td>
+                    <!-- <td><a href="{{ route('chambers.creates', $boardinghouse->id)}}" class="btn btn-success">Tambah Kamar</a></td> -->
+                    <!-- <td><a href="{{ route('boardinghouses.edit', $boardinghouse->id)}}" class="btn btn-warning">Edit</a></td> -->
+                    <!-- <td><a href="{{ route('boardinghouses.show', $boardinghouse->id)}}" class="btn btn-primary">Show</a></td> -->
                 </tr>
                 @endforeach
                 <div class="text-center">

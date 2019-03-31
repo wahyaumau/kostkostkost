@@ -16,9 +16,9 @@ class BoardingHouseController extends Controller
     public function __construct()
     {
         // $this->middleware('web', ['only' => 'index']);
-        $this->middleware('auth:kostariateam,admin', ['except' => ['search']]);
+        $this->middleware('auth:kostariateam,admin', ['except' => ['search', 'show']]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -36,8 +36,8 @@ class BoardingHouseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function creates($id)
-    {        
-        $listRegency = Regency::all();   
+    {
+        $listRegency = Regency::all();
         $owner = Owner::find($id);
         return view('boardinghouses.create', compact('listRegency', 'owner'));
     }
@@ -53,34 +53,34 @@ class BoardingHouseController extends Controller
         $this->validate($request, array(
             'name' => 'required|max:255',
             'description' => 'required',
-            'address' => 'required|max:255',            
+            'address' => 'required|max:255',
             'village_id' => 'required|numeric',
             'owner_id' => 'required|numeric',
             // 'facility' => 'required',
             'facility_other' => 'required',
             'access' => 'required',
             'information_others' => 'required',
-            'information_cost' => 'required'            
+            'information_cost' => 'required'
         ));
-        $boardinghouse = new boardinghouse;        
+        $boardinghouse = new boardinghouse;
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
-        $boardinghouse->address = $request->get('address');        
-        $boardinghouse->village_id = $request->get('village_id');        
-        $boardinghouse->owner_id = $request->get('owner_id');        
+        $boardinghouse->address = $request->get('address');
+        $boardinghouse->village_id = $request->get('village_id');
+        $boardinghouse->owner_id = $request->get('owner_id');
         $facilities=null;
-        for ($i=1; $i <=11 ; $i++) { 
+        for ($i=1; $i <=11 ; $i++) {
             $facility = 0;
-            if($request->has('facility_'.$i)){                
+            if($request->has('facility_'.$i)){
                 $facility = 1;
             }
             $facilities .= $facility;
         }
         $boardinghouse->facility = $facilities;
-        $boardinghouse->facility_other = $request->get('facility_other');        
-        $boardinghouse->access = $request->get('access');        
+        $boardinghouse->facility_other = $request->get('facility_other');
+        $boardinghouse->access = $request->get('access');
         $boardinghouse->information_others = $request->get('information_others');
-        $boardinghouse->information_cost = $request->get('information_cost');        
+        $boardinghouse->information_cost = $request->get('information_cost');
         $boardinghouse->save();
         return redirect()->route('boardinghouses.index')->with('success', 'berhasil ditambahkan');
     }
@@ -124,34 +124,34 @@ class BoardingHouseController extends Controller
         $this->validate($request, array(
             'name' => 'required|max:255',
             'description' => 'required',
-            'address' => 'required|max:255',            
+            'address' => 'required|max:255',
             'village_id' => 'required|numeric',
             // 'owner_id' => 'required|numeric',
             // 'facility' => 'required',
             'facility_other' => 'required',
             'access' => 'required',
             'information_others' => 'required',
-            'information_cost' => 'required'            
+            'information_cost' => 'required'
         ));
-        $boardinghouse = BoardingHouse::find($id);        
+        $boardinghouse = BoardingHouse::find($id);
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
-        $boardinghouse->address = $request->get('address');        
-        $boardinghouse->village_id = $request->get('village_id');        
-        // $boardinghouse->owner_id = $request->get('owner_id');        
+        $boardinghouse->address = $request->get('address');
+        $boardinghouse->village_id = $request->get('village_id');
+        // $boardinghouse->owner_id = $request->get('owner_id');
         $facilities=null;
-        for ($i=1; $i <=11 ; $i++) { 
+        for ($i=1; $i <=11 ; $i++) {
             $facility = 0;
-            if($request->has('facility_'.$i)){                
+            if($request->has('facility_'.$i)){
                 $facility = 1;
             }
             $facilities .= $facility;
         }
         $boardinghouse->facility = $facilities;
-        $boardinghouse->facility_other = $request->get('facility_other');        
-        $boardinghouse->access = $request->get('access');        
+        $boardinghouse->facility_other = $request->get('facility_other');
+        $boardinghouse->access = $request->get('access');
         $boardinghouse->information_others = $request->get('information_others');
-        $boardinghouse->information_cost = $request->get('information_cost');        
+        $boardinghouse->information_cost = $request->get('information_cost');
         $boardinghouse->save();
         return redirect()->route('boardinghouses.index')->with('success', 'berhasil diedit');
     }
@@ -169,27 +169,27 @@ class BoardingHouseController extends Controller
         return redirect()->route('boardinghouses.index')->with('success', 'berhasil dihapus');
     }
 
-    public function search(Request $request){        
+    public function search(Request $request){
         if ($request->university || $request->regency) {
             $university = University::whereId($request->university)->first();
             if ($university) {
-                $university_village_id = $university->village_id;     
+                $university_village_id = $university->village_id;
             }else{
                 $university_village_id = '';
-            }       
+            }
 
             $regency = Regency::whereId($request->regency)->first();
             if ($regency) {
                 $regency_id = $regency->id;
             }else{
                 $regency_id = '';
-            }        
-            
+            }
+
             // $listBoardingHouse = Boardinghouse::where('village_id', $university_village_id)
             // ->join('villages', 'universities.village_id', '=', 'villages.id')
             // ->join('districts','villages.district_id','=','districts.id')
             // ->where('districts.regency_id', $regency_id)->get(['boardinghouses.*']);
-            
+
 
             $listBoardingHouse = Boardinghouse::where('village_id', 'LIKE', '%'.$university_village_id.'%')
             ->whereHas('village', function ($query) use($regency_id){
@@ -198,14 +198,14 @@ class BoardingHouseController extends Controller
                         $query->where('id', 'LIKE', '%'.$regency_id.'%');
                     });
                 });
-            })->get();        
+            })->get();
             return view('welcome', compact('listBoardingHouse'));
         }else{
             return back();
         }
 
 
-        
+
     }
 
 }
