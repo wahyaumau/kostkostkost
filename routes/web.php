@@ -26,6 +26,8 @@ Route::get('chambers/creates/{id}', 'ChamberController@creates')->name('chambers
 
 Route::get('universities/getUniversities/', 'UniversityController@getUniversities')->name('universities.getUniversities');
 
+Route::post('tags/{chamber}', 'TagController@store')->name('tags.store');
+
 Route::get('regencies/getRegencies/', 'RegencyController@getRegencies')->name('regencies.getRegencies');
 
 Route::prefix('address')->group(function(){

@@ -84,12 +84,12 @@
                           <form action="{{ route('boardinghouses.destroy', $boardinghouse->id)}}" method="post">
                             @csrf
                             @method('DELETE')
-                            <a type="submit" class="btn btn-danger btn-icon-split my-1 btn-sm">
+                            <button type="submit" class="btn btn-danger btn-icon-split my-1 btn-sm">
                               <span class="icon text-white-50">
                                 <i class="fas fa-trash"></i>
                               </span>
                               <span style="color:#ffffff !important;" class="text">Delete Kostan</span>
-                            </a>
+                            </button>
                           </form>
                         </li>
                       </ul>

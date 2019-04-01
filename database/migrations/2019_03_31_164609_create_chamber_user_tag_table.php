@@ -13,7 +13,7 @@ class CreateChamberUserTagTable extends Migration
      */
     public function up()
     {
-        Schema::table('chamber_user_tag', function (Blueprint $table) {
+        Schema::create('chamber_user_tag', function (Blueprint $table) {
             $table->increments('id');            
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -31,8 +31,6 @@ class CreateChamberUserTagTable extends Migration
      */
     public function down()
     {
-        Schema::table('chamber_user_tag', function (Blueprint $table) {
-            Schema::dropIfExists('chamber_user_tag');
-        });
+        Schema::dropIfExists('chamber_user_tag');
     }
 }

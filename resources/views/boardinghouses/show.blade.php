@@ -52,7 +52,12 @@
                       {{$facility. ", "}}
                       @endforeach
                   </p>
-                  <button>Booking Kamar Ini</button>
+                  
+                  <form action="{{ route('tags.store', $chamber)}}" method="post">
+                          @csrf                          
+                          <button class="btn btn-primary" type="submit">Tag Kamar Ini</button>
+                        </form>
+                  {{-- <button>Booking Kamar Ini</button> --}}
               </div>
               @endforeach
           </div>
