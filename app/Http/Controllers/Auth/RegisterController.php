@@ -62,6 +62,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'address' => ['required', 'string'],
             'village_id' => ['required'],
+            'university_id' => ['required'],
             'phone' => ['required'],
             'lineId' => ['required', 'string'],
             'parent' => ['required', 'string'],

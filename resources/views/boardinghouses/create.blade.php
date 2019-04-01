@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Tambah Kostan') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('boardinghouses.store') }}">
+                    <form method="POST" action="{{ route('boardinghouses.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama Pemilik') }}</label>
@@ -43,6 +43,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="video" class="col-md-4 col-form-label text-md-right">{{ __('Upload Video') }}</label>
+                            <div class="col-md-6">
+                                <input id="video" type="file" class="{{ $errors->has('video') ? ' is-invalid' : '' }}" name="video" value="{{ old('video') }}" autofocus>
+                                @if ($errors->has('video'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('video') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" placeholder="Nama Jl, RT, RW" value="{{ old('address') }}" required>
@@ -61,7 +72,7 @@
                                     <option value='{{$regency->id}}'>{{$regency->name}}</option>
                                     @endforeach
                                 </select>
-                            <a href="{{ route('regencies.index') }}">Tidak menemukan Kota?</a>
+                            {{-- <a href="{{ route('regencies.index') }}">Tidak menemukan Kota?</a> --}}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -70,7 +81,7 @@
                                 <select class="form-control select2-single" name="district_id">
                                     <option value="">Pilih Kecamatan</option>
                                 </select>
-                                <a href="{{ route('districts.index') }}">Tidak menemukan Kecamatan?</a>
+                                {{-- <a href="{{ route('districts.index') }}">Tidak menemukan Kecamatan?</a> --}}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -79,7 +90,7 @@
                                 <select class="form-control select2-single" name="village_id">
                                     <option value="">Pilih Desa</option>
                                 </select>
-                                <a href="{{ route('villages.index') }}">Tidak menemukan Desa?</a>
+                                {{-- <a href="{{ route('villages.index') }}">Tidak menemukan Desa?</a> --}}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -158,9 +169,9 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('js/select2.min.js') }}"></script>
-<script type="text/javascript">
-$('.select2-single').select2();
-</script>
+    <script type="text/javascript">
+        $('.select2-single').select2();
+    </script>
 <script>
 $(document).ready(function() {
 $('select[name="regency_id"]').on('change', function(){

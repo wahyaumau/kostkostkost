@@ -12,7 +12,12 @@ class Chamber extends SoftDelete
         return $this->belongsTo('App\Models\BoardingHouse');
     }    
 
-    public function transaction(){
-        return $this->hasMany('App\Models\Transaction');
+    public function usersTransaction(){
+        return $this->belongsToMany('App\Models\User', 'transactions', 'chamber_id', 'user_id');
     }
+
+    public function usersTag(){
+        return $this->belongsToMany('App\Models\User', 'chamber_user_tag', 'chamber_id', 'user_id');
+    }
+    
 }

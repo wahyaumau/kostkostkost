@@ -16,69 +16,11 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin');
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $listUser = User::all();
-        return view('users.index', compact('listUser'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+        $this->middleware('auth');
+    }        
+    
+    public function show(User $user)
     {        
-        $listRegency = Regency::all();
-        $listUniversity = University::all();
-        return view('users.create', compact('listUniversity', 'listRegency'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255|alpha',
-            'email' => 'required|e-mail',
-            'password' => 'required|min:6',
-        ]);
-        $user = new User;
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
-        $user->address = $request->get('address');        
-        $user->password = Hash::make($request->get('password'));        
-        $user->village_id = $request->get('village_id');
-        $user->university_id = $request->get('university_id');
-        $user->phone = $request->get('phone');
-        $user->lineId = $request->get('lineId');
-        $user->parent = $request->get('parent');
-        $user->parent_phone = $request->get('parent_phone');
-        $user->save();
-        return redirect()->route('users.index')->with('success', 'berhasil diedit');
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $user = User::find($id);
         return view('users.show', compact('user'));
     }
 
@@ -88,12 +30,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $user = User::find($id);
+    public function edit(User $user)
+    {        
         $listProvince = Province::all();
         $listUniversity = University::all();
-        return view('users.edit', compact('user', 'id', 'listProvince', 'listUniversity'));
+        return view('users.edit', compact('user', 'listProvince', 'listUniversity'));
     }
 
     /**
@@ -103,18 +44,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255|alpha',
-            'email' => 'required|e-mail',
-            'password' => 'required|min:6',
-        ]);
-        $user = User::find($id);
+    public function update(Request $request, User $user)
+    {        
+        $this->validate($request, array(
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'address' => ['required', 'string'],
+            'village_id' => ['required'],
+            'university_id' => ['required'],
+            'phone' => ['required'],
+            'lineId' => ['required', 'string'],
+            'parent' => ['required', 'string'],
+            'parent_phone' => ['required'],
+        ));        
         $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->address = $request->get('address');        
-        $user->password = bcrypt($request->get('password'));        
+        // $user->password = bcrypt($request->get('password'));        
         $user->village_id = $request->get('village_id');
         $user->university_id = $request->get('university_id');
         $user->phone = $request->get('phone');
@@ -122,19 +69,7 @@ class UserController extends Controller
         $user->parent = $request->get('parent');
         $user->parent_phone = $request->get('parent_phone');
         $user->save();
-        return redirect()->route('users.index')->with('success', 'berhasil diedit');
+        return redirect()->route('users.show', $user)->with('success', 'berhasil diedit');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'berhasil dihapus');
-    }
+    
 }
