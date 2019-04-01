@@ -12,28 +12,15 @@
             <form method="POST" action="{{ route('boardinghouses.search') }}">
                 @csrf
                 <div class="form-group row">
-                    <!-- <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama Kostan') }}</label> -->
                     <div class="col-md-3">
                         <input class="form-control" type="text" placeholder="{{ __('Nama Kostan') }}" name="name">
                     </div>
-                <!-- </div>
-
-                <div class="form-group row"> -->
-                    <!-- <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat Kostan') }}</label> -->
                     <div class="col-md-2">
                         <input class="form-control" type="text" placeholder="{{ __('Alamat Kostan') }}" name="address">
                     </div>
-                <!-- </div>
-
-                <div class="form-group row"> -->
-                    <!-- <label for="university" class="col-md-4 col-form-label text-md-right">{{ __('Kampus') }}</label> -->
                     <div class="col-md-2">
                         <input class="form-control" type="text" placeholder="{{ __('Kampus') }}" name="university">
                     </div>
-                <!-- </div>
-
-                <div class="form-group row"> -->
-                    <!-- <label for="regency" class="col-md-4 col-form-label text-md-right">{{ __('Kota') }}</label> -->
                     <div class="col-md-2">
                         <input class="form-control" type="text" placeholder="{{ __('Kota') }}" name="regency">
                     </div>
@@ -53,15 +40,9 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Kostan</th>
-                    <!-- <th>Deskripsi</th> -->
                     <th>Alamat</th>
                     <th>Nama Pemilik</th>
                     <th>Kontak Pemilik</th>
-                    <!-- <th>Fasilitas Umum</th> -->
-                    <!-- <th>Fasilitas Lain</th> -->
-                    <!-- <th>Akses Lingkungan</th> -->
-                    <!-- <th>Keterangan tambahan</th> -->
-                    <!-- <th>Keterangan biaya</th> -->
                     <th colspan="4">action</th>
                 </tr>
             </thead>
@@ -70,28 +51,9 @@
                 <tr>
                     <td>{{$boardinghouse->id}}</td>
                     <td>{{$boardinghouse->name}}</td>
-                    <!-- <td>{{$boardinghouse->description}}</td> -->
                     <td>{{$boardinghouse->address. ", ".$boardinghouse->village->name. ", ". $boardinghouse->village->district->name . ", ". $boardinghouse->village->district->regency->name . ", ". $boardinghouse->village->district->regency->province->name}}</td>
                     <td>{{$boardinghouse->owner->name}}</td>
                     <td>{{$boardinghouse->owner->phone}}</td>
-                    <!-- @php
-                    $facilities = str_split($boardinghouse->facility);
-                    $facilities_def = array('dapur', 'kompor', 'lpg', 'parkir motor', 'parkir mobil', 'jemuran', 'listrik', 'air', 'layanan kebersihan', 'pajak dan retribusi', 'wi-fi');
-                    for ($i=0; $i < count($facilities); $i++) {
-                    if ($facilities[$i] == false) {
-                    unset($facilities_def[$i]);
-                    }
-                    }
-                    @endphp
-                    <td>
-                        @foreach($facilities_def as $facility)
-                        <p>{{$facility}}</p>
-                        @endforeach
-                    </td> -->
-                    <!-- <td>{{$boardinghouse->facility_other}}</td> -->
-                    <!-- <td>{{$boardinghouse->access}}</td> -->
-                    <!-- <td>{{$boardinghouse->information_others}}</td> -->
-                    <!-- <td>{{$boardinghouse->information_cost}}</td> -->
                     <td>
                       <ul style="list-style-type: none;">
                         <li>
@@ -126,16 +88,12 @@
                               <span class="icon text-white-50">
                                 <i class="fas fa-trash"></i>
                               </span>
-                              <span style="color:#fff !important;" class="text">Delete Kostan</span>
+                              <span style="color:#ffffff !important;" class="text">Delete Kostan</span>
                             </a>
-                            <!-- <button class="btn btn-danger" type="submit">Delete</button> -->
                           </form>
                         </li>
                       </ul>
                     </td>
-                    <!-- <td><a href="{{ route('chambers.creates', $boardinghouse->id)}}" class="btn btn-success">Tambah Kamar</a></td> -->
-                    <!-- <td><a href="{{ route('boardinghouses.edit', $boardinghouse->id)}}" class="btn btn-warning">Edit</a></td> -->
-                    <!-- <td><a href="{{ route('boardinghouses.show', $boardinghouse->id)}}" class="btn btn-primary">Show</a></td> -->
                 </tr>
                 @endforeach
                 <div class="text-center">
