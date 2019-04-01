@@ -18,6 +18,10 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }        
+
+    public function index(){
+        return view('home');
+    }
     
     public function show(User $user)
     {        
@@ -70,6 +74,6 @@ class UserController extends Controller
         $user->parent_phone = $request->get('parent_phone');
         $user->save();
         return redirect()->route('users.show', $user)->with('success', 'berhasil diedit');
-    }
+    }    
     
 }

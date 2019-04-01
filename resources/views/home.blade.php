@@ -23,6 +23,7 @@
           </div>
           @endif
           You are logged in!
+          <a href="{{ route('users.show', Auth::user()) }}" class="btn btn-primary">Show Me</a>
         </div>
       </div>
     </div>

@@ -26,8 +26,11 @@ Route::get('chambers/creates/{id}', 'ChamberController@creates')->name('chambers
 
 Route::get('universities/getUniversities/', 'UniversityController@getUniversities')->name('universities.getUniversities');
 
-Route::post('tags/{chamber}', 'TagController@store')->name('tags.store');
 
+Route::delete('tags/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('tags.destroy');
+
+Route::post('tags/{chamber}', 'TagController@store')->name('tags.store');
+Route::get('users/{user}', 'UserController@show')->name('users.show');
 Route::get('regencies/getRegencies/', 'RegencyController@getRegencies')->name('regencies.getRegencies');
 
 Route::prefix('address')->group(function(){
@@ -59,7 +62,10 @@ Route::resource('universities', 'UniversityController',[
 Route::resource('mou', 'MOUController', [
 	'except' => ['edit', 'update']
 ]);
-Route::resource('users', 'UserController');
+
+Route::resource('users', 'UserController',[
+	'except' => ['create', 'store', 'delete']
+]);
 Route::resource('posts', 'PostController');
 
 Auth::routes();

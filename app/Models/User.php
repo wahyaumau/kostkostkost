@@ -47,10 +47,10 @@ class User extends Authenticatable
     }
 
     public function chambersTransaction(){
-        return $this->belongsToMany('App\Models\User', 'transactions', 'user_id', 'chamber_id');
+        return $this->belongsToMany('App\Models\Chamber', 'transactions', 'user_id', 'chamber_id');
     }
 
     public function chambersTag(){
-        return $this->belongsToMany('App\Models\User', 'chamber_user_tag', 'user_id', 'chamber_id');
+        return $this->belongsToMany('App\Models\Chamber', 'chamber_user_tag', 'user_id', 'chamber_id');
     }
 }

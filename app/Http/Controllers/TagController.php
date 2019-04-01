@@ -29,4 +29,10 @@ class TagController extends Controller
             return back()->with('gagal', 'sudah melakukan tag');
         }	        
     }
+
+    public function destroy($userId, $chamberId){
+        $user = User::find($userId);
+        $user->chambersTag()->detach($chamberId);        
+        return back();
+    }
 }
