@@ -21,6 +21,7 @@ Route::get('/teamregist', function () {
 
 Route::get('boardinghouses/creates/{id}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
 Route::post('boardinghouses/search', 'BoardingHouseController@search')->name('boardinghouses.search');
+
 Route::post('chambers/search', 'ChamberController@search')->name('chambers.search');
 Route::get('chambers/creates/{id}', 'ChamberController@creates')->name('chambers.creates');
 
@@ -28,9 +29,12 @@ Route::get('universities/getUniversities/', 'UniversityController@getUniversitie
 
 
 Route::delete('tags/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('tags.destroy');
-
 Route::post('tags/{chamber}', 'TagController@store')->name('tags.store');
+
+Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
+Route::patch('users/{user}', 'UserController@update')->name('users.update');
 Route::get('users/{user}', 'UserController@show')->name('users.show');
+
 Route::get('regencies/getRegencies/', 'RegencyController@getRegencies')->name('regencies.getRegencies');
 
 Route::prefix('address')->group(function(){

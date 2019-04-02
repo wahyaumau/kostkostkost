@@ -52,8 +52,8 @@ class UserController extends Controller
     {        
         $this->validate($request, array(
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'password' => ['required', 'string', 'min:6', 'confirmed'],
             'address' => ['required', 'string'],
             'village_id' => ['required'],
             'university_id' => ['required'],
@@ -63,7 +63,7 @@ class UserController extends Controller
             'parent_phone' => ['required'],
         ));        
         $user->name = $request->get('name');
-        $user->email = $request->get('email');
+        // $user->email = $request->get('email');
         $user->address = $request->get('address');        
         // $user->password = bcrypt($request->get('password'));        
         $user->village_id = $request->get('village_id');

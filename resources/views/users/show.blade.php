@@ -15,6 +15,7 @@
                   <p>Nomor Telepon : {{$user->phone}}</p>
                   <p>Id Line : {{$user->lineId}}</p>
               </div>
+              <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">Edit User Info</a>
           </div>
           <div class="card">
             <div class="card-header">Kamar yang Sudah Di Tag</div>
