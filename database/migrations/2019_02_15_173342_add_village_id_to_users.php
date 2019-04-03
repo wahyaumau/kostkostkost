@@ -14,7 +14,7 @@ class AddVillageIdToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('village_id')->unsigned();
+            $table->bigInteger('village_id')->unsigned()->after('address');
             $table->foreign('village_id')->references('id')->on('villages');
         });
     }

@@ -24,7 +24,9 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('lineId');
             $table->string('parent');
-            $table->string('parent_phone');                    
+            $table->string('parent_phone');
+            $table->timestamps();  
+            $table->softDeletes();
         });
     }
 

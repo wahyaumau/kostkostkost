@@ -14,7 +14,7 @@ class AddVideoColumnToBoardinghouses extends Migration
     public function up()
     {
         Schema::table('boardinghouses', function (Blueprint $table) {
-            $table->string('video')->nullable()->after('owner_id');
+            $table->string('video')->nullable()->after('information_cost');
         });
     }
 

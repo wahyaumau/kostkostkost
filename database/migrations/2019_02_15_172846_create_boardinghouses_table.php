@@ -24,7 +24,9 @@ class CreateBoardingHousesTable extends Migration
             $table->string('facility_other');
             $table->string('access');
             $table->string('information_others');
-            $table->string('information_cost');               
+            $table->string('information_cost');
+            $table->timestamps();  
+            $table->softDeletes();
         });
     }
 

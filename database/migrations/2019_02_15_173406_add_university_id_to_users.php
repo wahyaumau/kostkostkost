@@ -14,7 +14,7 @@ class AddUniversityIdToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('university_id')->unsigned();
+            $table->integer('university_id')->unsigned()->after('village_id');
             $table->foreign('university_id')
                 ->references('id')->on('universities');
             $table->timestamps();
