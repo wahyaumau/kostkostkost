@@ -10,6 +10,7 @@ use App\Models\BoardingHouse;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\University;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -34,8 +35,36 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
+    public function showCredentialForm($edittype){
+        
+        return view('users.credentialform', compact('edittype'));
+    }
+
+    public function verifyCredential(Request $request, $edittype){
+        $this->validate($request, array(            
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string'],
+        ));        
+        if ((Hash::check($request->password, Auth::user()->password)) && $request->email==Auth::user()->email) {
+            switch ($edittype) {
+                case 'editUserInfo':                                        
+                    return redirect()->route('users.edit', Auth::user());
+                    break;
+                case 'editCredential':                    
+                    return redirect()->route('users.editCredential', Auth::user());
+                    break;                
+                default:                    
+                    break;
+            }            
+        }else{
+            return redirect()->route('users.show', Auth::user())->with('error', 'password salah');
+        }
+
+    }
+
     public function edit(User $user)
-    {        
+    {                
         $listProvince = Province::all();
         $listUniversity = University::all();
         return view('users.edit', compact('user', 'listProvince', 'listUniversity'));
@@ -51,9 +80,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {        
         $this->validate($request, array(
-            'name' => ['required', 'string', 'max:255'],
-            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'name' => ['required', 'string', 'max:255'],            
             'address' => ['required', 'string'],
             'village_id' => ['required'],
             'university_id' => ['required'],
@@ -75,5 +102,23 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('users.show', $user)->with('success', 'berhasil diedit');
     }    
+
+    public function editCredential(User $user){
+        return view('users.editCredential', compact('user'));
+    }
+
+    public function updateCredential(Request $request, User $user){        
+        $this->validate($request, array(            
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:6'],
+        ));  
+
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect()->route('users.show', $user)->with('success', 'berhasil diedit');
+    }
+
+
     
 }

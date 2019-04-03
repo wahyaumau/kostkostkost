@@ -31,8 +31,12 @@ Route::get('universities/getUniversities/', 'UniversityController@getUniversitie
 Route::delete('tags/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('tags.destroy');
 Route::post('tags/{chamber}', 'TagController@store')->name('tags.store');
 
+Route::get('users/{edittype}/showCredentialForm', 'UserController@showCredentialForm')->name('users.showCredentialForm');
+Route::post('users/{edittype}/verifyCredential', 'UserController@verifyCredential')->name('users.verifyCredential');
 Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
 Route::patch('users/{user}', 'UserController@update')->name('users.update');
+Route::get('users/{user}/editCredential', 'UserController@editCredential')->name('users.editCredential');
+Route::patch('users/{user}/updateCredential', 'UserController@updateCredential')->name('users.updateCredential');
 Route::get('users/{user}', 'UserController@show')->name('users.show');
 
 Route::get('regencies/getRegencies/', 'RegencyController@getRegencies')->name('regencies.getRegencies');
