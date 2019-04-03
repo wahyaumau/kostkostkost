@@ -19,25 +19,49 @@ Route::get('/teamregist', function () {
     return view('other.teamreg');
 });
 
-Route::get('boardinghouses/creates/{id}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
-Route::post('boardinghouses/search', 'BoardingHouseController@search')->name('boardinghouses.search');
 
-Route::post('chambers/search', 'ChamberController@search')->name('chambers.search');
-Route::get('chambers/creates/{id}', 'ChamberController@creates')->name('chambers.creates');
+Route::prefix('boardinghouses')->group(function(){
+	Route::get('/creates/{id}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
+	Route::post('/search', 'BoardingHouseController@search')->name('boardinghouses.search');
+});
+
+Route::prefix('chambers')->group(function(){
+	Route::post('/search', 'ChamberController@search')->name('chambers.search');
+	Route::get('/creates/{id}', 'ChamberController@creates')->name('chambers.creates');	
+});
+
 
 Route::get('universities/getUniversities/', 'UniversityController@getUniversities')->name('universities.getUniversities');
 
+Route::prefix('tags')->group(function(){
+	Route::delete('/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('tags.destroy');
+	Route::post('/{chamber}', 'TagController@store')->name('tags.store');
+});
 
-Route::delete('tags/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('tags.destroy');
-Route::post('tags/{chamber}', 'TagController@store')->name('tags.store');
+Route::prefix('transactions')->group(function(){
+	Route::delete('/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('transactions.destroy');
+	Route::post('/{chamber}', 'TransactionController@store')->name('transactions.store');
+});
 
-Route::get('users/{edittype}/showCredentialForm', 'UserController@showCredentialForm')->name('users.showCredentialForm');
-Route::post('users/{edittype}/verifyCredential', 'UserController@verifyCredential')->name('users.verifyCredential');
-Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
-Route::patch('users/{user}', 'UserController@update')->name('users.update');
-Route::get('users/{user}/editCredential', 'UserController@editCredential')->name('users.editCredential');
-Route::patch('users/{user}/updateCredential', 'UserController@updateCredential')->name('users.updateCredential');
-Route::get('users/{user}', 'UserController@show')->name('users.show');
+Route::prefix('users')->group(function(){
+	Route::get('/{edittype}/showCredentialForm', 'UserController@showCredentialForm')->name('users.showCredentialForm');
+Route::post('/{edittype}/verifyCredential', 'UserController@verifyCredential')->name('users.verifyCredential');
+Route::get('/{user}/edit', 'UserController@edit')->name('users.edit');
+Route::patch('/{user}', 'UserController@update')->name('users.update');
+Route::get('/{user}/editCredential', 'UserController@editCredential')->name('users.editCredential');
+Route::patch('/{user}/updateCredential', 'UserController@updateCredential')->name('users.updateCredential');
+Route::get('/{user}', 'UserController@show')->name('users.show');	
+});
+
+Route::prefix('kostariateams')->group(function(){
+	Route::get('/{edittype}/showCredentialForm', 'KostariateamController@showCredentialForm')->name('kostariateams.showCredentialForm');
+	Route::post('/{edittype}/verifyCredential', 'KostariateamController@verifyCredential')->name('kostariateams.verifyCredential');
+	Route::get('/{kostariateam}/edit', 'KostariateamController@edit')->name('kostariateams.edit');
+	Route::patch('/{kostariateam}', 'KostariateamController@update')->name('kostariateams.update');
+	Route::get('/{kostariateam}/editCredential', 'KostariateamController@editCredential')->name('kostariateams.editCredential');
+	Route::patch('/{kostariateam}/updateCredential', 'KostariateamController@updateCredential')->name('kostariateams.updateCredential');
+	Route::get('/{kostariateam}', 'KostariateamController@show')->name('kostariateams.show');
+});
 
 Route::get('regencies/getRegencies/', 'RegencyController@getRegencies')->name('regencies.getRegencies');
 

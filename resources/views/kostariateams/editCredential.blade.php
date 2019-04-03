@@ -7,13 +7,13 @@
       <div class="card">
         <div class="card-header">{{ __('Register') }}</div>
         <div class="card-body">
-          <form method="POST" action="{{ route('users.updateCredential', $user) }}">
+          <form method="POST" action="{{ route('kostariateams.updateCredential', $kostariateam) }}">
             @csrf            
             @method('PATCH')
             <div class="form-group row">
               <label for="currentemail" class="col-md-4 col-form-label text-md-right">{{ __('Current E-Mail') }}</label>
               <div class="col-md-6">
-                <input id="currentemail" type="currentemail" class="form-control{{ $errors->has('currentemail') ? ' is-invalid' : '' }}" name="currentemail" value="{{ $user->email }}" disabled="true">
+                <input id="currentemail" type="currentemail" class="form-control{{ $errors->has('currentemail') ? ' is-invalid' : '' }}" name="currentemail" value="{{ $kostariateam->email }}" disabled="true">
                 @if ($errors->has('currentemail'))
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('currentemail') }}</strong>

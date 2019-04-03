@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Chamber;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\SessionGuard;
 
-class TagController extends Controller
+class TransactionController extends Controller
 {
     public function __construct()
     {        
@@ -19,13 +18,13 @@ class TagController extends Controller
     	$chamber_id = $chamber->id;
         $user_id = Auth::guard('web')->user()->id;
         $user = User::where('id', $user_id)
-                ->whereHas('chambersTag', function($query) use ($chamber_id) {
-                        $query->where('chamber_user_tag.chamber_id', $chamber_id);
+                ->whereHas('chambersTransaction', function($query) use ($chamber_id) {
+                        $query->where('transactions.chamber_id', $chamber_id);
                 })->get();
 
         if ($user->isEmpty()) {
             $user = Auth::guard('web')->user();
-            $user->chambersTag()->sync($chamber_id, false);            
+            $user->chambersTransaction()->sync($chamber_id, false);            
             return back()->with('success', 'berhasil ditambahkan');
         }else{
             return back()->with('gagal', 'sudah melakukan tag');            

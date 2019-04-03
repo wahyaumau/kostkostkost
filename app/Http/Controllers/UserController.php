@@ -112,11 +112,16 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:6'],
         ));  
+        if(Hash::check($request->currentPassword, Auth::user()->password)){
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return redirect()->route('users.show', $user)->with('success', 'berhasil diedit');    
+        }else{
+            return back()->with('error', 'wrong password');
+        }
 
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        return redirect()->route('users.show', $user)->with('success', 'berhasil diedit');
+        
     }
 
 

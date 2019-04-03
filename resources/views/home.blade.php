@@ -22,7 +22,7 @@
             {{ session('status') }}
           </div>
           @endif
-          You are logged in!
+          You are logged in as users!
           <a href="{{ route('users.show', Auth::user()) }}" class="btn btn-primary">Show Me</a>
         </div>
       </div>

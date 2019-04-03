@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\Regency;
+use App\Models\Province;
+use App\Models\BoardingHouse;
+use App\Models\Transaction;
+use App\Models\Kostariateam;
+use App\Models\University;
+use Illuminate\Support\Facades\Auth;
 
 class KostariateamController extends Controller
 {
@@ -24,5 +32,94 @@ class KostariateamController extends Controller
     public function index()
     {
         return view('kostariateam');
+    }
+
+    public function show(Kostariateam $kostariateam)
+    {        
+        return view('kostariateams.show', compact('kostariateam'));
+    }
+
+    public function showCredentialForm($edittype){
+        
+        return view('kostariateams.credentialform', compact('edittype'));
+    }
+
+    public function verifyCredential(Request $request, $edittype){
+        $this->validate($request, array(            
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string'],
+        ));        
+                
+        if ((Hash::check($request->password, Auth::guard('kostariateam')->user()->password)) && $request->email == Auth::guard('kostariateam')->user()->email) {
+            switch ($edittype) {
+                case 'editUserInfo':                                        
+                    return redirect()->route('kostariateams.edit', Auth::guard('kostariateam')->user());
+                    break;
+                case 'editCredential':                    
+                    return redirect()->route('kostariateams.editCredential', Auth::guard('kostariateam')->user());
+                    break;                
+                default:                    
+                    break;
+            }            
+        }else{            
+            return redirect()->route('kostariateams.show', Auth::guard('kostariateam')->user())->with('error', 'password salah');
+        }
+
+    }
+
+    public function edit(Kostariateam $kostariateam)
+    {                
+        $listRegency = Regency::all();        
+        return view('kostariateams.edit', compact('kostariateam', 'listRegency'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Kostariateam $kostariateam)
+    {        
+        $this->validate($request, array(
+            'name' => ['required', 'string', 'max:255'],            
+            'regency_id_birth' => ['required'],
+            'birth_date' => ['required'],
+            'address' => ['required', 'string'],
+            'village_id' => ['required'],
+            'phone' => ['required'],            
+            'nik' => ['required'],
+        ));        
+        $kostariateam->name = $request->get('name');    
+        $kostariateam->regency_id_birth = $request->get('regency_id_birth');
+        $kostariateam->birth_date = $request->get('birth_date');
+        $kostariateam->address = $request->get('address');                
+        $kostariateam->village_id = $request->get('village_id');
+        $kostariateam->phone = $request->get('phone');
+        $kostariateam->nik = $request->get('nik');        
+        $kostariateam->save();
+        return redirect()->route('kostariateams.show', $kostariateam)->with('success', 'berhasil diedit');
+    }    
+
+    public function editCredential(Kostariateam $kostariateam){
+        return view('kostariateams.editCredential', compact('kostariateam'));
+    }
+
+    public function updateCredential(Request $request, Kostariateam $kostariateam){        
+        $this->validate($request, array(            
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:6'],
+        ));  
+        if (Hash::check($request->currentPassword, Auth::guard('kostariateam')->user()->password)){
+            $kostariateam->email = $request->email;
+            $kostariateam->password = bcrypt($request->password);
+            $kostariateam->save();
+            return redirect()->route('kostariateams.show', $kostariateam)->with('success', 'berhasil diedit');
+        }else{
+            return back()->with('error', 'wrong password');
+        }
+
+        
     }
 }
