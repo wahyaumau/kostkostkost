@@ -17,7 +17,7 @@ class Owner extends SoftDelete
     }
     
     public function mou(){
-        return $this->hasMany('App\Models\MOU');
+        return $this->hasOne('App\Models\MOU');
     }
     
 }
