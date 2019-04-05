@@ -22,7 +22,7 @@ class CreateTransactionsTable extends Migration
             $table->string('payment_proof')->nullable();
             $table->bigInteger('payed_dp')->unsigned()->nullable();
             $table->integer('rent_month_duration')->nullable();
-            $table->dateTime('rent_due')->nullable()->unsigned();
+            $table->dateTime('rent_due')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
