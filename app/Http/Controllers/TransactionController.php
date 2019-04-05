@@ -18,21 +18,34 @@ class TransactionController extends Controller
         return view('boardinghouses.transactionForm', compact('chamber'));
     }
 
-    public function store(Chamber $chamber){
+    public function store(Chamber $chamber, Request $request){
+        $this->validate($request, array(            
+            'rent_month_duration' => 'required|numeric',            
+            'rent_start' => 'required|date|after:now',            
+        ));
     	$chamber_id = $chamber->id;
         $user_id = Auth::guard('web')->user()->id;
         $user = User::where('id', $user_id)
                 ->whereHas('chambersTransaction', function($query) use ($chamber_id) {
                         $query->where('transactions.chamber_id', $chamber_id);
-                })->get();
+                })->get();                
 
         if ($user->isEmpty()) {
             $user = Auth::guard('web')->user();
-            $user->chambersTransaction()->sync($chamber_id, false);            
-            return back()->with('success', 'berhasil ditambahkan');
+            $user->chambersTransaction()->attach($chamber_id, [
+                'rent_month_duration' => $request->rent_month_duration,
+                'rent_start' => $request->rent_start,
+            ]);
+            return redirect()->route('transactions.showPaymentMethod', $chamber)->with('success', 'berhasil ditambahkan');
         }else{
             return back()->with('gagal', 'sudah melakukan tag');            
         }        
+    }
+
+    public function showPaymentMethod(Chamber $chamber){
+        $user = Auth::guard('web')->user();
+        $bookedChambers = $user->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->get();
+        return view('boardinghouses.showPaymentMethod', compact('chamber', 'user', 'bookedChambers'));
     }
 
     public function destroy($userId, $chamberId){

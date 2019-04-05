@@ -60,7 +60,7 @@
             <div class="form-group row">
               <label for="booked_at" class="col-md-4 col-form-label text-md-right">{{ __('Dibook pada :') }}</label>
               <div class="col-md-6">
-                <input id="today" type="date" class="form-control{{ $errors->has('booked_at') ? ' is-invalid' : '' }}" name="booked_at" value="{{ old('booked_at') }}" required>
+                <input id="today" type="date" class="form-control{{ $errors->has('booked_at') ? ' is-invalid' : '' }}" name="booked_at" value="{{ old('booked_at') }}" disabled="true">
                 @if ($errors->has('booked_at'))
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('booked_at') }}</strong>
@@ -69,12 +69,23 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="booked_for" class="col-md-4 col-form-label text-md-right">{{ __('Book Untuk Berapa Bulan :') }}</label>
+              <label for="rent_start" class="col-md-4 col-form-label text-md-right">{{ __('Tanggal Menempati Kamar Kost :') }}</label>
               <div class="col-md-6">
-                <input id="booked_for" type="number" class="form-control{{ $errors->has('booked_for') ? ' is-invalid' : '' }}" name="booked_for" value="{{ old('booked_for') }}" required>
-                @if ($errors->has('booked_for'))
+                <input id="rent_start" type="date" class="form-control{{ $errors->has('rent_start') ? ' is-invalid' : '' }}" name="rent_start" value="{{ old('rent_start') }}">
+                @if ($errors->has('rent_start'))
                 <span class="invalid-feedback" role="alert">
-                  <strong>{{ $errors->first('booked_for') }}</strong>
+                  <strong>{{ $errors->first('rent_start') }}</strong>
+                </span>
+                @endif
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="rent_month_duration" class="col-md-4 col-form-label text-md-right">{{ __('Book Untuk Berapa Bulan :') }}</label>
+              <div class="col-md-6">
+                <input id="rent_month_duration" type="number" class="form-control{{ $errors->has('rent_month_duration') ? ' is-invalid' : '' }}" name="rent_month_duration" value="{{ old('rent_month_duration') }}" required>
+                @if ($errors->has('rent_month_duration'))
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('rent_month_duration') }}</strong>
                 </span>
                 @endif
               </div>

@@ -41,6 +41,7 @@ Route::prefix('tags')->group(function(){
 Route::prefix('transactions')->group(function(){
 	Route::delete('/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('transactions.destroy');
 	Route::get('/{chamber}/showTransactionForm', 'TransactionController@showTransactionForm')->name('transactions.showTransactionForm');
+	Route::get('/{chamber}/showPaymentMethod', 'TransactionController@showPaymentMethod')->name('transactions.showPaymentMethod');
 	Route::post('/{chamber}', 'TransactionController@store')->name('transactions.store');
 });
 
@@ -117,6 +118,7 @@ Route::prefix('admin')->group(function(){
 	Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 	Route::get('/register/kostariateam', 'Auth\KostariateamRegisterController@showRegistrationForm')->name('kostariateam.register');
 	Route::post('/register/kostariateam', 'Auth\KostariateamRegisterController@register')->name('kostariateam.register.submit');
+	Route::get('/showTransaction', 'AdminController@showTransaction')->name('admin.showTransaction');
 	Route::get('/', 'AdminController@index')->name('admin.dashboard');
 });
 

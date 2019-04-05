@@ -1,0 +1,52 @@
+@extends('layouts.admin')
+@section('title', '| Booking List')
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Daftar Booking</h3>
+        </div>
+    </div>
+    <div class="box table-responsive-xl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Nomor telepon User</th>
+                    <th>No Transaksi</th>
+                    <th>Kostan</th>
+                    <th>Alamat Kostan</th>
+                    <th>Pemilik Kostan</th>
+                    <th>Nomor telepon Pemilik Kostan</th>
+                    <th>Kamar</th>
+                    <th>Tanggal Booking</th>
+                    <th>Waktu Penempatan</th>
+                    <th>Bukti Pembayaran</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($listUser as $user)
+                <tr>
+                    
+                    @foreach($user->chambersTransaction as $bookedChamber)
+                    <tr>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->phone }}</td>
+                        <td>{{ $bookedChamber->id }}</td>
+                        <td>{{ $bookedChamber->boardinghouse->name }}</td>
+                        <td>{{ $bookedChamber->boardinghouse->address }}</td>
+                        <td>{{ $bookedChamber->boardinghouse->owner->name }}</td>
+                        <td>{{ $bookedChamber->boardinghouse->owner->phone }}</td>
+                        <td>{{ $bookedChamber->name }}</td>
+                        <td>{{ $bookedChamber->pivot->created_at }}</td>
+                        <td>{{ $bookedChamber->pivot->rent_start }}</td>
+                    </tr>
+                    @endforeach
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+@endsection

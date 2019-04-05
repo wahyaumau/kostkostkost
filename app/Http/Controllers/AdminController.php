@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kostariateam;
+use App\Models\User;
+use App\Models\Chamber;
 
 class AdminController extends Controller
 {
@@ -23,8 +25,14 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {        
         return view('admin');
+    }
+
+    public function showTransaction()
+    {
+        $listUser = User::whereHas('chambersTransaction')->get();
+        return view('admin.index', compact('listUser'));
     }
 
     public function showKostariateam(){

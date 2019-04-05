@@ -47,7 +47,7 @@ class User extends Authenticatable
     }
 
     public function chambersTransaction(){
-        return $this->belongsToMany('App\Models\Chamber', 'transactions', 'user_id', 'chamber_id')->withPivot(['dp', 'payment_proof', 'deleted_at'])->withTimestamps();
+        return $this->belongsToMany('App\Models\Chamber', 'transactions', 'user_id', 'chamber_id')->withPivot('payment_proof', 'payed_dp', 'rent_month_duration', 'rent_start','rent_due', 'deleted_at')->withTimestamps();
     }
 
     public function chambersTag(){
