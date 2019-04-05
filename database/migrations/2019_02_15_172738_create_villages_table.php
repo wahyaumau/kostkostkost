@@ -17,9 +17,7 @@ class CreateVillagesTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('name');
             $table->bigInteger('district_id')->unsigned();
-            $table->foreign('district_id')
-                ->references('id')->on('districts')                
-                ->onUpdate('cascade');            
+            $table->foreign('district_id')->references('id')->on('districts')->onUpdate('cascade');            
         });
     }
 

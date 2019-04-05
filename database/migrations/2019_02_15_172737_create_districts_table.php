@@ -17,9 +17,7 @@ class CreateDistrictsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('regency_id')->unsigned();
-            $table->foreign('regency_id')
-                ->references('id')->on('regencies')                
-                ->onUpdate('cascade');            
+            $table->foreign('regency_id')->references('id')->on('regencies')->onUpdate('cascade');            
         });
     }
 

@@ -14,6 +14,10 @@ class TransactionController extends Controller
         $this->middleware('auth');
     }
 
+    public function showTransactionForm(Chamber $chamber){
+        return view('boardinghouses.transactionForm', compact('chamber'));
+    }
+
     public function store(Chamber $chamber){
     	$chamber_id = $chamber->id;
         $user_id = Auth::guard('web')->user()->id;

@@ -40,6 +40,7 @@ Route::prefix('tags')->group(function(){
 
 Route::prefix('transactions')->group(function(){
 	Route::delete('/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('transactions.destroy');
+	Route::get('/{chamber}/showTransactionForm', 'TransactionController@showTransactionForm')->name('transactions.showTransactionForm');
 	Route::post('/{chamber}', 'TransactionController@store')->name('transactions.store');
 });
 

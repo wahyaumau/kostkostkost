@@ -15,17 +15,12 @@ class CreateMouTable extends Migration
     {
         Schema::create('mou', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('regency_id')->unsigned();
-            $table->foreign('regency_id')
-                ->references('id')->on('regencies')
-                ->onDelete('cascade');            
             $table->integer('kostariateam_id')->unsigned();
-            $table->foreign('kostariateam_id')
-                ->references('id')->on('kostariateams');            
+            $table->foreign('kostariateam_id')->references('id')->on('kostariateams');            
             $table->integer('owner_id')->unsigned();
-            $table->foreign('owner_id')
-                ->references('id')->on('owners')
-                ->onUpdate('cascade');
+            $table->foreign('owner_id')->references('id')->on('owners')->onUpdate('cascade');
+            $table->integer('regency_id')->unsigned();
+            $table->foreign('regency_id')->references('id')->on('regencies')->onDelete('cascade');
             $table->date('signed_at');
             $table->date('ended_at');
             $table->timestamps();

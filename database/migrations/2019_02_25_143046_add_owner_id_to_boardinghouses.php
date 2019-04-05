@@ -15,8 +15,7 @@ class AddOwnerIdToBoardinghouses extends Migration
     {
         Schema::table('boardinghouses', function (Blueprint $table) {
             $table->integer('owner_id')->unsigned()->after('village_id');
-            $table->foreign('owner_id')
-                ->references('id')->on('owners');            
+            $table->foreign('owner_id')->references('id')->on('owners');            
         });
     }
 

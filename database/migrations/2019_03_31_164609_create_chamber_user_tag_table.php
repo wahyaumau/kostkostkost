@@ -15,9 +15,9 @@ class CreateChamberUserTagTable extends Migration
     {
         Schema::create('chamber_user_tag', function (Blueprint $table) {
             $table->increments('id');            
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('chamber_id')->unsigned()->nullable();
+            $table->integer('chamber_id')->unsigned();
             $table->foreign('chamber_id')->references('id')->on('chambers')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

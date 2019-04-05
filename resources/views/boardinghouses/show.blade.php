@@ -56,10 +56,7 @@
             @csrf
             <button class="btn btn-primary" type="submit">Tag Kamar Ini</button>
           </form>
-          <form action="{{ route('transactions.store', $chamber)}}" method="post">
-            @csrf
-            <button class="btn btn-primary" type="submit">Booking Kamar Ini</button>
-          </form>          
+          <a href="{{ route('transactions.showTransactionForm', $chamber) }}" class="btn btn-primary">Book Kamar Ini</a>
         </div>
         @endforeach
       </div>

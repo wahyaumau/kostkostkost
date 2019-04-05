@@ -18,8 +18,7 @@ class CreateUniversitiesTable extends Migration
             $table->string('name');            
             $table->text('address');            
             $table->bigInteger('village_id')->unsigned();
-            $table->foreign('village_id')
-            ->references('id')->on('villages');            
+            $table->foreign('village_id')->references('id')->on('villages');            
         });
     }
 

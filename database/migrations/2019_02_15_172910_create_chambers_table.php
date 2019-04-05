@@ -17,8 +17,7 @@ class CreateChambersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('boardinghouse_id')->unsigned();
-            $table->foreign('boardinghouse_id')
-                ->references('id')->on('boardinghouses');
+            $table->foreign('boardinghouse_id')->references('id')->on('boardinghouses');
             $table->bigInteger('price_monthly');
             $table->bigInteger('price_annual');
             $table->boolean('gender');

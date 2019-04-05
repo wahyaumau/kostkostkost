@@ -15,8 +15,7 @@ class AddChamberIdToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('chamber_id')->unsigned()->nullable()->after('university_id');
-            $table->foreign('chamber_id')
-                ->references('id')->on('chambers');
+            $table->foreign('chamber_id')->references('id')->on('chambers');
         });
     }
 
