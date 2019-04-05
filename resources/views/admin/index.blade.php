@@ -22,6 +22,7 @@
                     <th>Tanggal Booking</th>
                     <th>Waktu Penempatan</th>
                     <th>Bukti Pembayaran</th>
+                    <th>Action</th>
                     
                 </tr>
             </thead>
@@ -41,6 +42,8 @@
                         <td>{{ $bookedChamber->name }}</td>
                         <td>{{ $bookedChamber->pivot->created_at }}</td>
                         <td>{{ $bookedChamber->pivot->rent_start }}</td>
+                        <td>{{ $bookedChamber->pivot->payment_proof }}</td>
+                        <td><a href="" class="btn btn-primary">Konfirmasi</a></td>
                     </tr>
                     @endforeach
                 </tr>
