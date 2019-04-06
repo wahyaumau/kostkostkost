@@ -19,6 +19,10 @@ Route::get('/teamregist', function () {
     return view('other.teamreg');
 });
 
+Route::get('/about', function () {
+    return view('other.about');
+});
+
 
 Route::prefix('boardinghouses')->group(function(){
 	Route::get('/creates/{id}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
@@ -27,7 +31,7 @@ Route::prefix('boardinghouses')->group(function(){
 
 Route::prefix('chambers')->group(function(){
 	Route::post('/search', 'ChamberController@search')->name('chambers.search');
-	Route::get('/creates/{id}', 'ChamberController@creates')->name('chambers.creates');	
+	Route::get('/creates/{id}', 'ChamberController@creates')->name('chambers.creates');
 });
 
 
@@ -52,7 +56,7 @@ Route::get('/{user}/edit', 'UserController@edit')->name('users.edit');
 Route::patch('/{user}', 'UserController@update')->name('users.update');
 Route::get('/{user}/editCredential', 'UserController@editCredential')->name('users.editCredential');
 Route::patch('/{user}/updateCredential', 'UserController@updateCredential')->name('users.updateCredential');
-Route::get('/{user}', 'UserController@show')->name('users.show');	
+Route::get('/{user}', 'UserController@show')->name('users.show');
 });
 
 Route::prefix('kostariateams')->group(function(){
@@ -125,6 +129,6 @@ Route::prefix('admin')->group(function(){
 Route::prefix('kostariateam')->group(function(){
 	Route::get('/login', 'Auth\KostariateamLoginController@showLoginForm')->name('kostariateam.login');
 	Route::post('/login', 'Auth\KostariateamLoginController@login')->name('kostariateam.login.submit');
-	Route::get('/logout', 'Auth\KostariateamLoginController@logout')->name('kostariateam.logout');	
+	Route::get('/logout', 'Auth\KostariateamLoginController@logout')->name('kostariateam.logout');
 	Route::get('/', 'KostariateamController@index')->name('kostariateam.dashboard');
 });

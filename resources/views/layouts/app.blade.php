@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
     <!-- Other Scripts -->
@@ -24,7 +25,7 @@
 
 <body id="page-top">
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" >
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -33,52 +34,58 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 sticky-top shadow">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white shadow mb-4">
+                  <a class="navbar-brand" href="{{url('/')}}">
+                    <img src="{{asset('img/kostaria.png')}}" width="70" height="70" class="d-inline-block align-top" alt="">
+                  </a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
 
-                    <a href="{{url('/')}}" class="navbar-left"><img src="{{url('svg/logo-kostaria.svg')}}"></a>
-
-                    <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">KWM</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Beasiswa
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="https://indbeasiswa.com/beasiswa-diploma" target="_blank">Beasiswa Diploma</a>
+                          <a class="dropdown-item" href="https://indbeasiswa.com/beasiswa-s1" target="_blank">Beasiswa Sarjana</a>
+                          <a class="dropdown-item" href="https://indbeasiswa.com/beasiswa-s2" target="_blank">Beasiswa Master</a>
+                          <a class="dropdown-item" href="https://indbeasiswa.com/beasiswa-s3" target="_blank">Beasiswa Doktor</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="https://www.google.com/search?q=beasiswa+kuliah" target="_blank">Cari Info Lainnya</a>
                         </div>
-                    </form>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hello</span>
-                                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{route('kostariateam.login')}}">Kostaria Teams</a>
+                      </li>
                     </ul>
+                    <ul class="navbar-nav navbar-right">
+                    @if (Route::has('login'))
 
+                    @auth
+                    @else
+                    <li class="nav-item">
+                      <a class="btn btn-outline-primary m-1 mb-2" href="{{ route('login') }}">Login</a>
+                    </li>
+                    @if (Route::has('register'))
+                    <li class="nav-item">
+                      <a class="btn btn-primary m-1 mb-2" href="{{ route('register') }}">Register</a>
+                    </li>
+                    @endif
+                    @endauth
+
+                    @endif
+                  </ul>
+                    <!-- <form class="form-inline my-2 my-lg-0">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
+                    </form> -->
+                  </div>
                 </nav>
                 <!-- End of Topbar -->
 
@@ -94,8 +101,8 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
+            <footer class="sticky-footer bg-white mt-4">
+                <div class="container mx-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; KOSTARIA.ID 2019</span>
                     </div>
@@ -115,7 +122,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -130,7 +137,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
