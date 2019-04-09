@@ -14,8 +14,14 @@ class TransactionController extends Controller
         $this->middleware('auth');
     }
 
-    public function showTransactionForm(Chamber $chamber){
-        return view('boardinghouses.transactionForm', compact('chamber'));
+    public function showTransactionForm(Chamber $chamber){        
+        $bookedChambers = Auth::guard('web')->user()->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->get();
+        if ($bookedChambers->isEmpty()) {
+            return view('boardinghouses.transactionForm', compact('chamber'));    
+        }else{
+            return back()->with('gagal', 'sudah melakukan book');
+        }
+        
     }
 
     public function store(Chamber $chamber, Request $request){
