@@ -112,7 +112,7 @@
                 @php
                   $facilities = str_split($boardinghouse->facility);
                   $facilities_def = array('fas fa-utensils', 'fas fa-fire', 'fas fas-burn', 'fas fa-motorcycle', 'fas fa-car', 'fas fa-tshirt', 'fas fa-bolt', 'fas fa-tint', 'fas fa-broom', 'fas fa-file-invoice-dollar', 'fas fa-wifi');
-                  $facilities_des = array('Dapur', 'Kompor', 'Elpiji', 'Parkir Motor', 'Parkir Mobil', 'Jemuran', 'Listril', 'Air', 'Kebersihan', 'Pajak dan Retribusi', 'Wifi');
+                  $facilities_dess = array('Dapur', 'Kompor', 'Elpiji', 'Parkir Motor', 'Parkir Mobil', 'Jemuran', 'Listril', 'Air', 'Kebersihan', 'Pajak dan Retribusi', 'Wifi');
                   for ($i=0; $i < count($facilities); $i++) {
                   if ($facilities[$i] == false) {
                     unset($facilities_def[$i]);
@@ -121,7 +121,7 @@
                 }
                 @endphp
                 @foreach($facilities_def as $index => $facility)
-                    <i class="{{$facility}}" alt="{{$facilities_des[$index]}}"></i>
+                    <i class="{{$facility}}" alt=""></i>
                 @endforeach
                 <!--
                 <p>fasilitas lain : {{$boardinghouse->facility_other}}</p>
