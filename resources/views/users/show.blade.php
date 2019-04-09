@@ -22,7 +22,7 @@
         <div class="card-body">
           @foreach($user->chambersTag as $tag)
           <p>{{ $tag->name.', '.$tag->boardinghouse->name }}</p>
-          <p>{{ $tag->pivot->chamber_id }}</p>
+          {{-- <p>{{ $tag }}</p>           --}}
           <form action="{{ url('tags/deletes/'.$user->id.'/'.$tag->pivot->chamber_id)}}" method="post">
             @csrf
             @method('DELETE')
@@ -33,6 +33,8 @@
             <span style="color:#ffffff !important;" class="text">Hapus Dari Whislist Saya</span>
             </button>
           </form>
+          <a href="{{ route('transactions.showTransactionForm', $tag) }}" class="btn btn-success ml-1">Book Kamar</a>
+          <a href="{{ route('boardinghouses.show', $tag->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>
           @endforeach
         </div>
       </div>
@@ -43,6 +45,8 @@
           @foreach($user->chambersTransaction as $transaction)
           <p>{{ $transaction->name.', '.$transaction->boardinghouse->name }}</p>
           <p>{{ $transaction->pivot->chamber_id }}</p>          
+          {{-- <p>{{ $transaction }}</p> --}}
+          <a href="{{ route('boardinghouses.show', $transaction->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>
           @endforeach
         </div>
       </div>
