@@ -23,7 +23,7 @@
           @foreach($user->chambersTag as $tag)
           <p>{{ $tag->name.', '.$tag->boardinghouse->name }}</p>
           {{-- <p>{{ $tag }}</p>           --}}
-          <form action="{{ url('tags/deletes/'.$user->id.'/'.$tag->pivot->chamber_id)}}" method="post">
+          <form action="{{ route('tags.destroy', [$user, $tag]) }}" method="post">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger btn-icon-split my-1 btn-sm">
@@ -47,6 +47,7 @@
           <p>{{ $transaction->pivot->chamber_id }}</p>          
           {{-- <p>{{ $transaction }}</p> --}}
           <a href="{{ route('boardinghouses.show', $transaction->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>
+          <a href="{{ route('transactions.showPaymentProofUploadForm', $transaction) }}" class="btn btn-success ml-1">Konfirmasi Pembayaran</a>
           @endforeach
         </div>
       </div>

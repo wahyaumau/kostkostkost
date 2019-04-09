@@ -40,4 +40,16 @@ class AdminController extends Controller
         return view('kostariateams.index', compact('listKostariaTeam'));
 
     }
+
+    public function confirmTransaction(User $user, Chamber $chamber){
+        // $user = User::find($userId);
+        $bookedChamber = $user->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->first();
+        if ($bookedChamber->pivot->payment_proof == null) {
+            echo "Dia belum bayar";
+        }else{
+            $bookedChamber->pivot->confirmed = true;
+            $bookedChamber->pivot->save();
+            return redirect()->route('admin.showTransaction')->with('success', 'berhasil dikonfirmasi');
+        }
+    }
 }

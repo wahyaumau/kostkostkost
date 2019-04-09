@@ -16,14 +16,9 @@ class TagController extends Controller
     }
 
     public function store(Chamber $chamber){
-    	$chamber_id = $chamber->id;
-        $user_id = Auth::guard('web')->user()->id;
-        $user = User::where('id', $user_id)
-                ->whereHas('chambersTag', function($query) use ($chamber_id) {
-                        $query->where('chamber_user_tag.chamber_id', $chamber_id);
-                })->get();
+    	$taggedChambers = Auth::guard('web')->user()->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->get();
 
-        if ($user->isEmpty()) {
+        if ($taggedChambers->isEmpty()) {
             $user = Auth::guard('web')->user();
             $user->chambersTag()->sync($chamber_id, false);            
             return back()->with('success', 'berhasil ditambahkan');
@@ -32,9 +27,8 @@ class TagController extends Controller
         }        
     }
 
-    public function destroy($userId, $chamberId){
-        $user = User::find($userId);
-        $user->chambersTag()->detach($chamberId);        
+    public function destroy(User $user, Chamber $chamber){        
+        $user->chambersTag()->detach($chamber->id);
         return back();
     }
 }

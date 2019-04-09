@@ -21,7 +21,7 @@
                     <th>Kamar</th>
                     <th>Tanggal Booking</th>
                     <th>Waktu Penempatan</th>
-                    <th>Bukti Pembayaran</th>
+                    <th>Bukti Pembayaran</th>                    
                     <th>Action</th>
                     
                 </tr>
@@ -43,13 +43,17 @@
                         <td>{{ $bookedChamber->pivot->created_at }}</td>
                         <td>{{ $bookedChamber->pivot->rent_start }}</td>
                         <td>{{ $bookedChamber->pivot->payment_proof }}</td>
-                        <td><a href="" class="btn btn-primary">Konfirmasi</a></td>
-                    </tr>
-                    @endforeach
+                        <td><form action="{{ route('admin.confirmTransaction', [$user->id, $bookedChamber->id])}}" method="post">
+                            @csrf
+                            <button class="btn btn-danger mx-auto" type="submit"><span class="fas fa-flag"></span></button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
-            </tbody>
-        </table>
-    </div>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 </div>
 @endsection

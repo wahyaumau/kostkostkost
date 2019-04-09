@@ -25,56 +25,57 @@ Route::get('/about', function () {
 
 
 Route::prefix('boardinghouses')->group(function(){
-	Route::get('/creates/{id}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
+	Route::get('/creates/{mouId}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
 	Route::post('/search', 'BoardingHouseController@search')->name('boardinghouses.search');
 });
 
 Route::prefix('chambers')->group(function(){
 	Route::post('/search', 'ChamberController@search')->name('chambers.search');
-	Route::get('/creates/{id}', 'ChamberController@creates')->name('chambers.creates');
+	Route::get('/creates/{bhId}', 'ChamberController@creates')->name('chambers.creates');
 });
 
 
 Route::get('universities/getUniversities/', 'UniversityController@getUniversities')->name('universities.getUniversities');
 
 Route::prefix('tags')->group(function(){
-	Route::delete('/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('tags.destroy');
+	Route::delete('/destroy/{user}/{chamber}', 'TagController@destroy')->name('tags.destroy');
 	Route::post('/{chamber}', 'TagController@store')->name('tags.store');
 });
 
 Route::prefix('transactions')->group(function(){
-	Route::delete('/deletes/{userId}/{chamberId}', 'TagController@destroy')->name('transactions.destroy');
-	Route::get('/{chamber}/showTransactionForm', 'TransactionController@showTransactionForm')->name('transactions.showTransactionForm');
-	Route::get('/{chamber}/showPaymentMethod', 'TransactionController@showPaymentMethod')->name('transactions.showPaymentMethod');
+	Route::get('/showPaymentProofUploadForm/{chamber}', 'TransactionController@showPaymentProofUploadForm')->name('transactions.showPaymentProofUploadForm');
+	Route::post('/paymentProofStore/{chamber}', 'TransactionController@paymentProofStore')->name('transactions.paymentProofStore');
+	Route::get('/showTransactionForm/{chamber}', 'TransactionController@showTransactionForm')->name('transactions.showTransactionForm');
+	Route::get('/showPaymentMethod/{chamber}', 'TransactionController@showPaymentMethod')->name('transactions.showPaymentMethod');
 	Route::post('/{chamber}', 'TransactionController@store')->name('transactions.store');
 });
 
 Route::prefix('users')->group(function(){
-	Route::get('/{edittype}/showCredentialForm', 'UserController@showCredentialForm')->name('users.showCredentialForm');
-Route::post('/{edittype}/verifyCredential', 'UserController@verifyCredential')->name('users.verifyCredential');
-Route::get('/{user}/edit', 'UserController@edit')->name('users.edit');
+	Route::get('/showCredentialForm/{edittype}', 'UserController@showCredentialForm')->name('users.showCredentialForm');
+Route::post('/verifyCredential/{edittype}', 'UserController@verifyCredential')->name('users.verifyCredential');
+Route::get('/edit/{user}', 'UserController@edit')->name('users.edit');
 Route::patch('/{user}', 'UserController@update')->name('users.update');
-Route::get('/{user}/editCredential', 'UserController@editCredential')->name('users.editCredential');
-Route::patch('/{user}/updateCredential', 'UserController@updateCredential')->name('users.updateCredential');
-Route::get('/{user}', 'UserController@show')->name('users.show');
+Route::get('/editCredential/{user}', 'UserController@editCredential')->name('users.editCredential');
+Route::patch('/updateCredential/{user}', 'UserController@updateCredential')->name('users.updateCredential');
+Route::get('/show/{user}', 'UserController@show')->name('users.show');
 });
 
 Route::prefix('kostariateams')->group(function(){
-	Route::get('/{edittype}/showCredentialForm', 'KostariateamController@showCredentialForm')->name('kostariateams.showCredentialForm');
-	Route::post('/{edittype}/verifyCredential', 'KostariateamController@verifyCredential')->name('kostariateams.verifyCredential');
-	Route::get('/{kostariateam}/edit', 'KostariateamController@edit')->name('kostariateams.edit');
+	Route::get('/showCredentialForm/{edittype}', 'KostariateamController@showCredentialForm')->name('kostariateams.showCredentialForm');
+	Route::post('/verifyCredential/{edittype}', 'KostariateamController@verifyCredential')->name('kostariateams.verifyCredential');
+	Route::get('/edit/{kostariateam}', 'KostariateamController@edit')->name('kostariateams.edit');
 	Route::patch('/{kostariateam}', 'KostariateamController@update')->name('kostariateams.update');
-	Route::get('/{kostariateam}/editCredential', 'KostariateamController@editCredential')->name('kostariateams.editCredential');
-	Route::patch('/{kostariateam}/updateCredential', 'KostariateamController@updateCredential')->name('kostariateams.updateCredential');
-	Route::get('/{kostariateam}', 'KostariateamController@show')->name('kostariateams.show');
+	Route::get('/editCredential/{kostariateam}', 'KostariateamController@editCredential')->name('kostariateams.editCredential');
+	Route::patch('/updateCredential/{kostariateam}', 'KostariateamController@updateCredential')->name('kostariateams.updateCredential');
+	Route::get('/show/{kostariateam}', 'KostariateamController@show')->name('kostariateams.show');
 });
 
 Route::get('regencies/getRegencies/', 'RegencyController@getRegencies')->name('regencies.getRegencies');
 
 Route::prefix('address')->group(function(){
-	Route::get('/getRegencies/{id}', 'AddressController@getRegencies')->name('address.getRegencies');
-	Route::get('/getDistricts/{id}', 'AddressController@getDistricts')->name('address.getDistricts');
-	Route::get('/getVillages/{id}', 'AddressController@getVillages')->name('address.getVillages');
+	Route::get('/getRegencies/{provinceId}', 'AddressController@getRegencies')->name('address.getRegencies');
+	Route::get('/getDistricts/{regencyId}', 'AddressController@getDistricts')->name('address.getDistricts');
+	Route::get('/getVillages/{districtId}', 'AddressController@getVillages')->name('address.getVillages');
 });
 
 
@@ -114,7 +115,6 @@ Route::prefix('admin')->group(function(){
 	Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 	Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
 	Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
-
 	Route::get('/showKostariaTeam', 'AdminController@showKostariaTeam')->name('admin.showKostariaTeam');
 	Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetEmailLink')->name('admin.password.email');
 	Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
@@ -123,6 +123,7 @@ Route::prefix('admin')->group(function(){
 	Route::get('/register/kostariateam', 'Auth\KostariateamRegisterController@showRegistrationForm')->name('kostariateam.register');
 	Route::post('/register/kostariateam', 'Auth\KostariateamRegisterController@register')->name('kostariateam.register.submit');
 	Route::get('/showTransaction', 'AdminController@showTransaction')->name('admin.showTransaction');
+	Route::post('/confirmTransaction/{user}/{chamber}', 'AdminController@confirmTransaction')->name('admin.confirmTransaction');
 	Route::get('/', 'AdminController@index')->name('admin.dashboard');
 });
 

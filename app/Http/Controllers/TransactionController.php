@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Chamber;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Storage;
 
 class TransactionController extends Controller
 {
@@ -18,8 +19,9 @@ class TransactionController extends Controller
         $bookedChambers = Auth::guard('web')->user()->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->get();
         if ($bookedChambers->isEmpty()) {
             return view('boardinghouses.transactionForm', compact('chamber'));    
-        }else{
+        }else{            
             return back()->with('gagal', 'sudah melakukan book');
+
         }
         
     }
@@ -28,17 +30,12 @@ class TransactionController extends Controller
         $this->validate($request, array(            
             'rent_month_duration' => 'required|numeric',            
             'rent_start' => 'required|date|after:now',            
-        ));
-    	$chamber_id = $chamber->id;
-        $user_id = Auth::guard('web')->user()->id;
-        $user = User::where('id', $user_id)
-                ->whereHas('chambersTransaction', function($query) use ($chamber_id) {
-                        $query->where('transactions.chamber_id', $chamber_id);
-                })->get();                
+        ));    	
+        $bookedChambers = Auth::guard('web')->user()->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->get();
 
-        if ($user->isEmpty()) {
+        if ($bookedChambers->isEmpty()) {
             $user = Auth::guard('web')->user();
-            $user->chambersTransaction()->attach($chamber_id, [
+            $user->chambersTransaction()->attach($chamber->id, [
                 'rent_month_duration' => $request->rent_month_duration,
                 'rent_start' => $request->rent_start,
             ]);
@@ -50,13 +47,45 @@ class TransactionController extends Controller
 
     public function showPaymentMethod(Chamber $chamber){
         $user = Auth::guard('web')->user();
-        $bookedChambers = $user->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->get();
-        return view('boardinghouses.showPaymentMethod', compact('chamber', 'user', 'bookedChambers'));
+        $bookedChamber = $user->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->first();
+        return view('boardinghouses.showPaymentMethod', compact('user', 'bookedChamber'));
     }
 
     public function destroy($userId, $chamberId){
         $user = User::find($userId);
-        $user->chambersTag()->detach($chamberId);        
+        $user->chambersTag()->detach($chamberId);
         return back();
+    }
+
+    public function showPaymentProofUploadForm(Chamber $chamber){        
+        $user = Auth::guard('web')->user();
+        $bookedChamber = $user->chambersTransaction()->where('chamber_id', $chamber->id)->first();
+        if ($bookedChamber->pivot->payment_proof == null){
+            return view('boardinghouses.paymentProofUploadForm', compact('user', 'bookedChamber'));    
+        }else{
+            return back()->with('error', 'sudah upload bukti pembayaran');
+        }
+        
+    }
+
+    public function paymentProofStore(Request $request, Chamber $chamber){
+        $user = Auth::guard('web')->user();
+        $bookedChamber = $user->chambersTransaction()->where('chamber_id', $chamber->id)->first();                
+        if ($bookedChamber->pivot->payment_proof == null) {
+            if ($request->hasFile('payment_proof')) {
+                $this->validate($request, array(            
+                    'payment_proof' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg',                
+                ));
+                $bookedChamber = $user->chambersTransaction()->where('chamber_id', $chamber->id)->first();
+                $file = $request->payment_proof;
+                $filename = time().'_'.$bookedChamber->pivot->user_id.'-'.$bookedChamber->pivot->chamber_id.'_'.$file->getClientOriginalName();
+                $folderName = 'images';
+                Storage::putFileAs($folderName, $file, $filename);            
+                $bookedChamber->pivot->payment_proof = $filename;            
+                $bookedChamber->pivot->save();
+            }                            
+        }else{
+            return back()->with('error', 'sudah upload bukti pembayaran');
+        }
     }
 }
