@@ -76,7 +76,7 @@ class ChamberController extends Controller
         $chamber->chamber_facility = $facilities;        
         $chamber->chamber_facility_others = $request->get('chamber_facility_others');                
         $chamber->save();
-        return redirect()->route('chambers.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('chambers.index')->with('success', 'Kamar berhasil ditambahkan');
     }
 
     /**
@@ -141,7 +141,7 @@ class ChamberController extends Controller
         $chamber->chamber_facility = $facilities;        
         $chamber->chamber_facility_others = $request->get('chamber_facility_others');                
         $chamber->save();        
-        return redirect()->route('chambers.index')->with('success', 'berhasil diedit');
+        return redirect()->route('chambers.index')->with('success', 'Kamar berhasil diedit');
     }
 
     /**
@@ -154,7 +154,7 @@ class ChamberController extends Controller
     {
         $chamber = Chamber::findOrFail($id);
         $chamber->delete();
-        return redirect()->route('chambers.index')->with('success', 'berhasil dihapus');
+        return redirect()->route('chambers.index')->with('success', 'Kamar berhasil dihapus');
     }
 
     // public function search(Request $request){

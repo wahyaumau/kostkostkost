@@ -27,7 +27,7 @@ class BoardinghouseController extends Controller
      */
     public function index()
     {
-        $listBoardingHouse = BoardingHouse::paginate(2);
+        $listBoardingHouse = BoardingHouse::paginate(20);
         return view('boardinghouses.index', compact('listBoardingHouse'));
     }
 
@@ -90,7 +90,7 @@ class BoardinghouseController extends Controller
             $boardinghouse->video = $filename;            
         }        
         $boardinghouse->save();
-        return redirect()->route('boardinghouses.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('boardinghouses.index')->with('success', 'kostan '.$request->name.' berhasil ditambahkan');
     }
 
     /**
@@ -170,7 +170,7 @@ class BoardinghouseController extends Controller
             $boardinghouse->video = $filename;            
         }        
         $boardinghouse->save();
-        return redirect()->route('boardinghouses.index')->with('success', 'berhasil diedit');
+        return redirect()->route('boardinghouses.index')->with('success', 'kostan berhasil diedit');
     }
 
     /**
@@ -184,7 +184,7 @@ class BoardinghouseController extends Controller
         $boardinghouse = Boardinghouse::findOrFail($id);
         Storage::disk('public-html-videos')->delete($boardinghouse->video);            
         $boardinghouse->delete();
-        return redirect()->route('boardinghouses.index')->with('success', 'berhasil dihapus');
+        return redirect()->route('boardinghouses.index')->with('success', 'kostan berhasil dihapus');
     }
 
     public function search(Request $request){

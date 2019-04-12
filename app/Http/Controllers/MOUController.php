@@ -44,10 +44,9 @@ class MOUController extends Controller
     public function create()
     {
         $listRegency = Regency::all();
-        if (Auth::guard('kostariateam')->check()) {
-            
-        $kostariateam = Auth::guard('kostariateam')->user();
-        return view('mou.create', compact('listRegency', 'kostariateam'));
+        if (Auth::guard('kostariateam')->check()) {            
+            $kostariateam = Auth::guard('kostariateam')->user();
+            return view('mou.create', compact('listRegency', 'kostariateam'));
         }
     }
 
@@ -93,7 +92,7 @@ class MOUController extends Controller
         $mou->signed_at = $request->get('signed_at');        
         $mou->ended_at = $request->get('ended_at');        
         $mou->save();        
-        return redirect()->route('mou.index')->with('success', 'berhasil ditambahkan');;
+        return redirect()->route('mou.index')->with('success', 'mou berhasil ditambahkan');;
     }
 
     /**
