@@ -20,15 +20,15 @@ class TagController extends Controller
 
         if ($taggedChambers->isEmpty()) {
             $user = Auth::guard('web')->user();
-            $user->chambersTag()->sync($chamber_id, false);            
+            $user->chambersTag()->sync($chamber->id, false);            
             return back()->with('success', 'berhasil ditambahkan');
         }else{
-            return back()->with('gagal', 'sudah melakukan tag');            
+            return back()->with('fail', 'sudah melakukan tag');            
         }        
     }
 
     public function destroy(User $user, Chamber $chamber){        
         $user->chambersTag()->detach($chamber->id);
-        return back();
+        return back()->with('success', 'berhasil menghapus tag');
     }
 }

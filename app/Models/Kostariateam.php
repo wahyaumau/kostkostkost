@@ -12,7 +12,9 @@ class Kostariateam extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
     protected $guard='kostariateam';
+    protected $softCascade = ['mou'];
 
     /**
      * The attributes that are mass assignable.
@@ -38,10 +40,6 @@ class Kostariateam extends Authenticatable
 
     public function regencyBirth(){
         return $this->belongsTo('App\Models\Regency', 'regency_id_birth', 'id');
-    }
-
-    public function boardinghouse(){
-        return $this->hasMany('App\Models\Boardinghouse');
     }
 
     public function mou(){

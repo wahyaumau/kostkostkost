@@ -3,6 +3,15 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <p>{{ \Session::get('success') }}</p>
+    </div><br />
+    @elseif (\Session::has('fail'))
+    <div class="alert alert-danger">
+        <p>{{ \Session::get('fail') }}</p>
+    </div><br />
+    @endif
       <div class="col-md-8">
 
           <div class="card">

@@ -5,8 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Owner extends SoftDelete
-{    
-    protected $table = 'owners';            
+{   
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
+    protected $table = 'owners'; 
+    protected $softCascade = ['boardinghouse'];
+
     
     public function village(){
         return $this->belongsTo('App\Models\Village');

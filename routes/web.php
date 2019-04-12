@@ -92,9 +92,7 @@ Route::resource('villages', 'VillageController', [
     'only' => ['index', 'store']
 ]);
 Route::resource('boardinghouses', 'BoardingHouseController');
-Route::resource('chambers', 'ChamberController', [
-	'except' => ['show']
-]);
+Route::resource('chambers', 'ChamberController');
 Route::resource('universities', 'UniversityController',[
 	'except' => ['show']
 ]);

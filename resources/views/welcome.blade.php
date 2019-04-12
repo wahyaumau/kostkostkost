@@ -116,7 +116,7 @@
                   for ($i=0; $i < count($facilities); $i++) {
                   if ($facilities[$i] == false) {
                     unset($facilities_def[$i]);
-                    unset($facilities_des[$i]);
+                    unset($facilities_dess[$i]);
                   }
                 }
                 @endphp

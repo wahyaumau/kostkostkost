@@ -62,7 +62,7 @@ class KostariateamController extends Controller
                     break;
             }            
         }else{            
-            return redirect()->route('kostariateams.show', Auth::guard('kostariateam')->user())->with('error', 'password salah');
+            return redirect()->route('kostariateams.show', Auth::guard('kostariateam')->user())->with('fail', 'password salah');
         }
 
     }
@@ -117,7 +117,7 @@ class KostariateamController extends Controller
             $kostariateam->save();
             return redirect()->route('kostariateams.show', $kostariateam)->with('success', 'berhasil diedit');
         }else{
-            return back()->with('error', 'wrong password');
+            return back()->with('fail', 'wrong password');
         }
 
         

@@ -20,8 +20,7 @@ class TransactionController extends Controller
         if ($bookedChambers->isEmpty()) {
             return view('boardinghouses.transactionForm', compact('chamber'));    
         }else{            
-            return back()->with('gagal', 'sudah melakukan book');
-
+            return back()->with('fail', 'sudah melakukan book');
         }
         
     }
@@ -39,9 +38,9 @@ class TransactionController extends Controller
                 'rent_month_duration' => $request->rent_month_duration,
                 'rent_start' => $request->rent_start,
             ]);
-            return redirect()->route('transactions.showPaymentMethod', $chamber)->with('success', 'berhasil ditambahkan');
+            return redirect()->route('transactions.showPaymentMethod', $chamber)->with('success', 'berhasil book');
         }else{
-            return back()->with('gagal', 'sudah melakukan tag');            
+            return back()->with('fail', 'sudah melakukan book');            
         }        
     }
 
@@ -63,7 +62,7 @@ class TransactionController extends Controller
         if ($bookedChamber->pivot->payment_proof == null){
             return view('boardinghouses.paymentProofUploadForm', compact('user', 'bookedChamber'));    
         }else{
-            return back()->with('error', 'sudah upload bukti pembayaran');
+            return back()->with('fail', 'sudah upload bukti pembayaran');
         }
         
     }
@@ -85,7 +84,7 @@ class TransactionController extends Controller
                 $bookedChamber->pivot->save();
             }                            
         }else{
-            return back()->with('error', 'sudah upload bukti pembayaran');
+            return back()->with('fail', 'sudah upload bukti pembayaran');
         }
     }
 }

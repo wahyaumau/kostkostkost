@@ -58,7 +58,7 @@ class UserController extends Controller
                     break;
             }            
         }else{
-            return redirect()->route('users.show', Auth::user())->with('error', 'password salah');
+            return redirect()->route('users.show', Auth::user())->with('fail', 'password salah');
         }
 
     }
@@ -118,7 +118,7 @@ class UserController extends Controller
             $user->save();
             return redirect()->route('users.show', $user)->with('success', 'berhasil diedit');    
         }else{
-            return back()->with('error', 'wrong password');
+            return back()->with('fail', 'wrong password');
         }
 
         

@@ -12,7 +12,7 @@ use App\Models\Owner;
 use App\Models\University;
 use Storage;
 
-class BoardingHouseController extends Controller
+class BoardinghouseController extends Controller
 {
     public function __construct()
     {

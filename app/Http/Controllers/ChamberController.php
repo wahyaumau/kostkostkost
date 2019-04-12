@@ -86,7 +86,7 @@ class ChamberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {        
         $chamber = Chamber::find($id);
         return view('chambers.show', compact('chamber'));
     }

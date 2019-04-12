@@ -53,7 +53,7 @@ class UniversityController extends Controller
         $university->address = $request->get('address');        
         $university->village_id = $request->get('village_id');        
         $university->save();
-        return redirect()->route('universities.index')->with('success', 'berhasil ditambahkan');
+        return redirect()->route('universities.index')->with('success', 'kampus '.$request->name.' berhasil ditambahkan');
     }
 
     /**
@@ -96,11 +96,12 @@ class UniversityController extends Controller
             'village_id' => 'required|numeric',            
         ));
         $university = University::find($id);
+        $old_name = $university->name;
         $university->name = $request->get('name');
         $university->address = $request->get('address');        
         $university->village_id = $request->get('village_id');        
         $university->save();
-        return redirect()->route('universities.index')->with('success', 'berhasil diedit');
+        return redirect()->route('universities.index')->with('success', 'kampus '.$old_name.' berhasil diedit');
     }
 
     /**
@@ -112,8 +113,9 @@ class UniversityController extends Controller
     public function destroy($id)
     {
         $university = University::findOrFail($id);
+        $old_name = $university->name;
         $university->delete();
-        return redirect()->route('universities.index')->with('success', 'berhasil dihapus');
+        return redirect()->route('universities.index')->with('success', 'kampus '.$old_name.' berhasil dihapus');
     }
 
     // public function getUniversities($name) {        

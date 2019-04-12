@@ -7,6 +7,15 @@
             <h3>Daftar Booking</h3>
         </div>
     </div>
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <p>{{ \Session::get('success') }}</p>
+    </div><br />
+    @elseif (\Session::has('fail'))
+    <div class="alert alert-fail">
+        <p>{{ \Session::get('fail') }}</p>
+    </div><br />
+    @endif
     <div class="box table-responsive-xl">
         <table class="table table-striped">
             <thead>
@@ -21,7 +30,7 @@
                     <th>Kamar</th>
                     <th>Tanggal Booking</th>
                     <th>Waktu Penempatan</th>
-                    <th>Bukti Pembayaran</th>                    
+                    <th>Bukti Pembayaran</th>
                     <th>Action</th>
                     
                 </tr>

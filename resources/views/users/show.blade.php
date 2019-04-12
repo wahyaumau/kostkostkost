@@ -4,6 +4,15 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
+      @if (\Session::has('success'))
+      <div class="alert alert-success">
+        <p>{{ \Session::get('success') }}</p>
+      </div><br />
+      @elseif (\Session::has('fail'))
+      <div class="alert alert-danger">
+        <p>{{ \Session::get('fail') }}</p>
+      </div><br />
+      @endif
       <div class="card">
         <div class="card-header">{{ $user->name }}</div>
         <div class="card-body">

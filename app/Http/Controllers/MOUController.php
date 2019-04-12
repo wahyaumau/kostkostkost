@@ -26,7 +26,10 @@ class MOUController extends Controller
      */
     public function index()
     {        
-        if (Auth::guard('kostariateam')->check()) {            
+        if (Auth::guard('admin')->check()) {                        
+            $listMou = Mou::all();
+            return view('mou.index', compact('listMou'));
+        }else if (Auth::guard('kostariateam')->check()) {            
             $kostariateam_id = Auth::guard('kostariateam')->user()->id;
             $listMou = Mou::where('kostariateam_id', $kostariateam_id)->get();
             return view('mou.index', compact('listMou'));
@@ -90,7 +93,7 @@ class MOUController extends Controller
         $mou->signed_at = $request->get('signed_at');        
         $mou->ended_at = $request->get('ended_at');        
         $mou->save();        
-        return redirect()->route('mou.index');
+        return redirect()->route('mou.index')->with('success', 'berhasil ditambahkan');;
     }
 
     /**

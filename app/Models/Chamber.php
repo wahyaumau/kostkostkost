@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Chamber extends SoftDelete
-{    
-	protected $table = 'chambers';    
+{        
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;    
+	protected $table = 'chambers';
+    protected $softCascade = ['usersTransaction', 'usersTag'];
 
     public function boardinghouse(){
         return $this->belongsTo('App\Models\BoardingHouse');
