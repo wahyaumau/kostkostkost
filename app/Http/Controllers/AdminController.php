@@ -40,6 +40,11 @@ class AdminController extends Controller
         return view('kostariateams.index', compact('listKostariaTeam'));
     }
 
+    public function showConfirmTransactionForm(User $user, Chamber $chamber){
+        $bookedChamber = $user->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->first();
+        return view('admin.showConfirmTransactionForm', compact('user', 'bookedChamber'));
+    }
+
     public function confirmTransaction(User $user, Chamber $chamber){        
         $bookedChamber = $user->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->first();
         if ($bookedChamber->pivot->payment_proof == null) {

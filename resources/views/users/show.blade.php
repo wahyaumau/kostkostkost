@@ -49,18 +49,46 @@
       </div>
     </div>
     <div class="card">
-        <div class="card-header">Kamar yang Sudah Di Booking</div>
-        <div class="card-body">
-          @foreach($user->chambersTransaction as $transaction)
-          <p>{{ $transaction->name.', '.$transaction->boardinghouse->name }}</p>
-          <p>{{ $transaction->pivot->chamber_id }}</p>          
-          {{-- <p>{{ $transaction }}</p> --}}
-          <a href="{{ route('boardinghouses.show', $transaction->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>
-          <a href="{{ route('transactions.showPaymentProofUploadForm', $transaction) }}" class="btn btn-success ml-1">Konfirmasi Pembayaran</a>
-          @endforeach
-        </div>
+      <div class="card-header">Kamar yang belum dibayar</div>
+      <div class="card-body">
+        @foreach($bookedChambers as $transaction)
+        @if($transaction->pivot->payment_proof == null)
+        <p>{{ $transaction->name.', '.$transaction->boardinghouse->name }}</p>
+        <p>{{ $transaction->pivot->chamber_id }}</p>
+        {{-- <p>{{ $transaction }}</p> --}}
+        <a href="{{ route('boardinghouses.show', $transaction->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>
+        <a href="{{ route('transactions.showPaymentProofUploadForm', $transaction) }}" class="btn btn-success ml-1">Konfirmasi Pembayaran</a>
+        @endif
+        @endforeach
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Kamar yang belum terkonfirmasi</div>
+      <div class="card-body">
+        @foreach($paidChambers as $transaction)
+        @if($transaction->pivot->payment_proof != null && $transaction->pivot->confirmed == false)
+        <p>{{ $transaction->name.', '.$transaction->boardinghouse->name }}</p>
+        <p>{{ $transaction->pivot->chamber_id }}</p>
+        {{-- <p>{{ $transaction }}</p> --}}
+        <a href="{{ route('boardinghouses.show', $transaction->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>        
+        @endif
+        @endforeach
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Kamar yang sudah terkonfirmasi</div>
+      <div class="card-body">
+        @foreach($confirmedChambers as $transaction)
+        @if($transaction->pivot->payment_proof != null && $transaction->pivot->confirmed == true)
+        <p>{{ $transaction->name.', '.$transaction->boardinghouse->name }}</p>
+        <p>{{ $transaction->pivot->chamber_id }}</p>
+        {{-- <p>{{ $transaction }}</p> --}}
+        <a href="{{ route('boardinghouses.show', $transaction->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>        
+        @endif
+        @endforeach
       </div>
     </div>
   </div>
+</div>
 </div>
 @endsection

@@ -26,7 +26,10 @@ class UserController extends Controller
     
     public function show(User $user)
     {        
-        return view('users.show', compact('user'));
+        $bookedChambers = $user->chambersTransaction()->wherePivot('payment_proof', null)->get();
+        $paidChambers = $user->chambersTransaction()->whereNotNull('payment_proof')->wherePivot('confirmed', null)->get();
+        $confirmedChambers = $user->chambersTransaction()->whereNotNull('payment_proof')->wherePivot('confirmed', true)->get();
+        return view('users.show', compact('user', 'bookedChambers', 'paidChambers', 'confirmedChambers'));
     }
 
     /**

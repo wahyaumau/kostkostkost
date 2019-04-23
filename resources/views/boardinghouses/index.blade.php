@@ -59,6 +59,7 @@
             <tbody>
                 @foreach($listBoardingHouse as $boardinghouse)
                 <tr>
+                    {{-- <td>{{ $boardinghouse->owner->mou->kostariateam->name }}</td> --}}
                     <td>{{$boardinghouse->id}}</td>
                     <td>{{$boardinghouse->name}}</td>
                     <td>{{$boardinghouse->address. ", ".$boardinghouse->village->name. ", ". $boardinghouse->village->district->name . ", ". $boardinghouse->village->district->regency->name . ", ". $boardinghouse->village->district->regency->province->name}}</td>

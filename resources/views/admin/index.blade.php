@@ -52,17 +52,13 @@
                         <td>{{ $bookedChamber->pivot->created_at }}</td>
                         <td>{{ $bookedChamber->pivot->rent_start }}</td>
                         <td>{{ $bookedChamber->pivot->payment_proof }}</td>
-                        <td><form action="{{ route('admin.confirmTransaction', [$user->id, $bookedChamber->id])}}" method="post">
-                            @csrf
-                            <button class="btn btn-danger mx-auto" type="submit"><span class="fas fa-flag"></span></button>
-                        </form>
-                    </td>
+                        <td><a href="{{ route('admin.showConfirmTransactionForm', [$user->id, $bookedChamber->id]) }}" class="btn btn-success">Show Transaction Details</a></td>
+                    </tr>
+                    @endforeach
                 </tr>
                 @endforeach
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection

@@ -121,6 +121,7 @@ Route::prefix('admin')->group(function(){
 	Route::get('/register/kostariateam', 'Auth\KostariateamRegisterController@showRegistrationForm')->name('kostariateam.register');
 	Route::post('/register/kostariateam', 'Auth\KostariateamRegisterController@register')->name('kostariateam.register.submit');
 	Route::get('/showTransaction', 'AdminController@showTransaction')->name('admin.showTransaction');
+	Route::get('/showConfirmTransactionForm/{user}/{chamber}', 'AdminController@showConfirmTransactionForm')->name('admin.showConfirmTransactionForm');
 	Route::post('/confirmTransaction/{user}/{chamber}', 'AdminController@confirmTransaction')->name('admin.confirmTransaction');
 	Route::get('/', 'AdminController@index')->name('admin.dashboard');
 });

@@ -15,7 +15,7 @@ class Chamber extends SoftDelete
     }    
 
     public function usersTransaction(){
-        return $this->belongsToMany('App\Models\User', 'transactions', 'chamber_id', 'user_id')->withPivot('payment_proof', 'payed_dp', 'rent_month_duration', 'rent_start','rent_due', 'deleted_at')->withTimestamps();
+        return $this->belongsToMany('App\Models\User', 'transactions', 'chamber_id', 'user_id')->withPivot('payment_proof', 'payed_dp', 'rent_month_duration', 'rent_start','rent_due', 'confirmed', 'deleted_at')->withTimestamps();
     }
 
     public function usersTag(){
