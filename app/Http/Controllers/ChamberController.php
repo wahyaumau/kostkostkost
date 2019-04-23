@@ -37,7 +37,7 @@ class ChamberController extends Controller
 
     public function create()
     {
-        $listBoardingHouse = BoardingHouse::all();
+        $listBoardingHouse = Boardinghouse::all();
         return view('chambers.create', compact('listBoardingHouse'));
     }
 

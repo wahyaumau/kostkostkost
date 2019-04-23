@@ -38,14 +38,12 @@ class AdminController extends Controller
     public function showKostariateam(){
         $listKostariaTeam = Kostariateam::all();
         return view('kostariateams.index', compact('listKostariaTeam'));
-
     }
 
-    public function confirmTransaction(User $user, Chamber $chamber){
-        // $user = User::find($userId);
+    public function confirmTransaction(User $user, Chamber $chamber){        
         $bookedChamber = $user->chambersTransaction()->wherePivot('chamber_id', $chamber->id)->first();
         if ($bookedChamber->pivot->payment_proof == null) {
-            echo "Dia belum bayar";
+            return redirect()->route('admin.showTransaction')->with('fail', $user. ' belum melakukan pembayaran');
         }else{
             $bookedChamber->pivot->confirmed = true;
             $bookedChamber->pivot->save();

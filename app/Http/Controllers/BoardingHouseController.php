@@ -7,7 +7,7 @@ use App\Models\Province;
 use App\Models\Regency;
 use App\Models\District;
 use App\Models\Village;
-use App\Models\BoardingHouse;
+use App\Models\Boardinghouse;
 use App\Models\Owner;
 use App\Models\University;
 use Storage;
@@ -15,8 +15,7 @@ use Storage;
 class BoardinghouseController extends Controller
 {
     public function __construct()
-    {
-        // $this->middleware('web', ['only' => 'index']);
+    {        
         $this->middleware('auth:kostariateam,admin', ['except' => ['search', 'show']]);
     }
 
@@ -27,7 +26,7 @@ class BoardinghouseController extends Controller
      */
     public function index()
     {
-        $listBoardingHouse = BoardingHouse::paginate(20);
+        $listBoardingHouse = Boardinghouse::paginate(20);
         return view('boardinghouses.index', compact('listBoardingHouse'));
     }
 
@@ -56,14 +55,13 @@ class BoardinghouseController extends Controller
             'description' => 'required',
             'address' => 'required|max:255',
             'village_id' => 'required|numeric',
-            'owner_id' => 'required|numeric',
-            // 'facility' => 'required',
+            'owner_id' => 'required|numeric',            
             'facility_other' => 'required',
             'access' => 'required',
             'information_others' => 'required',
             'information_cost' => 'required'
         ));
-        $boardinghouse = new boardinghouse;
+        $boardinghouse = new Boardinghouse;
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');
@@ -101,7 +99,7 @@ class BoardinghouseController extends Controller
      */
     public function show($id)
     {
-        $boardinghouse = BoardingHouse::find($id);
+        $boardinghouse = Boardinghouse::find($id);
         return view('boardinghouses.show', compact('boardinghouse'));
 
     }
@@ -114,7 +112,7 @@ class BoardinghouseController extends Controller
      */
     public function edit($id)
     {
-        $boardinghouse = BoardingHouse::find($id);
+        $boardinghouse = Boardinghouse::find($id);
         $facilities = str_split($boardinghouse->facility);
         $listRegency = Regency::all();
         return view('boardinghouses.edit', compact('boardinghouse', 'id','listRegency', 'facilities'));
@@ -141,7 +139,7 @@ class BoardinghouseController extends Controller
             'information_others' => 'required',
             'information_cost' => 'required'
         ));
-        $boardinghouse = BoardingHouse::find($id);
+        $boardinghouse = Boardinghouse::find($id);
         $boardinghouse->name = $request->get('name');
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');
