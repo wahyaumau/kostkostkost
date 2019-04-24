@@ -183,6 +183,8 @@ position:absolute;
             @endforeach
           </ul>
         </p>
+        <p>Kostan ini telah dibooking sebanyak{{ $chamber->usersTransaction->count() }}</p>
+        <p>Kostan ini telah ditag sebanyak{{ $chamber->usersTag->count() }}</p>
       </div>
       <div class="card-footer">
         <div class="row ml-0">
