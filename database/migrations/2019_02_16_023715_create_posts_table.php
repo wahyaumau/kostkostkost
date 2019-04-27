@@ -18,8 +18,8 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('slug')->unique();            
-            $table->integer('user_id')->unsigned()->nullable();            
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');            
+            // $table->integer('user_id')->unsigned()->nullable();            
+            // $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

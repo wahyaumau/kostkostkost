@@ -14,6 +14,7 @@ use App\Models\Village;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Storage;
 
 class KostariateamRegisterController extends Controller
 {
@@ -70,6 +71,7 @@ class KostariateamRegisterController extends Controller
             'village_id' => ['required'],
             'phone' => ['required'],            
             'nik' => ['required'],            
+            'photo' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg',
         ]);
     }
 
@@ -81,6 +83,14 @@ class KostariateamRegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $request = app('request');        
+        $filename = null;
+        if ($request->hasFile('photo')) {
+            $photo = $request->photo;
+            $filename = time().'_'.'team_'.$request->name.'_'.$photo->getClientOriginalName();
+            $folderName = 'images/profile';
+            Storage::putFileAs($folderName, $photo, $filename);                        
+        }
         return Kostariateam::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -90,7 +100,9 @@ class KostariateamRegisterController extends Controller
             'address' => $data['address'],
             'village_id' => $data['village_id'],            
             'phone' => $data['phone'],    
-            'nik' => $data['nik'],    
+            'nik' => $data['nik'],
+            'photo' => $filename,
+            
         ]);
     }
 

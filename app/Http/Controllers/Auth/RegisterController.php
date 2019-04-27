@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\Province;
 use App\Models\University;
+use Illuminate\Support\Facades\Input;
+use Storage;
 
 class RegisterController extends Controller
 {
@@ -67,6 +69,7 @@ class RegisterController extends Controller
             'lineId' => ['required', 'string'],
             'parent' => ['required', 'string'],
             'parent_phone' => ['required'],
+            'photo' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg',
         ]);
     }
 
@@ -77,7 +80,16 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {        
+
+        $request = app('request');        
+        $filename = null;
+        if ($request->hasFile('photo')) {
+            $photo = $request->photo;
+            $filename = time().'_'.'user_'.$request->name.'_'.$photo->getClientOriginalName();
+            $folderName = 'images/profile';
+            Storage::putFileAs($folderName, $photo, $filename);                        
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -89,6 +101,8 @@ class RegisterController extends Controller
             'lineId' => $data['lineId'],
             'parent' => $data['parent'],
             'parent_phone' => $data['parent_phone'],
+            'photo' => $filename,
+            
         ]);
     }
 }

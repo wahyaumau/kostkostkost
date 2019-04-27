@@ -22,7 +22,7 @@ class Kostariateam extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'address', 'phone', 'village_id', 'regency_id_birth', 'birth_date', 'nik'
+        'name', 'email', 'password', 'address', 'phone', 'village_id', 'regency_id_birth', 'birth_date', 'nik', 'photo'
     ];
 
     /**

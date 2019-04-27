@@ -58,6 +58,11 @@ return [
             'root' => public_path('videos/'),
         ],                
 
+        'public-html-profile' => [
+            'driver' => 'local',
+            'root' => public_path('images/profile'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use App\Models\Kostariateam;
 use App\Models\University;
 use Illuminate\Support\Facades\Auth;
+use Storage;
 
 class KostariateamController extends Controller
 {
@@ -90,6 +91,7 @@ class KostariateamController extends Controller
             'village_id' => ['required'],
             'phone' => ['required'],            
             'nik' => ['required'],
+            'photo' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg',
         ));        
         $kostariateam->name = $request->get('name');    
         $kostariateam->regency_id_birth = $request->get('regency_id_birth');
@@ -98,6 +100,15 @@ class KostariateamController extends Controller
         $kostariateam->village_id = $request->get('village_id');
         $kostariateam->phone = $request->get('phone');
         $kostariateam->nik = $request->get('nik');        
+        if ($request->hasFile('photo')) {
+            $photo = $request->photo;
+            $filename = time().'_'.'team_'.$request->name.'_'.$photo->getClientOriginalName();
+            $folderName = 'images/profile';
+            Storage::putFileAs($folderName, $photo, $filename);            
+            $oldFile = $kostariateam->photo;
+            Storage::disk('public-html-profile')->delete($oldFile);            
+            $kostariateam->photo = $filename;            
+        }        
         $kostariateam->save();
         return redirect()->route('kostariateams.show', $kostariateam)->with('success', 'berhasil diedit');
     }    

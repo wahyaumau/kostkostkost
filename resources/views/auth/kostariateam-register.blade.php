@@ -12,7 +12,7 @@
         <div class="card-header">{{ __('Register Kostaria Team') }}</div>
 
         <div class="card-body">
-          <form method="POST" action="{{ route('kostariateam.register') }}">
+          <form method="POST" action="{{ route('kostariateam.register') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group row">
@@ -171,6 +171,18 @@
                 @endif
               </div>
             </div>
+
+            <div class="form-group row">
+                <label for="photo" class="col-md-4 col-form-label text-md-right">{{ __('Pilih Gambar') }}</label>
+                <div class="col-md-6">
+                  <input id="photo" type="file" class="{{ $errors->has('photo') ? ' is-invalid' : '' }}" name="photo" value="{{ old('photo') }}" required autofocus>
+                  @if ($errors->has('photo'))
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('photo') }}</strong>
+                  </span>
+                  @endif
+                </div>
+              </div>
 
             <div class="form-group row mb-0">
               <div class="col-md-6 offset-md-4">

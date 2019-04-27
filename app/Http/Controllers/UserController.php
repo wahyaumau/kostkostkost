@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Models\University;
 use Illuminate\Support\Facades\Auth;
+use Storage;
 
 
 class UserController extends Controller
@@ -91,17 +92,25 @@ class UserController extends Controller
             'lineId' => ['required', 'string'],
             'parent' => ['required', 'string'],
             'parent_phone' => ['required'],
+            'photo' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg',
         ));        
-        $user->name = $request->get('name');
-        // $user->email = $request->get('email');
-        $user->address = $request->get('address');        
-        // $user->password = bcrypt($request->get('password'));        
+        $user->name = $request->get('name');        
+        $user->address = $request->get('address');                
         $user->village_id = $request->get('village_id');
         $user->university_id = $request->get('university_id');
         $user->phone = $request->get('phone');
         $user->lineId = $request->get('lineId');
         $user->parent = $request->get('parent');
         $user->parent_phone = $request->get('parent_phone');
+        if ($request->hasFile('photo')) {
+            $photo = $request->photo;
+            $filename = time().'_'.'user_'.$request->name.'_'.$photo->getClientOriginalName();
+            $folderName = 'images/profile';
+            Storage::putFileAs($folderName, $photo, $filename);            
+            $oldFile = $user->photo;
+            Storage::disk('public-html-profile')->delete($oldFile);            
+            $user->photo = $filename;            
+        }        
         $user->save();
         return redirect()->route('users.show', $user)->with('success', 'berhasil diedit');
     }    
