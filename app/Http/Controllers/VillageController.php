@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Province;
 use App\Models\Village;
+use Excel;
+use App\Exports\VillageExport;
+use Carbon\Carbon;
 
 class VillageController extends Controller
 {
@@ -96,5 +99,9 @@ class VillageController extends Controller
     public function getVillages($id) {        
         $listVillage = Village::where("district_id",$id)->pluck("name","id");
         return json_encode($listVillage);
+    }
+
+    public function export(){
+        return Excel::download(new VillageExport, 'villages_'.Carbon::now().'.xlsx');
     }
 }

@@ -12,6 +12,9 @@ use App\Models\Kostariateam;
 use App\Models\University;
 use Illuminate\Support\Facades\Auth;
 use Storage;
+use Excel;
+use App\Exports\KostariateamExport;
+use Carbon\Carbon;
 
 class KostariateamController extends Controller
 {
@@ -23,6 +26,7 @@ class KostariateamController extends Controller
     public function __construct()
     {
         $this->middleware('auth:kostariateam');
+        $this->middleware('auth:admin', ['only' => ['export']]);
     }
 
     /**
@@ -132,5 +136,9 @@ class KostariateamController extends Controller
         }
 
         
+    }
+
+    public function export(){
+        return Excel::download(new KostariateamExport, 'kostariateams_'.Carbon::now().'.xlsx');
     }
 }

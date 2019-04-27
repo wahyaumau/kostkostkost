@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Owner;
 use Illuminate\Http\Request;
-use App\Models\Province;
-use App\Models\District;
 use Excel;
-use App\Exports\DistrictExport;
+use App\Exports\OwnerExport;
 use Carbon\Carbon;
 
-class DistrictController extends Controller
+class OwnerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,7 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        $listProvince = Province::all();
-        return view('address.districtcreate', compact('listProvince'));
+        //
     }
 
     /**
@@ -29,7 +27,7 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -40,24 +38,16 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, array(
-            'name' => 'required|max:255',
-            'regency_id' => 'required',
-        ));
-        $district = new District;        
-        $district->name = $request->get('name');        
-        $district->regency_id = $request->get('regency_id');        
-        $district->save();
-        return redirect()->back();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Owner  $owner
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Owner $owner)
     {
         //
     }
@@ -65,10 +55,10 @@ class DistrictController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Owner  $owner
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Owner $owner)
     {
         //
     }
@@ -77,10 +67,10 @@ class DistrictController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Owner  $owner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Owner $owner)
     {
         //
     }
@@ -88,15 +78,15 @@ class DistrictController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Owner  $owner
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Owner $owner)
     {
         //
     }
 
     public function export(){
-        return Excel::download(new DistrictExport, 'districts_'.Carbon::now().'.xlsx');
+        return Excel::download(new OwnerExport, 'owners_'.Carbon::now().'.xlsx');
     }
 }

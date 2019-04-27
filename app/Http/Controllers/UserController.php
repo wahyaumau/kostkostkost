@@ -12,6 +12,9 @@ use App\Models\User;
 use App\Models\University;
 use Illuminate\Support\Facades\Auth;
 use Storage;
+use Excel;
+use App\Exports\UserExport;
+use Carbon\Carbon;
 
 
 class UserController extends Controller
@@ -19,6 +22,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('auth:admin', ['only' => ['export']]);
     }        
 
     public function index(){
@@ -134,6 +138,10 @@ class UserController extends Controller
         }
 
         
+    }
+
+    public function export(){
+        return Excel::download(new UserExport, 'users_'.Carbon::now().'.xlsx');
     }
 
 

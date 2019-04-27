@@ -11,6 +11,9 @@ use App\Models\Boardinghouse;
 use App\Models\Owner;
 use App\Models\University;
 use Storage;
+use Excel;
+use Carbon\Carbon;
+use App\Exports\BoardinghouseExport;
 
 class BoardinghouseController extends Controller
 {
@@ -213,9 +216,10 @@ class BoardinghouseController extends Controller
         }else{
             return back();
         }
+    }
 
-
-
+    public function export(){        
+        return Excel::download(new BoardinghouseExport, 'boardinghouses_'.Carbon::now().'.xlsx');
     }
 
 }

@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Regency;
 use App\Models\Province;
 use App\Models\University;
+use Excel;
+use App\Exports\UniversityExport;
+use Carbon\Carbon;
 
 class UniversityController extends Controller
 {
@@ -130,6 +133,10 @@ class UniversityController extends Controller
             $data = University::where('name', 'LIKE', '%'.$search.'%')->get();
         }
         return response()->json($data);
+    }
+
+    public function export(){
+        return Excel::download(new UniversityExport, 'universities_'.Carbon::now().'.xlsx');
     }
 
 }

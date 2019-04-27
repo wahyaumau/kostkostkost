@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Province;
 use App\Models\Regency;
+use Excel;
+use App\Exports\RegencyExport;
+use Carbon\Carbon;
 
 class RegencyController extends Controller
 {
@@ -100,5 +103,9 @@ class RegencyController extends Controller
             $data = Regency::where('name', 'LIKE', '%'.$search.'%')->get();
         }
         return response()->json($data);
+    }
+
+    public function export(){
+        return Excel::download(new RegencyExport, 'regencies_'.Carbon::now().'.xlsx');
     }
 }

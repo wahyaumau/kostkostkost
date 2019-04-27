@@ -16,6 +16,20 @@
         <a href="{{route('kostariateam.register')}}" class="btn btn-primary">Register Kostaria Team</a>
         <a href="{{ route('admin.showTransaction') }}" class="btn btn-primary">Transactions</a>
       </div>
+      <div class="card-footer">
+        <a href="{{route('users.export')}}" class="btn btn-primary">Export User Data</a>
+        <a href="{{route('boardinghouses.export')}}" class="btn btn-primary">Export boardinghouses Data</a>
+        <a href="{{route('chambers.export')}}" class="btn btn-primary">Export chambers Data</a>
+        <a href="{{route('mous.export')}}" class="btn btn-primary">Export mous Data</a>
+        <a href="{{route('owners.export')}}" class="btn btn-primary">Export owners Data</a>
+        <a href="{{route('provinces.export')}}" class="btn btn-primary">Export provinces Data</a>
+        <a href="{{route('regencies.export')}}" class="btn btn-primary">Export regencies Data</a>
+        <a href="{{route('districts.export')}}" class="btn btn-primary">Export districts Data</a>
+        <a href="{{route('villages.export')}}" class="btn btn-primary">Export villages Data
+        </a>
+        <a href="{{route('universities.export')}}" class="btn btn-primary">Export universities Data</a>
+        <a href="{{route('kostariateams.export')}}" class="btn btn-primary">Export kostariateams Data</a>
+      </div>
     </div>
   </div>
 </div>

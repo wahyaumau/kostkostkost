@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Province;
+use Excel;
+use App\Exports\ProvinceExport;
+use Carbon\Carbon;
 
 class ProvinceController extends Controller
 {
@@ -87,5 +90,9 @@ class ProvinceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export(){
+        return Excel::download(new ProvinceExport, 'provinces_'.Carbon::now().'.xlsx');
     }
 }

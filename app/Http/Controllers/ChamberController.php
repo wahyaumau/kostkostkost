@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BoardingHouse;
 use App\Models\Chamber;
+use Excel;
+use App\Exports\ChamberExport;
+use Carbon\Carbon;
 
 
 class ChamberController extends Controller
@@ -175,5 +178,9 @@ class ChamberController extends Controller
         $priceMax = $request->get('priceMax-search');
         $listChamber = Chamber::whereBetween('price_annual', [$priceMin, $priceMax])->get();                            
         return view('chambers.index', compact('listChamber'));
+    }
+
+    public function export(){
+        return Excel::download(new ChamberExport, 'chambers_'.Carbon::now().'.xlsx');
     }
 }

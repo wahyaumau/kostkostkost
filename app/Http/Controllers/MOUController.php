@@ -10,6 +10,9 @@ use App\Models\Admin;
 use App\Models\Owner;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\SessionGuard;
+use Excel;
+use App\Exports\MouExport;
+use Carbon\Carbon;
 
 class MOUController extends Controller
 {
@@ -138,5 +141,9 @@ class MOUController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export(){
+        return Excel::download(new MouExport, 'mous_'.Carbon::now().'.xlsx');
     }
 }

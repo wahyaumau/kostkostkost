@@ -27,15 +27,20 @@ Route::get('/about', function () {
 Route::prefix('boardinghouses')->group(function(){
 	Route::get('/creates/{mouId}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
 	Route::post('/search', 'BoardingHouseController@search')->name('boardinghouses.search');
+	Route::get('/export', 'BoardingHouseController@export')->name('boardinghouses.export');
 });
 
 Route::prefix('chambers')->group(function(){
 	Route::post('/search', 'ChamberController@search')->name('chambers.search');
 	Route::get('/creates/{bhId}', 'ChamberController@creates')->name('chambers.creates');
+	Route::get('/export', 'ChamberController@export')->name('chambers.export');
 });
 
+Route::prefix('universities')->group(function(){
+	Route::get('/getUniversities/', 'UniversityController@getUniversities')->name('universities.getUniversities');	
+	Route::get('/export', 'UniversityController@export')->name('universities.export');
+});
 
-Route::get('universities/getUniversities/', 'UniversityController@getUniversities')->name('universities.getUniversities');
 
 Route::prefix('tags')->group(function(){
 	Route::delete('/destroy/{user}/{chamber}', 'TagController@destroy')->name('tags.destroy');
@@ -58,6 +63,7 @@ Route::patch('/{user}', 'UserController@update')->name('users.update');
 Route::get('/editCredential/{user}', 'UserController@editCredential')->name('users.editCredential');
 Route::patch('/updateCredential/{user}', 'UserController@updateCredential')->name('users.updateCredential');
 Route::get('/show/{user}', 'UserController@show')->name('users.show');
+Route::get('/export', 'UserController@export')->name('users.export');
 });
 
 Route::prefix('kostariateams')->group(function(){
@@ -68,11 +74,19 @@ Route::prefix('kostariateams')->group(function(){
 	Route::get('/editCredential/{kostariateam}', 'KostariateamController@editCredential')->name('kostariateams.editCredential');
 	Route::patch('/updateCredential/{kostariateam}', 'KostariateamController@updateCredential')->name('kostariateams.updateCredential');
 	Route::get('/show/{kostariateam}', 'KostariateamController@show')->name('kostariateams.show');
+	Route::get('/export', 'KostariateamController@export')->name('kostariateams.export');
 });
 
+Route::get('provinces/export', 'ProvinceController@export')->name('provinces.export');
 Route::get('regencies/getRegencies/', 'RegencyController@getRegencies')->name('regencies.getRegencies');
+Route::get('regencies/export', 'RegencyController@export')->name('regencies.export');
+Route::get('districts/export', 'DistrictController@export')->name('districts.export');
+Route::get('villages/export', 'VillageController@export')->name('villages.export');
+Route::get('mous/export', 'MOUController@export')->name('mous.export');
+Route::get('owners/export', 'OwnerController@export')->name('owners.export');
 
-Route::prefix('address')->group(function(){
+
+Route::prefix('address')->group(function(){	
 	Route::get('/getRegencies/{provinceId}', 'AddressController@getRegencies')->name('address.getRegencies');
 	Route::get('/getDistricts/{regencyId}', 'AddressController@getDistricts')->name('address.getDistricts');
 	Route::get('/getVillages/{districtId}', 'AddressController@getVillages')->name('address.getVillages');
