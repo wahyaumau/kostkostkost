@@ -43,7 +43,7 @@
             </button>
           </form>
           <a href="{{ route('transactions.showTransactionForm', $tag) }}" class="btn btn-success ml-1">Book Kamar</a>
-          <a href="{{ route('boardinghouses.show', $tag->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>
+          <a href="{{ route('boardinghouses.show', [$tag->boardinghouse->university->slug, $tag->boardinghouse]) }}" class="btn btn-success ml-1">Lihat Kamar</a>
           @endforeach
         </div>
       </div>
@@ -56,7 +56,7 @@
         <p>{{ $transaction->name.', '.$transaction->boardinghouse->name }}</p>
         <p>{{ $transaction->pivot->chamber_id }}</p>
         {{-- <p>{{ $transaction }}</p> --}}
-        <a href="{{ route('boardinghouses.show', $transaction->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>
+        <a href="{{ route('boardinghouses.show', [$transaction->boardinghouse->university->slug, $transaction->boardinghouse]) }}" class="btn btn-success ml-1">Lihat Kamar</a>
         <a href="{{ route('transactions.showPaymentProofUploadForm', $transaction) }}" class="btn btn-success ml-1">Konfirmasi Pembayaran</a>
         @endif
         @endforeach
@@ -70,7 +70,7 @@
         <p>{{ $transaction->name.', '.$transaction->boardinghouse->name }}</p>
         <p>{{ $transaction->pivot->chamber_id }}</p>
         {{-- <p>{{ $transaction }}</p> --}}
-        <a href="{{ route('boardinghouses.show', $transaction->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>        
+        <a href="{{ route('boardinghouses.show', [$transaction->boardinghouse->university->slug, $transaction->boardinghouse]) }}" class="btn btn-success ml-1">Lihat Kamar</a>        
         @endif
         @endforeach
       </div>
@@ -83,7 +83,7 @@
         <p>{{ $transaction->name.', '.$transaction->boardinghouse->name }}</p>
         <p>{{ $transaction->pivot->chamber_id }}</p>
         {{-- <p>{{ $transaction }}</p> --}}
-        <a href="{{ route('boardinghouses.show', $transaction->boardinghouse) }}" class="btn btn-success ml-1">Lihat Kamar</a>        
+        <a href="{{ route('boardinghouses.show', [$transaction->boardinghouse->university->slug, $transaction->boardinghouse]) }}" class="btn btn-success ml-1">Lihat Kamar</a>        
         @endif
         @endforeach
       </div>

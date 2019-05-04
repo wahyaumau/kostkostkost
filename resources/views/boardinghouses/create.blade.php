@@ -72,7 +72,7 @@
                                     <option value='{{$regency->id}}'>{{$regency->name}}</option>
                                     @endforeach
                                 </select>
-                            {{-- <a href="{{ route('regencies.index') }}">Tidak menemukan Kota?</a> --}}
+                                {{-- <a href="{{ route('regencies.index') }}">Tidak menemukan Kota?</a> --}}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -85,12 +85,19 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="district_id" class="col-md-4 col-form-label text-md-right">{{ __('Desa') }}</label>
+                            <label for="village_id" class="col-md-4 col-form-label text-md-right">{{ __('Desa') }}</label>
                             <div class="col-md-6">
                                 <select class="form-control select2-single" name="village_id">
                                     <option value="">Pilih Desa</option>
                                 </select>
                                 {{-- <a href="{{ route('villages.index') }}">Tidak menemukan Desa?</a> --}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="university_id" class="col-md-4 col-form-label text-md-right">{{ __('Dekat Universitas :') }}</label>
+                            <div class="col-md-6">
+                                <select class="form-control select2-single" name="university_id">                                    
+                                    <option value=''>Pilih Universitas</option>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -168,52 +175,65 @@
 </div>
 @endsection
 @section('scripts')
-<script src="{{ asset('js/select2.min.js') }}"></script>
-    <script type="text/javascript">
+    <script src="{{ asset('js/select2.min.js') }}"></script>    
+    <script>
+    $(document).ready(function() {
         $('.select2-single').select2();
+
+        $('select[name="regency_id"]').on('change', function(){
+            var regencyId = $(this).val();
+            if(regencyId) {
+                $.ajax({
+                    url: '/address/getDistricts/'+regencyId,
+                    type:"GET",
+                    dataType:"json",
+                    success:function(data) {
+                        $('select[name="district_id"]').empty();
+                        $('select[name="village_id"]').empty();
+                        $('select[name="district_id"]').append('<option value="">Pilih Kecamatan</option>');
+                        $.each(data, function(key, value){
+                        $('select[name="district_id"]').append('<option value="'+ key +'">' + value + '</option>');
+                        });
+                    }
+                });
+                $.ajax({
+                    url: '/universities/regency/'+regencyId,
+                    type:"GET",
+                    dataType:"json",
+                    success:function(data) {
+                        $('select[name="university_id"]').empty();                        
+                        $('select[name="university_id"]').append('<option value="">Pilih Universitas</option>');
+                        $.each(data, function(key, value){
+                            $('select[name="university_id"]').append('<option value="'+ key +'">' + value + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('select[name="district_id"]').empty();
+                $('select[name="village_id"]').empty();
+            }
+        });
+
+
+        $('select[name="district_id"]').on('change', function(){
+            var districtId = $(this).val();
+            if(districtId) {
+                $.ajax({
+                url: '/address/getVillages/'+districtId,
+                type:"GET",
+                dataType:"json",
+                success:function(data) {
+                    $('select[name="village_id"]').empty();
+                    $('select[name="village_id"]').append('<option value="">Pilih Desa</option>');
+                    $.each(data, function(key, value){
+                    $('select[name="village_id"]').append('<option value="'+ key +'">' + value + '</option>');
+                    });
+                }
+                });
+            } else {
+                $('select[name="village_id"]').empty();
+            }
+        });
+    });
     </script>
-<script>
-$(document).ready(function() {
-$('select[name="regency_id"]').on('change', function(){
-var regencyId = $(this).val();
-if(regencyId) {
-$.ajax({
-url: '/address/getDistricts/'+regencyId,
-type:"GET",
-dataType:"json",
-success:function(data) {
-$('select[name="district_id"]').empty();
-$('select[name="village_id"]').empty();
-$('select[name="district_id"]').append('<option value="">Pilih Kecamatan</option>');
-$.each(data, function(key, value){
-$('select[name="district_id"]').append('<option value="'+ key +'">' + value + '</option>');
-});
-}
-});
-} else {
-$('select[name="district_id"]').empty();
-$('select[name="village_id"]').empty();
-}
-});
-$('select[name="district_id"]').on('change', function(){
-var districtId = $(this).val();
-if(districtId) {
-$.ajax({
-url: '/address/getVillages/'+districtId,
-type:"GET",
-dataType:"json",
-success:function(data) {
-$('select[name="village_id"]').empty();
-$('select[name="village_id"]').append('<option value="">Pilih Desa</option>');
-$.each(data, function(key, value){
-$('select[name="village_id"]').append('<option value="'+ key +'">' + value + '</option>');
-});
-}
-});
-} else {
-$('select[name="village_id"]').empty();
-}
-});
-});
-</script>
 @endsection

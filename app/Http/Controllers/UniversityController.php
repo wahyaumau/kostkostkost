@@ -14,7 +14,7 @@ class UniversityController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:kostariateam,admin', ['except' => ['getUniversities']]);
+        $this->middleware('auth:kostariateam,admin', ['except' => ['getUniversities', 'getUniversitiesByRegency']]);
     }
     /**
      * Display a listing of the resource.
@@ -49,10 +49,12 @@ class UniversityController extends Controller
         $this->validate($request, array(
             'name' => 'required|max:255',            
             'address' => 'required|max:255',                        
-            'village_id' => 'required|numeric',            
+            'village_id' => 'required|numeric',    
+            'slug' => 'required|alpha_dash|max:255|unique:universities,slug',                    
         ));
         $university = new University;        
         $university->name = $request->get('name');
+        $university->slug = $request->get('slug');
         $university->address = $request->get('address');        
         $university->village_id = $request->get('village_id');        
         $university->save();
@@ -93,14 +95,16 @@ class UniversityController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $university = University::find($id);
         $this->validate($request, array(
             'name' => 'required|max:255',            
             'address' => 'required|max:255',                        
-            'village_id' => 'required|numeric',            
-        ));
-        $university = University::find($id);
+            'village_id' => 'required|numeric',  
+            'slug' => 'alpha_dash|max:255|unique:universities,slug,'.$university->id,                          
+        ));        
         $old_name = $university->name;
         $university->name = $request->get('name');
+        $university->slug = $request->get('slug');
         $university->address = $request->get('address');        
         $university->village_id = $request->get('village_id');        
         $university->save();
@@ -133,6 +137,17 @@ class UniversityController extends Controller
             $data = University::where('name', 'LIKE', '%'.$search.'%')->get();
         }
         return response()->json($data);
+    }
+
+    public function getUniversitiesByRegency($regencyId) {        
+        $listUniversity = University::whereHas('village', function ($query) use($regencyId){
+                $query->whereHas('district', function($query) use($regencyId){
+                    $query->whereHas('regency', function($query) use($regencyId){
+                        $query->where('id', $regencyId);
+                    });
+                });
+            })->pluck("name","id");
+        return json_encode($listUniversity);
     }
 
     public function export(){

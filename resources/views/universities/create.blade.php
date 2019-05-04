@@ -24,6 +24,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="slug" class="col-md-4 col-form-label text-md-right">{{ __('Singkatan') }}</label>
+                            <div class="col-md-6">
+                                <input id="slug" type="text" class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" value="{{ old('slug') }}" required>
+                                @if ($errors->has('slug'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('slug') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" placeholder="Nama Jl, RT, RW" value="{{ old('address') }}" required>
@@ -75,52 +86,63 @@
 </div>
 @endsection
 @section('scripts')
-<script src="{{ asset('js/select2.min.js') }}"></script>
-<script type="text/javascript">
-$('.select2-single').select2();
-</script>
-<script>
-$(document).ready(function() {
-$('select[name="regency_id"]').on('change', function(){
-var regencyId = $(this).val();
-if(regencyId) {
-$.ajax({
-url: '/address/getDistricts/'+regencyId,
-type:"GET",
-dataType:"json",
-success:function(data) {
-$('select[name="district_id"]').empty();
-$('select[name="village_id"]').empty();
-$('select[name="district_id"]').append('<option value="">Pilih Kecamatan</option>');
-$.each(data, function(key, value){
-$('select[name="district_id"]').append('<option value="'+ key +'">' + value + '</option>');
-});
-}
-});
-} else {
-$('select[name="district_id"]').empty();
-$('select[name="village_id"]').empty();
-}
-});
-$('select[name="district_id"]').on('change', function(){
-var districtId = $(this).val();
-if(districtId) {
-$.ajax({
-url: '/address/getVillages/'+districtId,
-type:"GET",
-dataType:"json",
-success:function(data) {
-$('select[name="village_id"]').empty();
-$('select[name="village_id"]').append('<option value="">Pilih Desa</option>');
-$.each(data, function(key, value){
-$('select[name="village_id"]').append('<option value="'+ key +'">' + value + '</option>');
-});
-}
-});
-} else {
-$('select[name="village_id"]').empty();
-}
-});
-});
-</script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>    
+    <script>
+    $(document).ready(function() {
+        $('.select2-single').select2();
+
+        $('select[name="regency_id"]').on('change', function(){
+            var regencyId = $(this).val();
+            if(regencyId) {
+                $.ajax({
+                    url: '/address/getDistricts/'+regencyId,
+                    type:"GET",
+                    dataType:"json",
+                    success:function(data) {
+                        $('select[name="district_id"]').empty();
+                        $('select[name="village_id"]').empty();
+                        $('select[name="district_id"]').append('<option value="">Pilih Kecamatan</option>');
+                        $.each(data, function(key, value){
+                        $('select[name="district_id"]').append('<option value="'+ key +'">' + value + '</option>');
+                        });
+                    }
+                });                
+            } else {
+                $('select[name="district_id"]').empty();
+                $('select[name="village_id"]').empty();
+            }
+        });
+
+
+        $('select[name="district_id"]').on('change', function(){
+            var districtId = $(this).val();
+            if(districtId) {
+                $.ajax({
+                url: '/address/getVillages/'+districtId,
+                type:"GET",
+                dataType:"json",
+                success:function(data) {
+                    $('select[name="village_id"]').empty();
+                    $('select[name="village_id"]').append('<option value="">Pilih Desa</option>');
+                    $.each(data, function(key, value){
+                    $('select[name="village_id"]').append('<option value="'+ key +'">' + value + '</option>');
+                    });
+                }
+                });
+            } else {
+                $('select[name="village_id"]').empty();
+            }
+        });
+
+        $("#name").keyup(function () {
+            var value = $(this).val();
+            $("#slug").val(convertToAbbreviation(value));
+        }).keyup();
+
+        function convertToAbbreviation(str){            
+            var matches = str.match(/\b(\w)/g);
+            return matches.join('');            
+        }
+    });
+    </script>
 @endsection

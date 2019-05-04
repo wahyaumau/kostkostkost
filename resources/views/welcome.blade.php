@@ -131,7 +131,7 @@
             </div>
             <div class="card-footer">
                 <!-- <a href="#" class="btn btn-primary">Booking</a> -->
-                <a href="{{ route('boardinghouses.show', $boardinghouse->id)}}" class="btn btn-primary">Lihat Selengkapnya</a>
+                <a href="{{ route('boardinghouses.show', $boardinghouse->university->slug, $boardinghouse->id)}}" class="btn btn-primary">Lihat Selengkapnya</a>
             </div>
         </div>
     </div>

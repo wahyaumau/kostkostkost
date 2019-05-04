@@ -24,4 +24,8 @@ class Boardinghouse extends SoftDelete
     public function owner(){
         return $this->belongsTo('App\Models\Owner');   
     }
+
+    public function university(){
+        return $this->belongsTo('App\Models\University');
+    }
 }

@@ -51,6 +51,7 @@
                     <th>No</th>
                     <th>Nama Kostan</th>
                     <th>Alamat</th>
+                    <th>Dekat Kampus</th>
                     <th>Nama Pemilik</th>
                     <th>Kontak Pemilik</th>
                     <th colspan="4">action</th>
@@ -63,6 +64,7 @@
                     <td>{{$boardinghouse->id}}</td>
                     <td>{{$boardinghouse->name}}</td>
                     <td>{{$boardinghouse->address. ", ".$boardinghouse->village->name. ", ". $boardinghouse->village->district->name . ", ". $boardinghouse->village->district->regency->name . ", ". $boardinghouse->village->district->regency->province->name}}</td>
+                    {{-- <td>{{ $boardinghouse->university->name }}</td> --}}
                     <td>{{$boardinghouse->owner->name}}</td>
                     <td>{{$boardinghouse->owner->phone}}</td>
                     <td>
@@ -84,7 +86,7 @@
                           </a>
                         </li>
                         <li>
-                          <a href="{{ route('boardinghouses.show', $boardinghouse->id)}}" class="btn btn-info btn-icon-split my-1 btn-sm">
+                          <a href="{{ route('boardinghouses.show', [$boardinghouse->university->slug,$boardinghouse->id])}}" class="btn btn-info btn-icon-split my-1 btn-sm">
                             <span class="icon text-white-50">
                               <i class="fas fa-info-circle"></i>
                             </span>

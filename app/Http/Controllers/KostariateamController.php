@@ -25,8 +25,7 @@ class KostariateamController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:kostariateam');
-        $this->middleware('auth:admin', ['only' => ['export']]);
+        $this->middleware('auth:kostariateam');        
     }
 
     /**

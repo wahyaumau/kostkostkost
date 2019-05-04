@@ -58,6 +58,7 @@ class BoardinghouseController extends Controller
             'description' => 'required',
             'address' => 'required|max:255',
             'village_id' => 'required|numeric',
+            'university_id' => 'required|numeric',
             'owner_id' => 'required|numeric',            
             'facility_other' => 'required',
             'access' => 'required',
@@ -69,6 +70,7 @@ class BoardinghouseController extends Controller
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');
         $boardinghouse->village_id = $request->get('village_id');
+        $boardinghouse->university_id = $request->get('university_id');
         $boardinghouse->owner_id = $request->get('owner_id');
         $facilities=null;
         for ($i=1; $i <=11 ; $i++) {
@@ -100,7 +102,7 @@ class BoardinghouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($university, $id)
     {
         $boardinghouse = Boardinghouse::find($id);
         return view('boardinghouses.show', compact('boardinghouse'));
@@ -135,8 +137,7 @@ class BoardinghouseController extends Controller
             'description' => 'required',
             'address' => 'required|max:255',
             'village_id' => 'required|numeric',
-            // 'owner_id' => 'required|numeric',
-            // 'facility' => 'required',
+            'university_id' => 'required|numeric',
             'facility_other' => 'required',
             'access' => 'required',
             'information_others' => 'required',
@@ -147,7 +148,7 @@ class BoardinghouseController extends Controller
         $boardinghouse->description = $request->get('description');
         $boardinghouse->address = $request->get('address');
         $boardinghouse->village_id = $request->get('village_id');
-        // $boardinghouse->owner_id = $request->get('owner_id');
+        $boardinghouse->university_id = $request->get('university_id');
         $facilities=null;
         for ($i=1; $i <=11 ; $i++) {
             $facility = 0;
