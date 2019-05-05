@@ -190,7 +190,7 @@ class BoardinghouseController extends Controller
     }    
 
     public function search(Request $request){                
-        $searchBH = (new Boardinghouse)->newQuery();
+        $searchBH = (new Boardinghouse)->newQuery();        
 
         if ($request->university) {            
             $searchBH->where('university_id', $request->university);
@@ -203,7 +203,7 @@ class BoardinghouseController extends Controller
                     });
                 });
             });
-        }
+        }        
 
         if ($request->minPrice && $request->maxPrice) {
             $searchBH->whereHas('chamber', function ($query) use ($request){
@@ -227,6 +227,20 @@ class BoardinghouseController extends Controller
                 $searchBH->where(\DB::raw('substr(facility, '.$i.',1)'), '1');
             }            
         }        
+
+        for ($i=1; $i <=7 ; $i++) {            
+            if($request->has('chamber_facility_'.$i)){                
+                $searchBH->whereHas('chamber', function ($query) use ($i){
+                    $query->where(\DB::raw('substr(chamber_facility, '.$i.',1)'), '1');
+                });
+            }            
+        }        
+
+        if ($request->gender) {
+            $searchBH->whereHas('chamber', function ($query) use ($request){
+                $query->where('gender', $request->gender);
+            });
+        }
 
 
         $listBoardingHouse = $searchBH->get();

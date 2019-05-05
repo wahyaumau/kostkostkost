@@ -109,6 +109,33 @@
                                 <input type="checkbox" name="facility_11" value="1">Wi-fi
                             </div>                            
                         </div>
+                        <div class="form-group col-md-6">
+                            <label for="single-append-text" class="control-label">Fasilitas Kamar</label>
+                            <div class="col-md-12">
+                                <input type="checkbox" name="chamber_facility_1" value="1">Kamar Mandi Dalam
+                                <input type="checkbox" name="chamber_facility_2" value="1">Ranjang
+                                <input type="checkbox" name="chamber_facility_3" value="1">Kasur
+                                <input type="checkbox" name="chamber_facility_4" value="1">Meja belajar
+                                <input type="checkbox" name="chamber_facility_5" value="1">Lemari
+                                <input type="checkbox" name="chamber_facility_6" value="1">Water Heater
+                                <input type="checkbox" name="chamber_facility_7" value="1">AC
+                            </div>                            
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="single-append-text" class="control-label">Kamar Untuk</label>
+                            <div class="col-md-6">
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" value="1" name="gender">Laki-laki
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" value="0" name="gender">Perempuan
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group row mb-0">
                         <div class="col-md-12">
