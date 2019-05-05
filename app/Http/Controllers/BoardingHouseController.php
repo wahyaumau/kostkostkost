@@ -38,7 +38,7 @@ class BoardinghouseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function creates($id)
+    public function create($id)
     {
         $listRegency = Regency::all();
         $owner = Owner::find($id);
@@ -187,36 +187,50 @@ class BoardinghouseController extends Controller
         Storage::disk('public-html-videos')->delete($boardinghouse->video);            
         $boardinghouse->delete();
         return redirect()->route('boardinghouses.index')->with('success', 'kostan berhasil dihapus');
-    }
+    }    
 
-    public function search(Request $request){
-        if ($request->university || $request->regency) {
-            $university = University::whereId($request->university)->first();
-            if ($university) {
-                $university_village_id = $university->village_id;
-            }else{
-                $university_village_id = '';
-            }
+    public function search(Request $request){                
+        $searchBH = (new Boardinghouse)->newQuery();
 
-            $regency = Regency::whereId($request->regency)->first();
-            if ($regency) {
-                $regency_id = $regency->id;
-            }else{
-                $regency_id = '';
-            }
-            
-            $listBoardingHouse = Boardinghouse::where('village_id', 'LIKE', '%'.$university_village_id.'%')
-            ->whereHas('village', function ($query) use($regency_id){
-                $query->whereHas('district', function($query) use($regency_id){
-                    $query->whereHas('regency', function($query) use($regency_id){
-                        $query->where('id', 'LIKE', '%'.$regency_id.'%');
+        if ($request->university) {            
+            $searchBH->where('university_id', $request->university);
+        }
+        if ($request->regency) {            
+            $searchBH->whereHas('village', function ($query) use ($request){
+                $query->whereHas('district', function ($query) use ($request){
+                    $query->whereHas('regency', function ($query) use ($request){
+                        $query->where('id', $request->regency);
                     });
                 });
-            })->get();
-            return view('welcome', compact('listBoardingHouse'));
-        }else{
-            return back();
+            });
         }
+
+        if ($request->minPrice && $request->maxPrice) {
+            $searchBH->whereHas('chamber', function ($query) use ($request){
+                $query->whereBetween('price_annual', [$request->minPrice, $request->maxPrice]);
+            });
+        }else{
+            if ($request->minPrice) {
+                $searchBH->whereHas('chamber', function ($query) use ($request){
+                    $query->where('price_annual', '>', $request->minPrice);
+                });
+            }
+            if ($request->maxPrice) {
+                $searchBH->whereHas('chamber', function ($query) use ($request){
+                    $query->where('price_annual', '<', $request->maxPrice);
+                });
+            }
+        }
+        
+        for ($i=1; $i <=11 ; $i++) {            
+            if($request->has('facility_'.$i)){                
+                $searchBH->where(\DB::raw('substr(facility, '.$i.',1)'), '1');
+            }            
+        }        
+
+
+        $listBoardingHouse = $searchBH->get();
+        return view('welcome', compact('listBoardingHouse'));
     }
 
     public function export(){        

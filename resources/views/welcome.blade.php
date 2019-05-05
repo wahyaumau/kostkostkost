@@ -67,7 +67,7 @@
                         <label for="single-append-text" class="control-label">Cari Dekat Kampus</label>
                         <div class="input-group">
                             <select id="single-append-text" class="select2 form-control select2-allow-clear" name="university">
-                                <option>Pilih Kampus</option>
+                                <option value="">Pilih Kampus</option>
                             </select>
                         </div>
                       </div>
@@ -75,10 +75,41 @@
                         <label for="single-append-text" class="control-label">Cari Sekitar Kota</label>
                         <div class="input-group">
                             <select id="single-append-text" class="select2 form-control select2-allow-clear" name="regency">
-                                <option>Pilih Kota</option>
+                                <option value="">Pilih Kota</option>
                             </select>
                         </div>
-                      </div>
+                      </div>                      
+                        <div class="form-group col-md-6">
+                            <label for="single-append-text" class="control-label">Rentang Harga</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group">               
+                                        <input id="minPrice" type="number" min="0" class="form-control{{ $errors->has('minPrice') ? ' is-invalid' : '' }}" name="minPrice" value="{{ old('minPrice') }}"> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <input id="maxPrice" type="number" min="0" class="form-control{{ $errors->has('maxPrice') ? ' is-invalid' : '' }}" name="maxPrice" value="{{ old('maxPrice') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                      
+                        <div class="form-group col-md-6">
+                            <label for="single-append-text" class="control-label">Fasilitas</label>
+                            <div class="col-md-12">
+                                <input type="checkbox" name="facility_1" value="1">Dapur
+                                <input type="checkbox" name="facility_2" value="1">Kompor
+                                <input type="checkbox" name="facility_3" value="1">Gas
+                                <input type="checkbox" name="facility_4" value="1">Tempat parkir motor
+                                <input type="checkbox" name="facility_5" value="1">Tempat parkir mobil
+                                <input type="checkbox" name="facility_6" value="1">Tempat jemuran
+                                <input type="checkbox" name="facility_7" value="1">Listrik
+                                <input type="checkbox" name="facility_8" value="1">Air
+                                <input type="checkbox" name="facility_9" value="1">Kebersihan
+                                <input type="checkbox" name="facility_10" value="1">Pajak dan retribusi
+                                <input type="checkbox" name="facility_11" value="1">Wi-fi
+                            </div>                            
+                        </div>
                     </div>
                     <div class="form-group row mb-0">
                         <div class="col-md-12">
@@ -131,7 +162,7 @@
             </div>
             <div class="card-footer">
                 <!-- <a href="#" class="btn btn-primary">Booking</a> -->
-                <a href="{{ route('boardinghouses.show', $boardinghouse->university->slug, $boardinghouse->id)}}" class="btn btn-primary">Lihat Selengkapnya</a>
+                <a href="{{ route('boardinghouses.show', [$boardinghouse->university->slug, $boardinghouse->id])}}" class="btn btn-primary">Lihat Selengkapnya</a>
             </div>
         </div>
     </div>

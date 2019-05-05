@@ -25,7 +25,7 @@ Route::get('/about', function () {
 
 
 Route::prefix('boardinghouses')->group(function(){
-	Route::get('/creates/{mouId}', 'BoardingHouseController@creates')->name('boardinghouses.creates');
+	Route::get('/create/{mouId}', 'BoardingHouseController@create')->name('boardinghouses.create');
 	Route::post('/search', 'BoardingHouseController@search')->name('boardinghouses.search');
 	Route::get('/export', 'BoardingHouseController@export')->name('boardinghouses.export');
 	Route::get('/{university}/{id}', 'BoardingHouseController@show')->name('boardinghouses.show');
@@ -110,7 +110,7 @@ Route::resource('villages', 'VillageController', [
     'only' => ['index', 'store']
 ]);
 Route::resource('boardinghouses', 'BoardingHouseController',[
-	'except' => ['show']
+	'except' => ['show', 'create']
 ]);
 Route::resource('chambers', 'ChamberController');
 Route::resource('universities', 'UniversityController',[

@@ -41,7 +41,7 @@
           <td>{{$mou->regency->name}}</td>
           <td>{{$mou->signed_at}}</td>
           <td>{{$mou->ended_at}}</td>
-          <td><a href="{{ route('boardinghouses.creates', $mou->owner->id)}}" class="btn btn-primary">Tambah Kostan</a></td>
+          <td><a href="{{ route('boardinghouses.create', $mou->owner->id)}}" class="btn btn-primary">Tambah Kostan</a></td>
         </tr>
         @endforeach
       </tbody>
