@@ -60,8 +60,7 @@
     <div class="col-lg-12">
         <div class="card shadow mb-4 border-bottom-primary">
             <div class="card-body">
-                <form method="POST" action="{{ route('boardinghouses.search') }}">
-                    @csrf
+                <form method="get" action="{{ route('boardinghouses.search') }}">
                     <div class="row">
                       <div class="form-group col-md-6">
                         <label for="single-append-text" class="control-label">Cari Dekat Kampus</label>

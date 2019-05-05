@@ -26,7 +26,7 @@ Route::get('/about', function () {
 
 Route::prefix('boardinghouses')->group(function(){
 	Route::get('/create/{mouId}', 'BoardingHouseController@create')->name('boardinghouses.create');
-	Route::post('/search', 'BoardingHouseController@search')->name('boardinghouses.search');
+	Route::get('/search', 'BoardingHouseController@search')->name('boardinghouses.search');
 	Route::get('/export', 'BoardingHouseController@export')->name('boardinghouses.export');
 	Route::get('/{university}/{id}', 'BoardingHouseController@show')->name('boardinghouses.show');
 });
