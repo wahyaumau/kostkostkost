@@ -14,11 +14,9 @@ class CreateCommentsTable extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('email');
+            $table->increments('id');            
             $table->text('comment');
-            $table->boolean('approved');
+            $table->boolean('approved')->nullable();
             $table->integer('post_id')->unsigned()->nullable();            
             $table->foreign('post_id')
                 ->references('id')->on('posts')                

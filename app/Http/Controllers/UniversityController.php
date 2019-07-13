@@ -9,12 +9,13 @@ use App\Models\University;
 use Excel;
 use App\Exports\UniversityExport;
 use Carbon\Carbon;
+use App\Http\Resources\University as UniversityResource;
 
 class UniversityController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:kostariateam,admin', ['except' => ['getUniversities', 'getUniversitiesByRegency']]);
+        $this->middleware('auth:kostariateam,admin', ['except' => ['getUniversities', 'getUniversitiesByRegency', 'getUniversitiesApi']]);
     }
     /**
      * Display a listing of the resource.
@@ -152,6 +153,11 @@ class UniversityController extends Controller
 
     public function export(){
         return Excel::download(new UniversityExport, 'universities_'.Carbon::now().'.xlsx');
+    }
+
+    public function getUniversitiesApi(){
+        $universities = University::all();
+        return UniversityResource::collection($universities);
     }
 
 }

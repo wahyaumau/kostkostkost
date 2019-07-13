@@ -23,6 +23,25 @@ Route::get('/about', function () {
     return view('other.about');
 });
 
+Route::resource('categories', 'CategoryController',[
+	'except' => ['show']
+]);
+
+Route::prefix('blogs')->group(function(){
+	Route::get('/{slug}', 'BlogController@show')->name('blogs.show');	
+	Route::get('/category/{category}', 'BlogController@blogByCategory')->name('blogs.category');	
+	Route::get('/tag/{tag}', 'BlogController@blogByTag')->name('blogs.tag');	
+	Route::get('/', 'BlogController@index')->name('blogs.index');
+});
+
+Route::resource('posts', 'PostController');
+
+Route::prefix('comments')->group(function(){
+	Route::post('/{post}/store', 'CommentController@store')->name('comments.store');
+	Route::delete('/{comment}/delete', 'CommentController@destroy')->name('comments.destroy');
+	Route::post('/{post}/{comment}/reply', 'CommentController@reply')->name('comments.reply');
+});
+
 
 Route::prefix('boardinghouses')->group(function(){
 	Route::get('/create/{mouId}', 'BoardingHouseController@create')->name('boardinghouses.create');
@@ -123,7 +142,6 @@ Route::resource('mou', 'MOUController', [
 Route::resource('users', 'UserController',[
 	'except' => ['create', 'store', 'delete']
 ]);
-Route::resource('posts', 'PostController');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

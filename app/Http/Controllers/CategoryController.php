@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function __construct()
     {        
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
     /**
      * Display a listing of the resource.
@@ -43,12 +43,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, array(
-            'title' => 'required|max:255',            
+            'name' => 'required|max:255',            
         ));
-        $user_id = Auth::guard('web')->user()->id;        
+        $admin_id = Auth::guard('admin')->user()->id;        
         $category = new Category;        
-        $category->title = $request->title;        
-        $category->user_id = $user_id;
+        $category->name = $request->name;        
+        $category->admin_id = $admin_id;
         $category->save();
         return redirect()->route('categories.index')->with('success', 'Category berhasil ditambahkan');
     }
@@ -85,10 +85,10 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $this->validate($request, array(
-            'title' => 'required|max:255',            
+            'name' => 'required|max:255',            
         ));
         
-        $category->title = $request->title;      
+        $category->name = $request->name;      
         $category->save();          
         return redirect()->route('categories.index')->with('success', 'Category berhasil diedit');
     }
@@ -101,6 +101,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {        
+        $category->posts()->detach();
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Category berhasil dihapus');
     }

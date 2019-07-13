@@ -1,28 +1,14 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid m-0 p-4">
-    @if (\Session::has('success'))
-    <div class="row">
-        <div class="alert alert-success col-md-12">
-            <p>{{ \Session::get('success') }}</p>
-        </div>
-    </div>
-    @elseif (\Session::has('fail'))
-    <div class="row">
-        <div class="alert alert-danger col-md-12">
-            <p>{{ \Session::get('fail') }}</p>
-        </div>
-    </div>
-    @endif
     <div class="row">
         <div class="col-md-8">
             <h3>Daftar Category</h3>
         </div>
         <div class="col-md-4">
-            <a href="{{route('categories.create')}}"><button class="btn btn-success float-right">Create Category</button></a>
+            <a href="{{route('categories.create')}}"><button class="btn btn-primary">Create Category</button></a>
         </div>
     </div>
-
     <div class="box">
         <table class="table table-responsive-lg table-striped">
             <thead>
@@ -36,9 +22,9 @@
             <tbody>
                 @foreach($listCategory as $category)
                 <tr>
-                    <td>{{$loop->index+1}}</td>
-                    <td>{{$category->name}}</td>
-                    <td>{{$category->admin->name}}</td>
+                    <td>{{$category->id}}</td>
+                    <td>{{$category->title}}</td>
+                    <td>{{$category->user->name}}</td>
                     <td>
                         <a href="{{ route('categories.edit', $category)}}" class="btn btn-primary">Edit</a>
                     </td>

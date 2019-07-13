@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
+<div class="container-fluid m-0 p-4">
     @if (\Session::has('success'))
     <div class="row">
         <div class="alert alert-success col-md-12">
@@ -17,19 +17,19 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h1>{{ $post->title }}</h1>
-            
+
             <p class="lead">{!! $post->body !!}</p>
             <hr>
-            
+
             <div class="tags">
-                <span>Tag : </span>
-                @foreach ($post->tags as $tag)
-                <span class="label label-default">{{ $tag->name }}</span>
+                <span>Category : </span>
+                @foreach ($post->categories as $category)
+                <span class="label label-default">{{ $category->name }}</span>
                 @endforeach
             </div>
             <div id="backend-comments" style="margin-top: 50px;">
                 <h3>Comments <small>{{ $post->comments()->count() }} total</small></h3>
-                <table class="table">
+                <table class="table table-responsive-lg">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -61,11 +61,13 @@
             <div class="well">
                 <dl class="dl-horizontal">
                     <label>Url:</label>
-                    <p><a href="{{ route('blog.show', $post->slug) }}">{{ $post->slug }}</a></p>
+                    <p><a href="{{ route('blogs.show', $post->slug) }}">{{ $post->slug }}</a></p>
                 </dl>
                 <dl class="dl-horizontal">
                     <label>Category:</label>
-                    <p>{{ $post->category->title }}</p>
+                    @foreach($post->categories as $category)
+                    <p>{{ $category->name }}</p>
+                    @endforeach
                 </dl>
                 <dl class="dl-horizontal">
                     <label>Created At:</label>

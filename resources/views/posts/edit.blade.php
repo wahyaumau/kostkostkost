@@ -4,7 +4,7 @@
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
     <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
     <script>
-        tinymce.init({ 
+        tinymce.init({
             selector:'textarea',
             plugins: 'link'
         });
@@ -12,7 +12,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container-fluid m-0 p-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -23,7 +23,7 @@
                         @method('PATCH')
                         @csrf
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
 
                             <div class="col-md-6">
                                 <input id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ $post->title }}" required autofocus>
@@ -37,17 +37,17 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="photo" class="col-md-4 col-form-label text-md-right">{{ __('Pilih Gambar') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Pilih Gambar') }}</label>
                             <div class="col-md-6">
-                                <input id="photo" type="file" class="{{ $errors->has('photo') ? ' is-invalid' : '' }}" name="photo" value="{{ $post->photo }}" autofocus>
-                                @if ($errors->has('photo'))
+                                <input id="image" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image" value="{{ $post->image }}" autofocus>
+                                @if ($errors->has('image'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('photo') }}</strong>
+                                    <strong>{{ $errors->first('image') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <label for="body" class="col-md-4 col-form-label text-md-right">{{ __('Post Body') }}</label>
                             <div class="col-md-6">
@@ -72,14 +72,14 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>                        
-                        <div class="form-group row">
-                            <label for="tag_id" class="col-md-4 col-form-label text-md-right">{{ __('Tag') }}</label>
+                        </div>
 
+                        <div class="form-group row">
+                            <label for="category_id" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
                             <div class="col-md-6">
-                                <select class="form-control select2-multi" name="tags[]" multiple="multiple">
-                                    @foreach($listTag as $tag)
-                                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                <select class="form-control select2-multi" name="categories[]" multiple="multiple">
+                                    @foreach($listCategory as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -100,11 +100,10 @@
 </div>
 @endsection
 
-@section('javascripts')
+@section('scripts')
 <script src="{{ asset('js/select2.min.js') }}"></script>
     <script type="text/javascript">
-        $('.select2-single').select2();
-        $('.select2-single').select2().val({!! json_encode($post->category->id)!!}).trigger('change');
-        $('.select2-multi').select2().val({!! json_encode($post->tags()->allRelatedIds()->toArray())!!}).trigger('change');
-    </script> 
+        $('.select2-multi').select2();        
+        $('.select2-multi').select2().val({!! json_encode($post->categories()->allRelatedIds()->toArray())!!}).trigger('change');
+    </script>
 @endsection

@@ -15,6 +15,9 @@
       <div class="card-footer">
         <a href="{{route('kostariateam.register')}}" class="btn btn-primary">Register Kostaria Team</a>
         <a href="{{ route('admin.showTransaction') }}" class="btn btn-primary">Transactions</a>
+        <a href="{{ route('categories.index') }}" class="btn btn-primary">Categories</a>
+        <a href="{{ route('posts.index') }}" class="btn btn-primary">Posts</a>
+        <a href="{{ route('api.universities.get_universities') }}" class="btn btn-primary">Tes API</a>
       </div>
       <div class="card-footer">
         <a href="{{route('users.export')}}" class="btn btn-primary">Export User Data</a>

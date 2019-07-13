@@ -2,14 +2,14 @@
 
 
 @section('content')
-<div class="container">
+<div class="container-fluid m-0 p-4">
     <div class="row">
         <div class="col-md-8">
             <h3>Daftar Post</h3>
-        </div>        
+        </div>
         <div class="col-md-4">
-            <a href="{{route('posts.create')}}"><button class="btn btn-primary">Create Post</button></a>
-        </div>        
+            <a href="{{route('posts.create')}}"><button class="btn btn-success float-right">Create Post</button></a>
+        </div>
     </div>
     @if (\Session::has('success'))
     <div class="row">
@@ -23,37 +23,35 @@
             <p>{{ \Session::get('fail') }}</p>
         </div>
     </div>
-    @endif        
+    @endif
 
-    <div class="box">    
-        <table class="table table-striped">
+    <div class="box">
+        <table class="table table-responsive-lg table-striped">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Title</th>
                     <th>Body</th>
-                    <th>Category</th>
-                    <th>Tag</th>
+                    <th>Category</th>                    
                     <th>URL</th>
-                    {{-- <th>Creator</th> --}}
+                    <th>Creator</th>
                     <th>Created Time</th>
                     <th colspan="3">Action</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($listPost as $post)
-                <tr>            
-                    <td>{{$post->id}}</td>
-                    <td>{{$post->title}}</td>                                        
-                    <td>{{ str_limit((strip_tags($post->body)), $limit = 100, $end = '...') }}</td>
-                    <td>{{$post->category->title}}</td>
+                <tr>
+                    <td>{{$loop->index+1}}</td>
+                    <td>{{$post->title}}</td>
+                    <td>{{ str_limit((strip_tags($post->body)), $limit = 100, $end = '...') }}</td>                    
                     <td>
-                        @foreach($post->tags as $tag)
-                        {{ $tag->name }}
+                        @foreach($post->categories as $categories)
+                        {{ $categories->name }}
                         @endforeach
                     </td>
                     <td>{{$post->slug}}</td>
-                    {{-- <td>{{$post->user->name}}</td> --}}
+                    <td>{{$post->admin->name}}</td>
                     <td>{{$post->created_at}}</td>
                     <td>
                         <a href="{{ route('posts.edit', $post)}}" class="btn btn-primary">Edit</a>
@@ -76,7 +74,6 @@
             </div>
             </tbody>
         </table>
-    </div> 
+    </div>
 </div>
 @endsection
-

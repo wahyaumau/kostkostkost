@@ -10,7 +10,7 @@
     </script>
 @endsection
 @section('content')
-<div class="container">
+<div class="container-fluid m-0 p-4">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -19,7 +19,7 @@
                     <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
-                            <label for="title" class="col-md-2 col-form-label text-md-right">{{ __('Title') }}</label>
+                            <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('Title') }}</label>
                             <div class="col-md-8">
                                 <input id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title') }}" required autofocus>
                                 @if ($errors->has('title'))
@@ -28,8 +28,8 @@
                                 </span>
                                 @endif
                             </div>
-                        </div>                        
-                        
+                        </div>
+
                         <div class="form-group row">
                             <label for="body" class="col-md-2 col-form-label text-md-right">{{ __('Post Body') }}</label>
                             <div class="col-md-8">
@@ -42,12 +42,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="photo" class="col-md-4 col-form-label text-md-right">{{ __('Pilih Gambar') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Pilih Gambar') }}</label>
                             <div class="col-md-6">
-                                <input id="photo" type="file" class="{{ $errors->has('photo') ? ' is-invalid' : '' }}" name="photo" value="{{ old('photo') }}" required autofocus>
-                                @if ($errors->has('photo'))
+                                <input id="image" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image" value="{{ old('image') }}" required autofocus>
+                                @if ($errors->has('image'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('photo') }}</strong>
+                                    <strong>{{ $errors->first('image') }}</strong>
                                 </span>
                                 @endif
                             </div>
@@ -62,9 +62,9 @@
                                 </span>
                                 @endif
                             </div>
-                        </div>                        
+                        </div>
                         <div class="form-group row">
-                            <label for="categories" class="col-md-4 col-form-label text-md-right">{{ __('Tag') }}</label>
+                            <label for="category_id" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
                             <div class="col-md-6">
                                 <select class="form-control select2-multi" name="categories[]" multiple="multiple">
                                     @foreach($listCategory as $category)
@@ -87,10 +87,20 @@
     </div>
 </div>
 @endsection
-@section('javascripts')
+@section('scripts')
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script type="text/javascript">
-        $('.select2-single').select2();
-        $('.select2-multi').select2();
-    </script>
+        $(document).ready(function(){
+            $('.select2-multi').select2();
+
+            $("#title").keyup(function () {
+                var value = $(this).val();
+                $("#slug").val(convertToSlug(value));
+            }).keyup();    
+        });
+        
+        function convertToSlug(str){
+            return str.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+        }
+    </script>    
 @endsection

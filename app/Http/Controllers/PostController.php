@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\SessionGuard;
@@ -16,7 +15,7 @@ class PostController extends Controller
 {
     public function __construct()
     {        
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
     /**
      * Display a listing of the resource.
@@ -36,9 +35,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        $listCategory = Category::all();
-        $listTag = Tag::all();
-        return view('posts.create', compact('listCategory', 'listTag'));
+        $listCategory = Category::all();        
+        return view('posts.create', compact('listCategory'));
     }
 
     /**
@@ -56,7 +54,7 @@ class PostController extends Controller
             'image' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg',
             
         ));
-        $user_id = Auth::guard('web')->user()->id;        
+        $admin_id = Auth::guard('admin')->user()->id;        
         $post = new Post;        
         $post->title = $request->title;
         $post->body = clean($request->body);
@@ -68,10 +66,9 @@ class PostController extends Controller
             Storage::putFileAs($folderName, $image, $filename);            
             $post->image = $filename;            
         }
-        $post->category_id = $request->category_id;        
-        $post->user_id = $user_id;  
+        $post->admin_id = $admin_id;  
         $post->save();      
-        $post->tags()->sync($request->tags, false);
+        $post->categories()->sync($request->categories, false);
         
         return redirect()->route('posts.index')->with('success', 'Post berhasil dibuat');
     }
@@ -95,9 +92,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {        
-        $listCategory = Category::all();
-        $listTag = Tag::all();
-        return view('posts.edit', compact('post', 'listCategory', 'listTag'));
+        $listCategory = Category::all();        
+        return view('posts.edit', compact('post', 'listCategory'));
     }
 
     /**
@@ -110,20 +106,12 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {                
         
-        if ($post->slug == $request->slug) {
-            $this->validate($request, array(
-                'title' => 'required|max:255',                
-                'body' => 'required',
-                'image' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg',
-            ));
-        }else{
-            $this->validate($request, array(
+        $this->validate($request, array(
                 'title' => 'required|max:255',
-                'slug' => 'required|min:5|max:255|unique:posts,slug',
+                'slug' => 'alpha_dash|min:5|max:255|unique:posts,slug,'.$post->id,                
                 'body' => 'required',
                 'image' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/svg',
-            ));
-        }
+            ));        
 
         $post->title = $request->title;
         $post->body = clean($request->body);
@@ -133,17 +121,15 @@ class PostController extends Controller
             $filename = time().'-'.$image->getClientOriginalName().'.'.$image->getClientOriginalExtension();
             $location = public_path('images/'.$filename);
             Image::make($image)->resize(800,400)->save($location);
-
             $oldFile = $post->image;
             Storage::disk('public-images')->delete($oldFile);
             $post->image = $filename;            
-        }
-        $post->category_id = $request->category_id;  
+        }        
         $post->save();    
-        if (isset($request->tags)) {
-            $post->tags()->sync($request->tags);                
+        if (isset($request->categories)) {
+            $post->categories()->sync($request->categories);                
         }else{
-            $post->tags()->sync(array());                
+            $post->categories()->sync(array());                
         }
         
         return redirect()->route('posts.index')->with('success', 'Post berhasil diedit');
@@ -158,7 +144,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {        
         Storage::disk('public-images')->delete($post->image);
-        $post->tags()->detach();
+        $post->categories()->detach();
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus');
     }
