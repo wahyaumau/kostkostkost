@@ -26,6 +26,7 @@
                     <th>No</th>
                     <th>Nama Universitas</th>
                     <th>Alamat</th>
+                    <th>Slug</th>
                     <th colspan="2">action</th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                     <td>{{$university->id}}</td>
                     <td>{{$university->name}}</td>
                     <td>{{$university->address. ", ".$university->village->name. ", ". $university->village->district->name . ", ". $university->village->district->regency->name . ", ". $university->village->district->regency->province->name}}</td>
+                    <td>@if($university->slug != null){{$university->slug}}@else {{"-"}} @endif</td>
                     <td><a href="{{ route('universities.edit', $university->id)}}" class="btn btn-warning">Edit</a></td>
                     <td><form action="{{ route('universities.destroy', $university->id)}}" method="post">
                         @csrf

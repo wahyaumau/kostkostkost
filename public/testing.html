@@ -16,8 +16,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('dashboard/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
@@ -45,7 +44,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #49308E;">
+                <nav class="navbar navbar-expand-lg navbar-dark mb-4" style="background-color: #49308E;">
                   <a class="navbar-brand" href="{{url('/')}}">
                     <b>KOSTARIA.ID</b>
                   </a>
@@ -74,27 +73,22 @@
                           <a class="dropdown-item" href="https://www.google.com/search?q=beasiswa+kuliah" target="_blank" >Cari Info Lainnya</a>
                         </div>
                       </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{route('kostariateam.login')}}">Kostaria Teams</a>
+                      </li>
                     </ul>
                     <ul class="navbar-nav navbar-right">
-                      <!-- Example single danger button -->
-                      @auth
-                      @else
-                      @if (Route::has('login'))
-                      <li class="">
-                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Login
-                        </button>
-                        <div class="dropdown-menu  dropdown-menu-right">
-                          <a class="dropdown-item" href="{{ route('login') }}">Login as User</a>
-                          <a class="dropdown-item" href="{{route('kostariateam.login')}}">Login as Admin</a>
-                          <div class="dropdown-divider"></div>
-                          @if (Route::has('register'))
-                          <a class="dropdown-item" href="{{ route('register') }}">Register</a>
-                          @endif
-                        </div>
+                    @if (Route::has('login'))
+                    <li class="nav-item">
+                      <a class="btn btn-outline-light m-1 mb-2" href="{{ route('login') }}">Login</a>
+                    </li>
+                    @endif
+                    @if (Route::has('register'))
+                      <li class="nav-item">
+                        <a class="btn btn-primary m-1 mb-2" href="{{ route('register') }}">Register</a>
                       </li>
-                      @endif
-                      @endauth
+                    @endif
+
                   </ul>
                   </div>
                 </nav>
@@ -102,16 +96,30 @@
 
                 <!-- Begin Page Content -->
 
-                @if(Request::is('/'))
-                <div class="jumbotron jumbotron-fluid mb-0">
-                  <div class="container">
-                    <h1 class="display-4">Selamat Datang</h1>
-                    <p class="lead">Sleep tight and start the day!</p>
+                <!-- SLIDER -->
+                <div class="container-fluid d-block " style="min-height: 100px;">
+                  <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide">Slide 1</div>
+                      <div class="swiper-slide">Slide 2</div>
+                      <div class="swiper-slide">Slide 3</div>
+                      <div class="swiper-slide">Slide 4</div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                   </div>
+                  <!-- <p class="append-buttons">
+                    <a href="#" class="prepend-2-slides">Prepend 2 Slides</a>
+                    <a href="#" class="prepend-slide">Prepend Slide</a>
+                    <a href="#" class="append-slide">Append Slide</a>
+                    <a href="#" class="append-2-slides">Append 2 Slides</a>
+                  </p> -->
                 </div>
-                @endif
-
-                <div class="container-fluid p-5">
+                <!-- END SLIDER -->
+<div class="container-fluid">
 
                     @yield('content')
 
@@ -137,12 +145,85 @@
     </div>
     <!-- End of Page Wrapper -->
 
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <!-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ingin keluar?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Pastikan tidak ada tugas yang terlewat dan tekan tombol 'Logout' untuk keluar. Terima kasih.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('dashboard/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="{{asset('dashboard/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{asset('dashboard/js/sb-admin-2.min.js')}}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{asset('dashboard/vendor/chart.js/Chart.min.js')}}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{asset('dashboard/js/demo/chart-area-demo.js')}}"></script>
+    <script src="{{asset('dashboard/js/demo/chart-pie-demo.js')}}"></script>
+
+    <script>
+      var appendNumber = 4;
+      var prependNumber = 1;
+      var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3,
+        centeredSlides: true,
+        spaceBetween: 30,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+      document.querySelector('.prepend-2-slides').addEventListener('click', function (e) {
+        e.preventDefault();
+        swiper.prependSlide([
+          '<div class="swiper-slide">Slide ' + (--prependNumber) + '</div>',
+          '<div class="swiper-slide">Slide ' + (--prependNumber) + '</div>'
+          ]);
+      });
+      document.querySelector('.prepend-slide').addEventListener('click', function (e) {
+        e.preventDefault();
+        swiper.prependSlide('<div class="swiper-slide">Slide ' + (--prependNumber) + '</div>');
+      });
+      document.querySelector('.append-slide').addEventListener('click', function (e) {
+        e.preventDefault();
+        swiper.appendSlide('<div class="swiper-slide">Slide ' + (++appendNumber) + '</div>');
+      });
+      document.querySelector('.append-2-slides').addEventListener('click', function (e) {
+        e.preventDefault();
+        swiper.appendSlide([
+          '<div class="swiper-slide">Slide ' + (++appendNumber) + '</div>',
+          '<div class="swiper-slide">Slide ' + (++appendNumber) + '</div>'
+          ]);
+      });
+    </script>
 
     @yield('scripts')
 </body>

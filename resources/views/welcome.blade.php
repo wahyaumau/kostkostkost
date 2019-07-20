@@ -10,55 +10,9 @@
 @endsection
 
 @section('content')
-<!-- <div class="row">
-    <div class="col-lg-12">
-        <div class="card shadow mb-4">
-                <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                  <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                  </ol>
-                  <div class="carousel-inner">
-
-                    <div class="carousel-item active">
-                      <img src="{{asset('img/landing/1.jpg')}}" class="d-block w-100" alt="...">
-                      <div class="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <img src="{{asset('img/landing/1.jpg')}}" class="d-block w-100" alt="...">
-                      <div class="carousel-caption d-none d-md-block">
-                        <h5>Second slide label</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      </div>
-                    </div>
-                    <div class="carousel-item">
-                      <img src="{{asset('img/landing/1.jpg')}}" class="d-block w-100" alt="...">
-                      <div class="carousel-caption d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
-        </div>
-    </div>
-</div> -->
-
 <div class="row">
     <div class="col-lg-12">
-        <div class="card shadow mb-4 border-bottom-primary">
+        <div class="card shadow mb-4">
             <div class="card-body">
                 <form method="get" action="{{ route('boardinghouses.search') }}">
                     <div class="row">
@@ -70,20 +24,20 @@
                             </select>
                         </div>
                       </div>
-                      <div class="form-group col-md-6">
+                      <!-- <div class="form-group col-md-6">
                         <label for="single-append-text" class="control-label">Cari Sekitar Kota</label>
                         <div class="input-group">
                             <select id="single-append-text" class="select2 form-control select2-allow-clear" name="regency">
                                 <option value="">Pilih Kota</option>
                             </select>
                         </div>
-                      </div>                      
+                      </div> -->
                         <div class="form-group col-md-6">
                             <label for="single-append-text" class="control-label">Rentang Harga</label>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="input-group">               
-                                        <input id="minPrice" type="number" min="0" class="form-control{{ $errors->has('minPrice') ? ' is-invalid' : '' }}" name="minPrice" value="{{ old('minPrice') }}"> 
+                                    <div class="input-group">
+                                        <input id="minPrice" type="number" min="0" class="form-control{{ $errors->has('minPrice') ? ' is-invalid' : '' }}" name="minPrice" value="{{ old('minPrice') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -92,7 +46,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                      
+                        </div>
                         <div class="form-group col-md-6">
                             <label for="single-append-text" class="control-label">Fasilitas</label>
                             <div class="col-md-12">
@@ -107,7 +61,7 @@
                                 <input type="checkbox" name="facility_9" value="1">Kebersihan
                                 <input type="checkbox" name="facility_10" value="1">Pajak dan retribusi
                                 <input type="checkbox" name="facility_11" value="1">Wi-fi
-                            </div>                            
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="single-append-text" class="control-label">Fasilitas Kamar</label>
@@ -119,7 +73,7 @@
                                 <input type="checkbox" name="chamber_facility_5" value="1">Lemari
                                 <input type="checkbox" name="chamber_facility_6" value="1">Water Heater
                                 <input type="checkbox" name="chamber_facility_7" value="1">AC
-                            </div>                            
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="single-append-text" class="control-label">Kamar Untuk</label>
@@ -154,22 +108,26 @@
 <div class="row">
     @if(isset($listBoardingHouse))
     @foreach($listBoardingHouse as $boardinghouse)
-    <div class="col-lg-4 col-sm-6 portfolio-item">
-        <div class="card h-100 shadow">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+    <div class="col-lg-4 col-sm-6 mb-2">
+        <div class="card ">
+          <div class="card-image d-none d-md-block">
+            <video id="video-kost" controls loop class="w-100" style="max-height: 250px" poster="{{asset('img/kostaria.png')}}">
+              <source src="{{url('videos/'.$boardinghouse->video)}}" type="video/mp4">
+            </video>
+          </div>
             <div class="card-body">
-                <h4 class="card-title" alt="{{$boardinghouse->description}}">
+                <h5 class="card-title" alt="{{$boardinghouse->description}}">
                     <b>{{ ucwords(trans($boardinghouse->name)) }}</b>
-                </h4>
-                <p class="card-text">{{$boardinghouse->address." " . ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</p>
-                <p class="card-text text-primary">{{$boardinghouse->information_cost}}</p>
+                </h5>
+                <p class="card-text">{{$boardinghouse->address . ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</p>
+                <p class="card-text text-secondary">{{$boardinghouse->information_cost}}</p>
                 <!-- <p>deskripsi : {{$boardinghouse->description}}</p>
                 <p>alamat : {{$boardinghouse->address." ".$boardinghouse->village->name. ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</p>
                 -->
                 @php
                   $facilities = str_split($boardinghouse->facility);
                   $facilities_def = array('fas fa-utensils', 'fas fa-fire', 'fas fas-burn', 'fas fa-motorcycle', 'fas fa-car', 'fas fa-tshirt', 'fas fa-bolt', 'fas fa-tint', 'fas fa-broom', 'fas fa-file-invoice-dollar', 'fas fa-wifi');
-                  $facilities_dess = array('Dapur', 'Kompor', 'Elpiji', 'Parkir Motor', 'Parkir Mobil', 'Jemuran', 'Listril', 'Air', 'Kebersihan', 'Pajak dan Retribusi', 'Wifi');
+                  $facilities_dess = array('Dapur', 'Kompor', 'Elpiji', 'Parkir Motor', 'Parkir Mobil', 'Jemuran', 'Listrik', 'Air', 'Kebersihan', 'Pajak dan Retribusi', 'Wifi');
                   for ($i=0; $i < count($facilities); $i++) {
                   if ($facilities[$i] == false) {
                     unset($facilities_def[$i]);
@@ -178,17 +136,12 @@
                 }
                 @endphp
                 @foreach($facilities_def as $index => $facility)
-                    <i class="{{$facility}}" alt=""></i>
+                    <i class="{{$facility}}" alt="{{$facilities_dess[$index]}}" title="{{$facilities_dess[$index]}}"></i>
                 @endforeach
-                <!--
-                <p>fasilitas lain : {{$boardinghouse->facility_other}}</p>
-                <p>akses : {{$boardinghouse->access}}</p>
-                <p>informasi tambahan : {{$boardinghouse->information_others}}</p>
-                <p>informasi biaya : {{$boardinghouse->information_cost}}</p> -->
             </div>
             <div class="card-footer">
-                <!-- <a href="#" class="btn btn-primary">Booking</a> -->
-                <a href="{{ route('boardinghouses.show', [$boardinghouse->university->slug, $boardinghouse->id])}}" class="btn btn-primary">Lihat Selengkapnya</a>
+                <a href="#" class="btn btn-primary">Booking</a>
+                {{-- <a href="{{ route('boardinghouses.show', [$boardinghouse->university->slug, $boardinghouse->id])}}" class="btn btn-primary">Lihat Selengkapnya</a> --}}
             </div>
         </div>
     </div>

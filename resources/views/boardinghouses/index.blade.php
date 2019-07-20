@@ -64,7 +64,7 @@
                     <td>{{$boardinghouse->id}}</td>
                     <td>{{$boardinghouse->name}}</td>
                     <td>{{$boardinghouse->address. ", ".$boardinghouse->village->name. ", ". $boardinghouse->village->district->name . ", ". $boardinghouse->village->district->regency->name . ", ". $boardinghouse->village->district->regency->province->name}}</td>
-                    {{-- <td>{{ $boardinghouse->university->name }}</td> --}}
+                    <td>@if($boardinghouse->university != null){{ $boardinghouse->university}}@else {{"-"}}@endif</td>
                     <td>{{$boardinghouse->owner->name}}</td>
                     <td>{{$boardinghouse->owner->phone}}</td>
                     <td>
@@ -86,7 +86,7 @@
                           </a>
                         </li>
                         <li>
-                          <a href="{{ route('boardinghouses.show', [$boardinghouse->university->slug,$boardinghouse->id])}}" class="btn btn-info btn-icon-split my-1 btn-sm">
+                          <a href="{{ route('boardinghouses.show', [$boardinghouse->id])}}" class="btn btn-info btn-icon-split my-1 btn-sm">
                             <span class="icon text-white-50">
                               <i class="fas fa-info-circle"></i>
                             </span>
