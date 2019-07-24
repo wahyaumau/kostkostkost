@@ -16,7 +16,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{asset('dashboard/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
 
     <!-- Custom styles for this template-->
@@ -28,6 +28,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/js/swiper.min.js"></script>
     <!-- <link rel="stylesheet" href="{{asset('asset/')}}"> -->
     <!-- <link href="{{asset('dashboard/css/sb-admin-2.min.css')}}" rel="stylesheet"> -->
+
+    <style media="screen">
+      *{
+        font-family: 'Raleway', sans-serif;
+      }
+
+      .home-jumbotron{
+          background: url("{{asset('img/jumbotron')}}") no-repeat center center;
+          -webkit-background-size: 100% 100%;
+          -moz-background-size: 100% 100%;
+          -o-background-size: 100% 100%;
+          background-size: 100% 100%;
+      }
+    </style>
 
     <!-- Other Scripts -->
     @yield('stylesheets')
@@ -59,7 +73,7 @@
                         <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{url('/')}}">Home</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#">Blogs</a>
+                        <a class="nav-link {{ Request::is('blogs') ? 'active' : '' }}" href="{{route('blogs.index')}}">Blogs</a>
                       </li>
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -103,7 +117,7 @@
                 <!-- Begin Page Content -->
 
                 @if(Request::is('/'))
-                <div class="jumbotron jumbotron-fluid mb-0">
+                <div class="jumbotron jumbotron-fluid mb-0 text-white home-jumbotron" style="background-color: #49308E;">
                   <div class="container">
                     <h1 class="display-4">Selamat Datang</h1>
                     <p class="lead">Sleep tight and start the day!</p>

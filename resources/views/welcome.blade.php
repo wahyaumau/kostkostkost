@@ -3,6 +3,19 @@
 @section('stylesheets')
 <link href="{{ asset('css/select2-bootstrap.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
+<style media="screen">
+.two-col {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+
+.three-col {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+</style>
 @endsection
 
 @section('panel')
@@ -16,88 +29,100 @@
             <div class="card-body">
                 <form method="get" action="{{ route('boardinghouses.search') }}">
                     <div class="row">
-                      <div class="form-group col-md-6">
-                        <label for="single-append-text" class="control-label">Cari Dekat Kampus</label>
+                      <!-- <div class="form-group col-md-6">
+                        <label for="single-append-text" class="control-label"> <b>Cari Dekat Kampus</b> </label>
                         <div class="input-group">
                             <select id="single-append-text" class="select2 form-control select2-allow-clear" name="university">
                                 <option value="">Pilih Kampus</option>
                             </select>
                         </div>
-                      </div>
-                      <!-- <div class="form-group col-md-6">
-                        <label for="single-append-text" class="control-label">Cari Sekitar Kota</label>
+                        <hr>
+                      </div> -->
+                      <div class="form-group col-md-6">
+                        <label for="single-append-text" class="control-label"> <b>Cari Sekitar Kota</b> </label>
                         <div class="input-group">
                             <select id="single-append-text" class="select2 form-control select2-allow-clear" name="regency">
                                 <option value="">Pilih Kota</option>
                             </select>
                         </div>
-                      </div> -->
+                        <hr>
+                      </div>
                         <div class="form-group col-md-6">
-                            <label for="single-append-text" class="control-label">Rentang Harga</label>
+                            <label for="single-append-text" class="control-label"> <b>Rentang Harga</b> </label>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-lg-5 col-md-5 col-sm-5">
                                     <div class="input-group">
-                                        <input id="minPrice" type="number" min="0" class="form-control{{ $errors->has('minPrice') ? ' is-invalid' : '' }}" name="minPrice" value="{{ old('minPrice') }}">
+                                        <input id="minPrice" placeholder="Harga Terendah" type="number" min="0" class="form-control{{ $errors->has('minPrice') ? ' is-invalid' : '' }}" name="minPrice" value="{{ old('minPrice') }}">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-1 col-md-1 col-sm-1">
+                                  <p> -</p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="input-group">
-                                        <input id="maxPrice" type="number" min="0" class="form-control{{ $errors->has('maxPrice') ? ' is-invalid' : '' }}" name="maxPrice" value="{{ old('maxPrice') }}">
+                                        <input id="maxPrice" placeholder="Harga Tertinggi" type="number" min="0" class="form-control{{ $errors->has('maxPrice') ? ' is-invalid' : '' }}" name="maxPrice" value="{{ old('maxPrice') }}">
                                     </div>
                                 </div>
                             </div>
+                            <hr>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="single-append-text" class="control-label">Fasilitas</label>
+                            <label for="single-append-text" class="control-label"> <b>Fasilitas</b> </label>
                             <div class="col-md-12">
-                                <input type="checkbox" name="facility_1" value="1">Dapur
-                                <input type="checkbox" name="facility_2" value="1">Kompor
-                                <input type="checkbox" name="facility_3" value="1">Gas
-                                <input type="checkbox" name="facility_4" value="1">Tempat parkir motor
-                                <input type="checkbox" name="facility_5" value="1">Tempat parkir mobil
-                                <input type="checkbox" name="facility_6" value="1">Tempat jemuran
-                                <input type="checkbox" name="facility_7" value="1">Listrik
-                                <input type="checkbox" name="facility_8" value="1">Air
-                                <input type="checkbox" name="facility_9" value="1">Kebersihan
-                                <input type="checkbox" name="facility_10" value="1">Pajak dan retribusi
-                                <input type="checkbox" name="facility_11" value="1">Wi-fi
+                              <ul class="three-col list-unstyled">
+                                <li><input type="checkbox" name="facility_1" value="1"> Dapur</input></li>
+                                <li><input type="checkbox" name="facility_2" value="1"> Kompor</input></li>
+                                <li><input type="checkbox" name="facility_3" value="1"> Gas</input></li>
+                                <li><input type="checkbox" name="facility_4" value="1"> Parkiran Motor</input></li>
+                                <li><input type="checkbox" name="facility_5" value="1"> Parkiran Mobil</input></li>
+                                <li><input type="checkbox" name="facility_6" value="1"> Tempat Jemuran</input></li>
+                                <li><input type="checkbox" name="facility_7" value="1"> Listrik</input></li>
+                                <li><input type="checkbox" name="facility_8" value="1"> Air</input></li>
+                                <li><input type="checkbox" name="facility_9" value="1"> Kebersihan</input></li>
+                                <li><input type="checkbox" name="facility_10" value="1"> Pajak dan Retribusi</input></li>
+                                <li><input type="checkbox" name="facility_11" value="1"> Wi-fi</input></li>
+                              </ul>
                             </div>
+                            <hr>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="single-append-text" class="control-label">Fasilitas Kamar</label>
+                            <label for="single-append-text" class="control-label"> <b>Fasilitas Kamar</b> </label>
                             <div class="col-md-12">
-                                <input type="checkbox" name="chamber_facility_1" value="1">Kamar Mandi Dalam
-                                <input type="checkbox" name="chamber_facility_2" value="1">Ranjang
-                                <input type="checkbox" name="chamber_facility_3" value="1">Kasur
-                                <input type="checkbox" name="chamber_facility_4" value="1">Meja belajar
-                                <input type="checkbox" name="chamber_facility_5" value="1">Lemari
-                                <input type="checkbox" name="chamber_facility_6" value="1">Water Heater
-                                <input type="checkbox" name="chamber_facility_7" value="1">AC
+                              <ul class="three-col list-unstyled">
+                                <li><input type="checkbox" name="chamber_facility_1" value="1"> Kamar Mandi Dalam</input></li>
+                                <li><input type="checkbox" name="chamber_facility_2" value="1"> Ranjang</input></li>
+                                <li><input type="checkbox" name="chamber_facility_3" value="1"> Kasur</input></li>
+                                <li><input type="checkbox" name="chamber_facility_4" value="1"> Meja belajar</input></li>
+                                <li><input type="checkbox" name="chamber_facility_5" value="1"> Lemari</input></li>
+                                <li><input type="checkbox" name="chamber_facility_6" value="1"> Water Heater</input></li>
+                                <li><input type="checkbox" name="chamber_facility_7" value="1"> AC</input></li>
+                              </ul>
                             </div>
+                            <hr>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="single-append-text" class="control-label">Kamar Untuk</label>
+                            <label for="single-append-text" class="control-label"> <b>Gender</b> </label>
                             <div class="col-md-6">
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" value="1" name="gender">Laki-laki
+                                        <input type="radio" class="form-check-input" value="1" name="gender">Laki-laki</input>
                                     </label>
                                 </div>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" value="0" name="gender">Perempuan
+                                        <input type="radio" class="form-check-input" value="0" name="gender">Perempuan</input>
                                     </label>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary push-right">
-                                {{ __('Cari Kost') }}
-                            </button>
+                        <div class="col-md-6">
+                          <button type="submit" class="btn btn-primary btn-block">
+                            {{ __('Cari Kost') }}
+                          </button>
                         </div>
                     </div>
+                    <!-- <div class="form-group row mb-0">
+                    </div> -->
                 </form>
             </div>
         </div>
@@ -119,7 +144,7 @@
                 <h5 class="card-title" alt="{{$boardinghouse->description}}">
                     <b>{{ ucwords(trans($boardinghouse->name)) }}</b>
                 </h5>
-                <p class="card-text">{{$boardinghouse->address . ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</p>
+                <small class="card-text">{{$boardinghouse->address . ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</small>
                 <p class="card-text text-secondary">{{$boardinghouse->information_cost}}</p>
                 <!-- <p>deskripsi : {{$boardinghouse->description}}</p>
                 <p>alamat : {{$boardinghouse->address." ".$boardinghouse->village->name. ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</p>
