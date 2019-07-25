@@ -35,20 +35,62 @@
       }
 
       .home-jumbotron{
-          background: url("{{asset('img/jumbotron')}}") no-repeat center center;
-          -webkit-background-size: 100% 100%;
-          -moz-background-size: 100% 100%;
-          -o-background-size: 100% 100%;
-          background-size: 100% 100%;
+          background: url("{{asset('img/jumbotron.png')}}") no-repeat center bottom;
+          -webkit-background-size: 100%;
+          -moz-background-size: 100%;
+          -o-background-size: 100%;
+          background-size: 100%;
+      }
+
+      .items{
+        box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+        transition: all 0.3s ease-in-out;
+      }
+
+      .items:hover {
+        border: 1px solid #5e3eb8;
+        -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transform: scale(1.01, 1.01);
+        transition: all 0.3s ease-in-out;
+      }
+
+      .bg-purple{
+        background-color: #49308E;
+      }
+
+      .two-col {
+        columns: 2;
+        -webkit-columns: 2;
+        -moz-columns: 2;
+      }
+
+      .three-col {
+        columns: 3;
+        -webkit-columns: 3;
+        -moz-columns: 3;
+      }
+
+      .btn-purple {
+        /* #49308E */
+        background-color: #50349d;
+        color: white;
+      }
+
+      .btn-purple:hover {
+        background-color: #342266;
+        color: white;
       }
     </style>
+
 
     <!-- Other Scripts -->
     @yield('stylesheets')
 
 </head>
 
-<body id="page-top">
+<body id="page-top" class="bg-purple">
     <!-- Page Wrapper -->
     <div id="wrapper" >
 
@@ -59,7 +101,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #49308E;">
+                <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-purple">
                   <a class="navbar-brand" href="{{url('/')}}">
                     <b>KOSTARIA.ID</b>
                   </a>
@@ -68,9 +110,31 @@
                   </button>
 
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav ml-auto mr-3">
+                      <li class="nav-item">
+                        <div class="container d-lg-none d-block">
+                          <div class="row">
+                            <a class="nav-link active" href="{{url('/')}}"><i class="fab fa-line fa-2x mr-2"></i></a>
+                            <a class="nav-link active" href="{{url('/')}}"><i class="fab fa-facebook-square fa-2x mr-2"></i></a>
+                            <a class="nav-link active" href="{{url('/')}}"><i class="fab fa-instagram fa-2x mr-2"></i></a>
+                          </div>
+                        </div>
+                        <div class="container d-lg-block d-none">
+                          <div class="row">
+                            <a class="nav-link active" href="{{url('/')}}"><i class="fab fa-line mr-0"></i></a>
+                            <a class="nav-link active" href="{{url('/')}}"><i class="fab fa-facebook-square mr-0"></i></a>
+                            <a class="nav-link active" href="{{url('/')}}"><i class="fab fa-instagram mr-0"></i></a>
+                            <a class="nav-link active">|</a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="nav-item">
+                      </li>
                       <li class="nav-item">
                         <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{url('/')}}">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link {{ Request::is('about') ? 'active' : '' }}" href="{{url('/about')}}">About</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link {{ Request::is('blogs') ? 'active' : '' }}" href="{{route('blogs.index')}}">Blogs</a>
@@ -117,7 +181,7 @@
                 <!-- Begin Page Content -->
 
                 @if(Request::is('/'))
-                <div class="jumbotron jumbotron-fluid mb-0 text-white home-jumbotron" style="background-color: #49308E;">
+                <div class="jumbotron jumbotron-fluid mb-0 text-white home-jumbotron bg-purple" >
                   <div class="container">
                     <h1 class="display-4">Selamat Datang</h1>
                     <p class="lead">Sleep tight and start the day!</p>
@@ -136,7 +200,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white mt-4">
+            <footer class="sticky-footer bg-purple mt-4">
                 <div class="container mx-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; KOSTARIA.ID 2019</span>

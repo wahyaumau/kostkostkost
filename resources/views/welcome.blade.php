@@ -3,19 +3,6 @@
 @section('stylesheets')
 <link href="{{ asset('css/select2-bootstrap.css') }}" rel="stylesheet">
 <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
-<style media="screen">
-.two-col {
-  columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
-}
-
-.three-col {
-  columns: 3;
-  -webkit-columns: 3;
-  -moz-columns: 3;
-}
-</style>
 @endsection
 
 @section('panel')
@@ -52,7 +39,7 @@
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 col-sm-5">
                                     <div class="input-group">
-                                        <input id="minPrice" placeholder="Harga Terendah" type="number" min="0" class="form-control{{ $errors->has('minPrice') ? ' is-invalid' : '' }}" name="minPrice" value="{{ old('minPrice') }}">
+                                        <input id="minPrice" placeholder="Harga Terendah" type="number" min="0" max="20000000" step="10000" class="form-control{{ $errors->has('minPrice') ? ' is-invalid' : '' }}" name="minPrice" value="{{ old('minPrice') }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-1">
@@ -60,7 +47,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="input-group">
-                                        <input id="maxPrice" placeholder="Harga Tertinggi" type="number" min="0" class="form-control{{ $errors->has('maxPrice') ? ' is-invalid' : '' }}" name="maxPrice" value="{{ old('maxPrice') }}">
+                                        <input id="maxPrice" placeholder="Harga Tertinggi" type="number" min="0" max="20000000" step="10000"  class="form-control{{ $errors->has('maxPrice') ? ' is-invalid' : '' }}" name="maxPrice" value="{{ old('maxPrice') }}">
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +103,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                          <button type="submit" class="btn btn-primary btn-block">
+                          <button type="submit" class="btn btn-purple btn-block">
                             {{ __('Cari Kost') }}
                           </button>
                         </div>
@@ -130,25 +117,26 @@
     </div>
 </div>
 
-<div class="row">
+<div class="">
     @if(isset($listBoardingHouse))
+    <div class="card-columns">
     @foreach($listBoardingHouse as $boardinghouse)
-    <div class="col-lg-4 col-sm-6 mb-2">
-        <div class="card ">
+    <!-- <div class="col-lg-4 col-sm-6 mb-2"> -->
+        <div class="card items">
           <div class="card-image d-none d-md-block">
+            @if($boardinghouse->video != null)
             <video id="video-kost" controls loop class="w-100" style="max-height: 250px" poster="{{asset('img/kostaria.png')}}">
               <source src="{{url('videos/'.$boardinghouse->video)}}" type="video/mp4">
             </video>
+            @endif
           </div>
             <div class="card-body">
                 <h5 class="card-title" alt="{{$boardinghouse->description}}">
                     <b>{{ ucwords(trans($boardinghouse->name)) }}</b>
                 </h5>
-                <small class="card-text">{{$boardinghouse->address . ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</small>
-                <p class="card-text text-secondary">{{$boardinghouse->information_cost}}</p>
-                <!-- <p>deskripsi : {{$boardinghouse->description}}</p>
-                <p>alamat : {{$boardinghouse->address." ".$boardinghouse->village->name. ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</p>
-                -->
+                <hr>
+                <p class="card-text">{{$boardinghouse->address . ", ".$boardinghouse->village->district->name . ", " .  $boardinghouse->village->district->regency->name. ", " . $boardinghouse->village->district->regency->province->name}}</p>
+                <p class="card-text">Tersedia {{$boardinghouse->chamber->count()}} Tipe Kamar</p>
                 @php
                   $facilities = str_split($boardinghouse->facility);
                   $facilities_def = array('fas fa-utensils', 'fas fa-fire', 'fas fas-burn', 'fas fa-motorcycle', 'fas fa-car', 'fas fa-tshirt', 'fas fa-bolt', 'fas fa-tint', 'fas fa-broom', 'fas fa-file-invoice-dollar', 'fas fa-wifi');
@@ -164,16 +152,16 @@
                     <i class="{{$facility}}" alt="{{$facilities_dess[$index]}}" title="{{$facilities_dess[$index]}}"></i>
                 @endforeach
             </div>
-            <div class="card-footer">
-                <a href="#" class="btn btn-primary">Booking</a>
-                {{-- <a href="{{ route('boardinghouses.show', [$boardinghouse->university->slug, $boardinghouse->id])}}" class="btn btn-primary">Lihat Selengkapnya</a> --}}
+            <div class="card-footer bg-white text-right">
+              <a href="{{ route('boardinghouses.show',[$boardinghouse->id])}}" class="btn btn-purple" alt="See" title="See"><i class="fas fa-eye mr-2"></i>Lihat Kostan</a>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
     @endforeach
+    </div>
     @else
     <div class="mx-3 alert alert-primary alert-dismissible fade show w-100" role="alert">
-      <strong>Hai!</strong> Silahkan pilih Kampus atau Kota untuk mencari tempat kost.
+      <strong>Hai!</strong>Kota untuk mencari tempat kost.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

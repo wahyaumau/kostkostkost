@@ -18,8 +18,8 @@ use App\Exports\BoardinghouseExport;
 class BoardinghouseController extends Controller
 {
     public function __construct()
-    {        
-        $this->middleware('auth:kostariateam,admin', ['except' => ['search', 'show']]);
+    {
+        $this->middleware('auth:kostariateam,admin', ['except' => ['search', 'show','showAll']]);
     }
 
     /**
@@ -59,7 +59,7 @@ class BoardinghouseController extends Controller
             'address' => 'required|max:255',
             'village_id' => 'required|numeric',
             'university_id' => 'required|numeric',
-            'owner_id' => 'required|numeric',            
+            'owner_id' => 'required|numeric',
             'facility_other' => 'required',
             'access' => 'required',
             'information_others' => 'required',
@@ -89,9 +89,9 @@ class BoardinghouseController extends Controller
             $file = $request->video;
             $filename = time().'_'.$request->name.'_'.$file->getClientOriginalName();
             $folderName = 'videos';
-            Storage::putFileAs($folderName, $file, $filename);            
-            $boardinghouse->video = $filename;            
-        }        
+            Storage::putFileAs($folderName, $file, $filename);
+            $boardinghouse->video = $filename;
+        }
         $boardinghouse->save();
         return redirect()->route('boardinghouses.index')->with('success', 'kostan '.$request->name.' berhasil ditambahkan');
     }
@@ -102,12 +102,26 @@ class BoardinghouseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($university, $id)
+    public function show($id)
     {
         $boardinghouse = Boardinghouse::find($id);
-        return view('boardinghouses.show', compact('boardinghouse'));
+        $boardinghouses = Boardinghouse::all();
+        return view('boardinghouses.show', compact('boardinghouse','boardinghouses'));
 
     }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showAll()
+    {
+        $listBoardingHouse = Boardinghouse::paginate(6);
+        return view('welcome', compact('listBoardingHouse'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -166,11 +180,11 @@ class BoardinghouseController extends Controller
             $file = $request->video;
             $filename = time().'_'.$request->name.'_'.$file->getClientOriginalName();
             $folderName = 'videos';
-            Storage::putFileAs($folderName, $file, $filename);            
+            Storage::putFileAs($folderName, $file, $filename);
             $oldFile = $boardinghouse->video;
-            Storage::disk('public-html-videos')->delete($oldFile);            
-            $boardinghouse->video = $filename;            
-        }        
+            Storage::disk('public-html-videos')->delete($oldFile);
+            $boardinghouse->video = $filename;
+        }
         $boardinghouse->save();
         return redirect()->route('boardinghouses.index')->with('success', 'kostan berhasil diedit');
     }
@@ -184,18 +198,18 @@ class BoardinghouseController extends Controller
     public function destroy($id)
     {
         $boardinghouse = Boardinghouse::findOrFail($id);
-        Storage::disk('public-html-videos')->delete($boardinghouse->video);            
+        Storage::disk('public-html-videos')->delete($boardinghouse->video);
         $boardinghouse->delete();
         return redirect()->route('boardinghouses.index')->with('success', 'kostan berhasil dihapus');
-    }    
+    }
 
-    public function search(Request $request){                
-        $searchBH = (new Boardinghouse)->newQuery();        
+    public function search(Request $request){
+        $searchBH = (new Boardinghouse)->newQuery();
 
-        if ($request->university) {            
+        if ($request->university) {
             $searchBH->where('university_id', $request->university);
         }
-        if ($request->regency) {            
+        if ($request->regency) {
             $searchBH->whereHas('village', function ($query) use ($request){
                 $query->whereHas('district', function ($query) use ($request){
                     $query->whereHas('regency', function ($query) use ($request){
@@ -203,7 +217,7 @@ class BoardinghouseController extends Controller
                     });
                 });
             });
-        }        
+        }
 
         if ($request->minPrice && $request->maxPrice) {
             $searchBH->whereHas('chamber', function ($query) use ($request){
@@ -221,20 +235,20 @@ class BoardinghouseController extends Controller
                 });
             }
         }
-        
-        for ($i=1; $i <=11 ; $i++) {            
-            if($request->has('facility_'.$i)){                
-                $searchBH->where(\DB::raw('substr(facility, '.$i.',1)'), '1');
-            }            
-        }        
 
-        for ($i=1; $i <=7 ; $i++) {            
-            if($request->has('chamber_facility_'.$i)){                
+        for ($i=1; $i <=11 ; $i++) {
+            if($request->has('facility_'.$i)){
+                $searchBH->where(\DB::raw('substr(facility, '.$i.',1)'), '1');
+            }
+        }
+
+        for ($i=1; $i <=7 ; $i++) {
+            if($request->has('chamber_facility_'.$i)){
                 $searchBH->whereHas('chamber', function ($query) use ($i){
                     $query->where(\DB::raw('substr(chamber_facility, '.$i.',1)'), '1');
                 });
-            }            
-        }        
+            }
+        }
 
         if ($request->gender) {
             $searchBH->whereHas('chamber', function ($query) use ($request){
@@ -247,7 +261,7 @@ class BoardinghouseController extends Controller
         return view('welcome', compact('listBoardingHouse'));
     }
 
-    public function export(){        
+    public function export(){
         return Excel::download(new BoardinghouseExport, 'boardinghouses_'.Carbon::now().'.xlsx');
     }
 

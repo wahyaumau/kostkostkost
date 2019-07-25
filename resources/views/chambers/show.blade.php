@@ -3,25 +3,25 @@
 
 @section('stylesheets')
 <style media="screen">
-.map-container{
-overflow:hidden;
-padding-bottom:56.25%;
-position:relative;
-height:0;
-}
-.map-container iframe{
-left:0;
-top:0;
-height:100%;
-width:100%;
-position:absolute;
-}
+  .map-container{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+  }
+  .map-container iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+  }
 </style>
 @endsection
 
 @section('content')
 <div class="row">
-  @if (\Session::has('success'))
+  {{-- @if (\Session::has('success'))
   <div class="alert alert-success">
     <p>{{ \Session::get('success') }}</p>
   </div><br />
@@ -29,7 +29,7 @@ position:absolute;
   <div class="alert alert-danger">
     <p>{{ \Session::get('fail') }}</p>
   </div><br />
-  @endif  
+  @endif --}}  
 
   <div class="col-lg-6">
     <div class="card shadow border-bottom-primary mb-4">
@@ -43,7 +43,7 @@ position:absolute;
         </div>
       </div>
     </div>
-    
+
       <div class="col-xl-6">
         <div class="card shadow h-100">
           <div class="card-body">
@@ -90,8 +90,8 @@ position:absolute;
                 </li>
                 @endforeach
               </ul>
-            </p>            
-          </div>          
+            </p>
+          </div>
           <div class="col-md-6">
             <p>
               <dt>Harga per bulan :</dt>
@@ -113,8 +113,8 @@ position:absolute;
         </div>
       </div>
     </div>
-  </div>  
-  
+  </div>
+
       <div class="card-footer">
         <div class="row ml-0">
           <form action="{{ route('tags.store', $chamber)}}" method="post">

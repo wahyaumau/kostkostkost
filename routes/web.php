@@ -11,16 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Route::get('/', 'BoardingHouseController@showAll')->name('boardinghouses.all');
 
 Route::get('/teamregist', function () {
     return view('other.teamreg');
 });
 
 Route::get('/about', function () {
-    return view('other.about');
+    return view('about');
 });
 
 Route::resource('categories', 'CategoryController',[
@@ -28,9 +31,9 @@ Route::resource('categories', 'CategoryController',[
 ]);
 
 Route::prefix('blogs')->group(function(){
-	Route::get('/{slug}', 'BlogController@show')->name('blogs.show');	
-	Route::get('/category/{category}', 'BlogController@blogByCategory')->name('blogs.category');	
-	Route::get('/tag/{tag}', 'BlogController@blogByTag')->name('blogs.tag');	
+	Route::get('/{slug}', 'BlogController@show')->name('blogs.show');
+	Route::get('/category/{category}', 'BlogController@blogByCategory')->name('blogs.category');
+	Route::get('/tag/{tag}', 'BlogController@blogByTag')->name('blogs.tag');
 	Route::get('/', 'BlogController@index')->name('blogs.index');
 });
 
@@ -47,7 +50,8 @@ Route::prefix('boardinghouses')->group(function(){
 	Route::get('/create/{mouId}', 'BoardingHouseController@create')->name('boardinghouses.create');
 	Route::get('/search', 'BoardingHouseController@search')->name('boardinghouses.search');
 	Route::get('/export', 'BoardingHouseController@export')->name('boardinghouses.export');
-	Route::get('/{university}/{id}', 'BoardingHouseController@show')->name('boardinghouses.show');
+	// Route::get('/{university}/{id}', 'BoardingHouseController@show')->name('boardinghouses.show');
+	Route::get('/{id}', 'BoardingHouseController@show')->name('boardinghouses.show');
 });
 
 Route::prefix('chambers')->group(function(){
@@ -57,7 +61,7 @@ Route::prefix('chambers')->group(function(){
 });
 
 Route::prefix('universities')->group(function(){
-	Route::get('/getUniversities/', 'UniversityController@getUniversities')->name('universities.getUniversities');	
+	Route::get('/getUniversities/', 'UniversityController@getUniversities')->name('universities.getUniversities');
 	Route::get('/export', 'UniversityController@export')->name('universities.export');
 	Route::get('regency/{regencyId}', 'UniversityController@getUniversitiesByRegency')->name('universities.getUniversitiesByRegency');
 });
@@ -107,7 +111,7 @@ Route::get('mous/export', 'MOUController@export')->name('mous.export');
 Route::get('owners/export', 'OwnerController@export')->name('owners.export');
 
 
-Route::prefix('address')->group(function(){	
+Route::prefix('address')->group(function(){
 	Route::get('/getRegencies/{provinceId}', 'AddressController@getRegencies')->name('address.getRegencies');
 	Route::get('/getDistricts/{regencyId}', 'AddressController@getDistricts')->name('address.getDistricts');
 	Route::get('/getVillages/{districtId}', 'AddressController@getVillages')->name('address.getVillages');
